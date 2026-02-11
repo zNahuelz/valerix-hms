@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Permission;
 use App\Models\Role;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class RoleSeeder extends Seeder
@@ -19,7 +18,7 @@ class RoleSeeder extends Seeder
         }
 
         $permission = Permission::where('_key', 'sys:admin')->first();
-        if (!$permission) {
+        if (! $permission) {
             return;
         }
 

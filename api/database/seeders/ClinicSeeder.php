@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Clinic;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ClinicSeeder extends Seeder
@@ -21,7 +20,7 @@ class ClinicSeeder extends Seeder
             'name' => 'TuSalud - Medical Center',
             'ruc' => '20112233445',
             'address' => '1900 Whispering Pines Rd. Miami FL',
-            'phone' => '999888777'
+            'phone' => '999888777',
         ]);
     }
 }

@@ -11,7 +11,7 @@ class VoucherSerie extends Model
         'voucher_type_id',
         'serie',
         'next_value',
-        'is_active'
+        'is_active',
     ];
 
     public function voucherType(): BelongsTo

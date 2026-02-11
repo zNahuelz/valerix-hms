@@ -12,11 +12,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Detail extends Model
 {
     protected $fillable = [
-        "note",
-        "clinic_medicine_id",
-        "amount_used",
-        "created_by",
-        "updated_by"
+        'note',
+        'clinic_medicine_id',
+        'amount_used',
+        'created_by',
+        'updated_by',
     ];
 
     public function appointments(): BelongsToMany

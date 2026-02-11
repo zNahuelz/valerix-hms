@@ -17,8 +17,8 @@ class Holiday extends Model
         'name',
         'date',
         'is_recurring',
-        "created_by",
-        "updated_by"
+        'created_by',
+        'updated_by',
     ];
 
     public function createdBy(): BelongsTo

@@ -11,9 +11,9 @@ class Presentation extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        "name",
-        "description",
-        "numeric_value"
+        'name',
+        'description',
+        'numeric_value',
     ];
 
     public function medicines(): HasMany

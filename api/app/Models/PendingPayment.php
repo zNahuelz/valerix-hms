@@ -17,7 +17,7 @@ class PendingPayment extends Model
         'tax',
         'total',
         'created_by',
-        'updated_by'
+        'updated_by',
     ];
 
     public function appointment(): BelongsTo

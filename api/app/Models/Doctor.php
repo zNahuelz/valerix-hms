@@ -15,20 +15,20 @@ class Doctor extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        "names",
-        "paternal_surname",
-        "maternal_surname",
-        "dni",
-        "phone",
-        "address",
-        "hired_at",
-        "clinic_id",
-        "user_id",
-        "updated_by"
+        'names',
+        'paternal_surname',
+        'maternal_surname',
+        'dni',
+        'phone',
+        'address',
+        'hired_at',
+        'clinic_id',
+        'user_id',
+        'updated_by',
     ];
 
     protected $casts = [
-        'hired_at' => 'date'
+        'hired_at' => 'date',
     ];
 
     public function appointments(): HasMany

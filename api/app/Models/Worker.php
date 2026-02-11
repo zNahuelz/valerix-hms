@@ -6,13 +6,13 @@ use App\Observers\WorkerObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 #[ObservedBy([WorkerObserver::class])]
 class Worker extends Model
 {
     use SoftDeletes;
+
     protected $fillable = [
         'names',
         'paternal_surname',
@@ -24,11 +24,11 @@ class Worker extends Model
         'clinic_id',
         'user_id',
         'position',
-        'updated_by'
+        'updated_by',
     ];
 
     protected $casts = [
-        'hired_at' => 'date'
+        'hired_at' => 'date',
     ];
 
     public function clinic(): BelongsTo

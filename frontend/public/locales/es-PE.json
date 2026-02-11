@@ -1,5 +1,51 @@
 {
   "common": {
-    "testString": "Hola Mundo!"
+    "username": "Nombre de usuario",
+    "password": "Contraseña",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "rememberMe": "Recuérdame",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema",
+    "toggleTheme": "Cambiar tema"
+  },
+  "auth": {
+    "welcome": "¡Bienvenido!",
+    "loginTitle": "Inicio de Sesión - Valerix",
+    "username": "Nombre de usuario",
+    "password": "Contraseña",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "rememberMe": "Recuérdame",
+    "login": "Iniciar Sesión",
+    "loginSuccess": "¡Bienvenido de vuelta!",
+    "logout": "Cerrar Sesión",
+    "errors": {
+      "invalidCredentials": "Usuario o contraseña incorrecto",
+      "invalidToken": "Token inválido o expirado",
+      "missingPermission": "Su cuenta no posee los permisos necesarios para completar la operación",
+      "accountLocked": "Su cuenta se encuentra bloqueada debido a demasiados intentos de inicio de sesión fallidos. Puede volver a intentar nuevamente el: {lockedUntil}"
+    },
+    "validation": {
+      "username": {
+        "required": "Debe ingresar su nombre de usuario."
+      },
+      "password": {
+        "required": "Debe ingresar su contraseña."
+      }
+    }
+  },
+  "supplier": {
+    "stored": "Proveedor registrado correctamente. Asignado ID: {id}",
+    "updated": "Proveedor de ID: {id} actualizado correctamente",
+    "deleted": "Proveedor de ID: {id} eliminado correctamente",
+    "restored": "Proveedor de ID: {id} restaurado correctamente",
+    "errors": {
+      "notFound": "Proveedor de ID: {id} no encontrado",
+      "notDeleted": "El proveedor de ID: {id} no se encuentra eliminado",
+      "alreadyDeleted": "El proveedor de ID: {id} ya se encuentra eliminado"
+    }
+  },
+  "views": {
+    "login": "Inicio de Sesión | Valerix HCMS"
   }
 }

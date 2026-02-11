@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Observers\SupplierObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 #[ObservedBy([SupplierObserver::class])]
 class Supplier extends Model
 {
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
@@ -23,8 +24,15 @@ class Supplier extends Model
         'email',
         'description',
         'created_by',
-        'updated_by'
+        'updated_by',
     ];
+
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return $this->withTrashed()
+            ->where($field ?? $this->getRouteKeyName(), $value)
+            ->firstOrFail();
+    }
 
     public function buyOrders(): HasMany
     {

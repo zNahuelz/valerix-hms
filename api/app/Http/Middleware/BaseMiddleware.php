@@ -15,7 +15,10 @@ class BaseMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $request->headers->set('Accept', 'application/json');
+        if ($request->is('api/*')) {
+            $request->headers->set('Accept', 'application/json');
+        }
+
         return $next($request);
     }
 }

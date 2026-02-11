@@ -13,13 +13,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class AppointmentType extends Model
 {
     use SoftDeletes;
+
     protected $fillable = [
-        "name",
-        "subtotal",
-        "tax",
-        "total",
-        "created_by",
-        "updated_by"
+        'name',
+        'subtotal',
+        'tax',
+        'total',
+        'created_by',
+        'updated_by',
     ];
 
     public function appointments(): HasMany

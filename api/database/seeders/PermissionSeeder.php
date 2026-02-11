@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Permission;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class PermissionSeeder extends Seeder
@@ -19,7 +18,7 @@ class PermissionSeeder extends Seeder
 
         Permission::create([
             'name' => 'Permisos administrativos.',
-            'key' => 'sys:admin'
+            'key' => 'sys:admin',
         ]);
     }
 }

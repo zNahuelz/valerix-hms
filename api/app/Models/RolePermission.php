@@ -9,13 +9,14 @@ class RolePermission extends Model
 {
     protected $fillable = [
         'permission_id',
-        'role_id'
+        'role_id',
     ];
 
     public function permission(): BelongsTo
     {
         return $this->belongsTo(Permission::class);
     }
+
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);

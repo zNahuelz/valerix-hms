@@ -25,11 +25,12 @@ class User extends Authenticatable implements JWTSubject
     protected $fillable = [
         'username',
         'email',
+        'avatar',
         'password',
         'role_id',
         'lockout_enabled',
         'failed_attempts',
-        'locked_until'
+        'locked_until',
     ];
 
     /**
@@ -50,6 +51,7 @@ class User extends Authenticatable implements JWTSubject
     {
         return [
             'password' => 'hashed',
+            'locked_until' => 'datetime',
         ];
     }
 

@@ -28,7 +28,7 @@ class Sale extends Model
         'payment_hash',
         'payment_image',
         'created_by',
-        'updated_by'
+        'updated_by',
     ];
 
     public function clinic(): BelongsTo

@@ -23,7 +23,7 @@ class Treatment extends Model
         'tax',
         'profit',
         'created_by',
-        'updated_by'
+        'updated_by',
     ];
 
     public function appointments(): HasMany

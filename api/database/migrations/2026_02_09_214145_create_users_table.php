@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('username', 20)->unique();
             $table->string('email', 50)->unique();
+            $table->string('avatar')->nullable();
             $table->string('password');
             $table->boolean('lockout_enabled')->default(true);
             $table->integer('failed_attempts')->default(0);

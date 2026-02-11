@@ -12,15 +12,15 @@ class ClinicMedicine extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        "clinic_id",
-        "medicine_id",
-        "buy_price",
-        "sell_price",
-        "tax",
-        "profit",
-        "stock",
-        "salable",
-        "last_sold_by",
+        'clinic_id',
+        'medicine_id',
+        'buy_price',
+        'sell_price',
+        'tax',
+        'profit',
+        'stock',
+        'salable',
+        'last_sold_by',
     ];
 
     public function clinic(): BelongsTo

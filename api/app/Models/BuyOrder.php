@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\BuyOrderStatus;
 use App\Observers\BuyOrderObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
@@ -15,14 +16,18 @@ class BuyOrder extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        "clinic_id",
-        "supplier_id",
-        "tax",
-        "subtotal",
-        "total",
-        "status",
-        "created_by",
-        "updated_by"
+        'clinic_id',
+        'supplier_id',
+        'tax',
+        'subtotal',
+        'total',
+        'status',
+        'created_by',
+        'updated_by',
+    ];
+
+    protected $casts = [
+        'status' => BuyOrderStatus::class,
     ];
 
     public function clinic(): BelongsTo

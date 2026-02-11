@@ -9,8 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class VoucherType extends Model
 {
     use SoftDeletes;
+
     protected $fillable = [
-        'name'
+        'name',
     ];
 
     public function sales(): HasMany

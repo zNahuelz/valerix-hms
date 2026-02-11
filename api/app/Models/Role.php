@@ -12,7 +12,7 @@ class Role extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'name'
+        'name',
     ];
 
     public function permissions(): BelongsToMany

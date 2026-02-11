@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class BuyOrderDetail extends Model
 {
     protected $fillable = [
-        "buy_order_id",
-        "medicine_id",
-        "amount",
-        "unit_price"
+        'buy_order_id',
+        'medicine_id',
+        'amount',
+        'unit_price',
     ];
 
     public function buyOrder(): BelongsTo

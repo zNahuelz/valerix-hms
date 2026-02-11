@@ -1,7 +1,10 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\User;
 
+use App\Http\Resources\DoctorResource;
+use App\Http\Resources\NurseResource;
+use App\Http\Resources\WorkerResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -18,11 +21,12 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'username' => $this->username,
             'email' => $this->email,
+            'avatar' => $this->avatar,
             'role' => [
                 'id' => $this->role->id,
                 'name' => $this->role->name,
             ],
-            'permission' => $this->permissions(),
+            'permissions' => $this->permissions(),
             'profile_type' => $this->profileType(),
             'profile' => $this->profileResource(),
         ];
@@ -30,9 +34,15 @@ class UserResource extends JsonResource
 
     protected function profileType(): ?string
     {
-        if ($this->doctor) return 'doctor';
-        if ($this->nurse) return 'nurse';
-        if ($this->worker) return 'worker';
+        if ($this->doctor) {
+            return 'doctor';
+        }
+        if ($this->nurse) {
+            return 'nurse';
+        }
+        if ($this->worker) {
+            return 'worker';
+        }
 
         return null;
     }

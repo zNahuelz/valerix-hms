@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\SettingType;
 use App\Observers\SettingObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -17,18 +18,22 @@ class Setting extends Model
         'value_type',
         'description',
         'created_by',
-        'updated_by'
+        'updated_by',
     ];
 
     protected $appends = ['key'];
 
     protected $hidden = ['_key'];
 
+    protected $casts = [
+        'value_type' => SettingType::class,
+    ];
+
     protected function key(): Attribute
     {
         return Attribute::make(
-            get: fn($value, $attributes) => $attributes['_key'],
-            set: fn($value) => ['_key' => $value],
+            get: fn ($value, $attributes) => $attributes['_key'],
+            set: fn ($value) => ['_key' => $value],
         );
     }
 

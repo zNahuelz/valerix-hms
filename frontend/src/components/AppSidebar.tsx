@@ -36,8 +36,13 @@ import {
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import ModeToggle from './ModeToggle';
+import { useLoaderData } from 'react-router';
+import { useAuth } from '@/context/AuthContext';
+import { useTranslation } from 'react-i18next';
 
 export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { user, logout } = useAuth();
+  const { t } = useTranslation();
   const teams = [
     {
       name: 'Team 1',
@@ -134,11 +139,6 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
     },
   ];
 
-  const user = {
-    name: 'DEFAULT_USER',
-    email: 'EMAIL@DOMAIN.COM',
-    avatar: '',
-  };
   const [activeTeam, setActiveTeam] = useState(teams[0]);
 
   if (!activeTeam) {
@@ -239,12 +239,12 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                   className='data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground'
                 >
                   <Avatar className='h-8 w-8 rounded-lg'>
-                    <AvatarImage src={user.avatar} alt={user.name} />
-                    <AvatarFallback className='rounded-lg'>{`${user.name[0]}${user.name[1]}`}</AvatarFallback>
+                    <AvatarImage src={user?.avatar} alt={user?.username} />
+                    <AvatarFallback className='rounded-lg uppercase'>{`${user?.username[0]}${user?.username[1]}`}</AvatarFallback>
                   </Avatar>
                   <div className='grid flex-1 text-left text-sm leading-tight'>
-                    <span className='truncate font-medium'>{user.name}</span>
-                    <span className='truncate text-xs'>{user.email}</span>
+                    <span className='truncate font-medium'>{user?.username}</span>
+                    <span className='truncate text-xs'>{user?.email}</span>
                   </div>
                   <RiExpandUpDownLine className='ml-auto size-4' />
                 </SidebarMenuButton>
@@ -258,12 +258,12 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                 <DropdownMenuLabel className='p-0 font-normal'>
                   <div className='flex items-center gap-2 px-1 py-1.5 text-left text-sm'>
                     <Avatar className='h-8 w-8 rounded-lg'>
-                      <AvatarImage src={user.avatar} alt={user.name} />
-                      <AvatarFallback className='rounded-lg'>{`${user.name[0]}${user.name[1]}`}</AvatarFallback>
+                      <AvatarImage src={user?.avatar} alt={user?.username} />
+                      <AvatarFallback className='rounded-lg uppercase'>{`${user?.username[0]}${user?.username[1]}`}</AvatarFallback>
                     </Avatar>
                     <div className='grid flex-1 text-left text-sm leading-tight'>
-                      <span className='truncate font-medium'>{user.name}</span>
-                      <span className='truncate text-xs'>{user.email}</span>
+                      <span className='truncate font-medium'>{user?.username}</span>
+                      <span className='truncate text-xs'>{user?.email}</span>
                     </div>
                   </div>
                 </DropdownMenuLabel>
@@ -275,9 +275,9 @@ export default function AppSidebar({ ...props }: React.ComponentProps<typeof Sid
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={() => logout()}>
                   <RiLogoutCircleLine />
-                  Log out
+                  {t('auth.logout')}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

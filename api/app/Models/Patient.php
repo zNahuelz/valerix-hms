@@ -24,7 +24,7 @@ class Patient extends Model
         'phone',
         'address',
         'created_by',
-        'updated_by'
+        'updated_by',
     ];
 
     public function appointments(): HasMany

@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Models\Setting;
-use App\Models\Settings;
 use Illuminate\Support\Facades\Auth;
 
 class SettingObserver

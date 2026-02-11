@@ -16,13 +16,13 @@ class Medicine extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        "name",
-        "composition",
-        "description",
-        "barcode",
-        "presentation_id",
-        "created_by",
-        "updated_by"
+        'name',
+        'composition',
+        'description',
+        'barcode',
+        'presentation_id',
+        'created_by',
+        'updated_by',
     ];
 
     public function buyOrders(): BelongsToMany

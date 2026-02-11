@@ -3,7 +3,7 @@ import { initReactI18next } from 'react-i18next';
 
 import Backend from 'i18next-http-backend';
 
-const appLang = localStorage.getItem('appLang') ?? 'es-PE';
+const appLang = 'es-PE'; //localStorage.getItem('appLang') ?? 'es-PE';
 
 i18n
   .use(Backend)

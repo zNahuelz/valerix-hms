@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\UnavailabilityReason;
 use App\Observers\DoctorUnavailabilityObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
@@ -12,13 +13,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class DoctorUnavailability extends Model
 {
     use SoftDeletes;
+
     protected $fillable = [
         'doctor_id',
         'start_datetime',
         'end_datetime',
         'reason',
-        "created_by",
-        "updated_by"
+        'created_by',
+        'updated_by',
+    ];
+
+    protected $casts = [
+        'reason' => UnavailabilityReason::class,
     ];
 
     public function doctor(): BelongsTo

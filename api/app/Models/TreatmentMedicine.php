@@ -8,6 +8,6 @@ class TreatmentMedicine extends Model
 {
     protected $fillable = [
         'medicine_id',
-        'treatment_id'
+        'treatment_id',
     ];
 }

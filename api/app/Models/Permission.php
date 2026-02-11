@@ -12,9 +12,9 @@ class Permission extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        "name",
-        "key",
-        "description"
+        'name',
+        'key',
+        'description',
     ];
 
     protected $appends = ['key'];
@@ -24,8 +24,8 @@ class Permission extends Model
     protected function key(): Attribute
     {
         return Attribute::make(
-            get: fn($value, $attributes) => $attributes['_key'],
-            set: fn($value) => ['_key' => $value],
+            get: fn ($value, $attributes) => $attributes['_key'],
+            set: fn ($value) => ['_key' => $value],
         );
     }
 

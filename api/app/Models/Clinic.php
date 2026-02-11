@@ -10,9 +10,9 @@ class Clinic extends Model
 {
     protected $fillable = [
         'name',
-        "ruc",
-        "address",
-        "phone"
+        'ruc',
+        'address',
+        'phone',
     ];
 
     public function appointments(): HasMany

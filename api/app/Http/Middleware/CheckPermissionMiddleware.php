@@ -16,23 +16,30 @@ class CheckPermissionMiddleware
      */
     public function handle(Request $request, Closure $next, ...$permissions): Response
     {
-        if (Auth::check()) {
-            $user = auth()->user();
-            $user->loadMissing('role.permissions');
+        if (! Auth::check()) {
+            return response()->json([
+                'message' => 'Unauthenticated.',
+                'code' => 'auth.errors.unauthenticated',
+            ], 401);
+        }
 
-            $userPermissions = $user->role
-                ->permissions
-                ->pluck('key')
-                ->toArray();
+        $user = Auth::user();
+        $user->loadMissing('role.permissions');
 
-            foreach ($permissions as $permission) {
-                if (in_array($permission, $userPermissions, true)) {
-                    return $next($request);
-                }
+        $userPermissions = $user->role
+            ->permissions
+            ->pluck('key')
+            ->toArray();
+
+        foreach ($permissions as $permission) {
+            if (in_array($permission, $userPermissions, true)) {
+                return $next($request);
             }
         }
+
         return response()->json([
             'message' => 'Forbidden. Missing required permission.',
+            'code' => 'auth.errors.missingPermission',
         ], 403);
     }
 }
