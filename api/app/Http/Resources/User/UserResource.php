@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\User;
 
+use App\Http\Resources\ClinicResource;
 use App\Http\Resources\DoctorResource;
 use App\Http\Resources\NurseResource;
 use App\Http\Resources\WorkerResource;
@@ -29,6 +30,7 @@ class UserResource extends JsonResource
             'permissions' => $this->permissions(),
             'profile_type' => $this->profileType(),
             'profile' => $this->profileResource(),
+            'clinic' => new ClinicResource($this->whenLoaded('clinic')),
         ];
     }
 

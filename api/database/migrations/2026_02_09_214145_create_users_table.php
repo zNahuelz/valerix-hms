@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('failed_attempts')->default(0);
             $table->timestamp('locked_until')->nullable();
             $table->foreignId('role_id')->constrained();
+            $table->foreignId('clinic_id')->constrained();
             $table->softDeletes();
             $table->timestamps();
         });

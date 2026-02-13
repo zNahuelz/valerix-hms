@@ -31,6 +31,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@valerix.com',
             'password' => 'admin',
             'role_id' => $roles['ADMINISTRADOR']->id,
+            'clinic_id' => $clinic->id,
         ]);
 
         Worker::create([
@@ -50,6 +51,7 @@ class UserSeeder extends Seeder
             'email' => 'manager@valerix.com',
             'password' => 'manager',
             'role_id' => $roles['GERENTE']->id,
+            'clinic_id' => $clinic->id,
         ]);
 
         Worker::create([
@@ -69,6 +71,7 @@ class UserSeeder extends Seeder
             'email' => 'secretaria@valerix.com',
             'password' => 'receptionist',
             'role_id' => $roles['SECRETARIA']->id,
+            'clinic_id' => $clinic->id,
         ]);
 
         Worker::create([
@@ -88,6 +91,7 @@ class UserSeeder extends Seeder
             'email' => 'nurse@valerix.com',
             'password' => 'nurse',
             'role_id' => $roles['ENFERMERA']->id,
+            'clinic_id' => $clinic->id,
         ]);
 
         Nurse::create([

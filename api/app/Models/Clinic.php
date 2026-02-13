@@ -45,6 +45,11 @@ class Clinic extends Model
         return $this->hasMany(Sale::class);
     }
 
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class);
+    }
+
     public function workers(): HasMany
     {
         return $this->hasMany(Worker::class);

@@ -1,9 +1,22 @@
 import { Helmet } from '@dr.pogodin/react-helmet';
 import LoginForm from '../components/LoginForm';
 import { useTranslation } from 'react-i18next';
+import { useNavigate, useSearchParams } from 'react-router';
+import { useEffect } from 'react';
+import { toast } from 'sonner';
 
 export default function LoginView() {
   const { t } = useTranslation();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const error = searchParams.get('error');
+    if (error === 'expired') {
+      toast.error(t('auth.errors.sessionExpired'), { position: 'top-center' });
+      navigate('/', { replace: true });
+    }
+  }, []);
   return (
     <>
       <Helmet>

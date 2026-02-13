@@ -7,7 +7,31 @@
     "light": "Claro",
     "dark": "Oscuro",
     "system": "Sistema",
-    "toggleTheme": "Cambiar tema"
+    "toggleTheme": "Cambiar tema",
+    "index": "Listado",
+    "store": "Registro",
+    "module_one": "Módulo",
+    "module_other": "Módulos",
+    "home": "Inicio",
+    "loading": "Cargando...",
+    "action_one": "Acción",
+    "action_other": "Acciones",
+    "id": "ID.",
+    "idAlt": "#",
+    "name_one": "Nombre",
+    "name_other": "Nombres",
+    "ruc": "Ruc",
+    "phone": "Teléfono",
+    "updatedAt": "Ult. Mod.",
+    "deletedAt": "Fecha Eliminación",
+    "enabledEntity": "Activo",
+    "disabledEntity": "Inactivo",
+    "status": "Estado",
+    "manager_one": "Gerente",
+    "manager_other": "Gerentes",
+    "rowsPerPage": "Filas por Pág.",
+    "next": "Siguiente",
+    "previous": "Anterior"
   },
   "auth": {
     "welcome": "¡Bienvenido!",
@@ -23,7 +47,9 @@
       "invalidCredentials": "Usuario o contraseña incorrecto",
       "invalidToken": "Token inválido o expirado",
       "missingPermission": "Su cuenta no posee los permisos necesarios para completar la operación",
-      "accountLocked": "Su cuenta se encuentra bloqueada debido a demasiados intentos de inicio de sesión fallidos. Puede volver a intentar nuevamente el: {lockedUntil}"
+      "missingPermissions": "Su cuenta no posee acceso al módulo seleccionado",
+      "accountLocked": "Su cuenta se encuentra bloqueada debido a demasiados intentos de inicio de sesión fallidos. Puede volver a intentar nuevamente el: {lockedUntil}",
+      "sessionExpired": "Su sesión ha expirado; debe volver a iniciar sesión"
     },
     "validation": {
       "username": {
@@ -35,10 +61,14 @@
     }
   },
   "supplier": {
+    "supplier_one": "Proveedor",
+    "supplier_other": "Proveedores",
     "stored": "Proveedor registrado correctamente. Asignado ID: {id}",
     "updated": "Proveedor de ID: {id} actualizado correctamente",
     "deleted": "Proveedor de ID: {id} eliminado correctamente",
     "restored": "Proveedor de ID: {id} restaurado correctamente",
+    "supplierCounter_one": "Mostrando {{count}} proveedor de un total de {{total}}",
+    "supplierCounter_other": "Mostrando {{count}} proveedores de un total de {{total}}",
     "errors": {
       "notFound": "Proveedor de ID: {id} no encontrado",
       "notDeleted": "El proveedor de ID: {id} no se encuentra eliminado",
@@ -46,6 +76,12 @@
     }
   },
   "views": {
-    "login": "Inicio de Sesión | Valerix HCMS"
+    "login": "Inicio de Sesión | Valerix HCMS",
+    "dashboard": "Inicio | Valerix HCMS",
+    "supplier": {
+      "index": "Listado de Proveedores | Valerix HCMS",
+      "store": "Registrar Proveedor | Valerix HCMS",
+      "update": "Modificar Proveedor | Valerix HCMS"
+    }
   }
 }

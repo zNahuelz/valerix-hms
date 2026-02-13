@@ -55,6 +55,11 @@ class User extends Authenticatable implements JWTSubject
         ];
     }
 
+    public function clinic(): BelongsTo
+    {
+        return $this->belongsTo(Clinic::class);
+    }
+
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);

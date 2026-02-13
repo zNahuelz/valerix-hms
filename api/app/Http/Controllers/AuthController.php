@@ -59,12 +59,13 @@ class AuthController extends Controller
             'doctor',
             'nurse',
             'worker',
+            'clinic',
         ]);
 
         return response()->json([
             'token' => $token,
             'type' => 'Bearer',
-            'user' => new UserResource(Auth::guard('api')->user()),
+            'user' => new UserResource($user),
         ]);
     }
 

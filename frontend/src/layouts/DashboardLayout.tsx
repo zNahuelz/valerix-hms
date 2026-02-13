@@ -13,7 +13,7 @@ export default function DashboardLayout() {
             <SidebarTrigger className='-ml-1' />
           </div>
         </header>
-        <div className='flex flex-1 overflow-x-hidden p-6'>
+        <div className='overflow-x-hidden p-6'>
           <Outlet></Outlet>
         </div>
       </SidebarInset>

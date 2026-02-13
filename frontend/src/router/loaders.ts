@@ -15,7 +15,7 @@ export const protectedLoader = (requiredPermissions?: string | string[]) => {
       const hasAnyPermission = permsArray.some((p) => user.permissions?.includes(p));
 
       if (!hasAnyPermission) {
-        throw redirect('/unauthorized');
+        throw redirect('/dashboard?error=forbidden');
       }
     }
 
