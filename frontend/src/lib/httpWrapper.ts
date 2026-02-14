@@ -15,16 +15,15 @@ export const http = ky.create({
       },
     ],
     afterResponse: [
-      async (_request, _options, response) => {
+      async (request, _options, response) => {
+        const isLogin = request.url.endsWith('auth/login');
+        if (isLogin) return;
         if (response.status === 401) {
           clearAuth();
           throw redirect('/?error=expired');
-          window.location.href = '/?expired=true';
         }
         if (response.status === 403) {
-          clearAuth();
           throw redirect('/dashboard?error=forbidden');
-          window.location.href = '/dashboard';
         }
       },
     ],

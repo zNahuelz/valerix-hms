@@ -8,18 +8,37 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { useAuth } from '@/context/AuthContext';
-import { useState } from 'react';
-import { loginSchema, type LoginSchema } from '@/schemas/auth';
+import { useMemo, useState } from 'react';
+import { login as loginService } from '../services/authService';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { loginRequest } from '../services/authService';
 import { Spinner } from '@/components/ui/spinner';
+import { LoginRequest } from '@/schemas/auth';
+import { HTTPError } from 'ky';
+import { ErrorResponse } from '@/schemas/api';
+import img1 from '@/assets/images/login/img1.jpg';
+import img2 from '@/assets/images/login/img2.jpg';
+import img3 from '@/assets/images/login/img3.jpg';
+import img4 from '@/assets/images/login/img4.jpg';
+import img5 from '@/assets/images/login/img5.jpg';
+import img6 from '@/assets/images/login/img6.jpg';
+import img7 from '@/assets/images/login/img7.jpg';
+import img8 from '@/assets/images/login/img8.jpg';
+import img9 from '@/assets/images/login/img9.jpg';
+import img10 from '@/assets/images/login/img10.jpg';
 
 export default function LoginForm({ className, ...props }: React.ComponentProps<'div'>) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login: saveLoginToContext } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+
+  const AUTH_IMAGES = [img1, img2, img3, img4, img5, img6, img7, img8, img9, img10];
+
+  const randomImage = useMemo(() => {
+    const randomIndex = Math.floor(Math.random() * AUTH_IMAGES.length);
+    return AUTH_IMAGES[randomIndex];
+  }, []);
 
   const {
     register,
@@ -27,8 +46,9 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
     setValue,
     watch,
     formState: { errors },
-  } = useForm<LoginSchema>({
-    resolver: zodResolver(loginSchema),
+    reset,
+  } = useForm<LoginRequest>({
+    resolver: zodResolver(LoginRequest),
     defaultValues: {
       username: '',
       password: '',
@@ -38,18 +58,28 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
 
   const rememberMeValue = watch('rememberMe');
 
-  const onSubmit = async (data: LoginSchema) => {
+  const onSubmit = async (data: LoginRequest) => {
     setIsLoading(true);
     try {
-      const response = await loginRequest(data.username, data.password);
-
-      login(response, data.rememberMe);
+      const response = await loginService(data.username, data.password);
+      saveLoginToContext(response, data.rememberMe);
 
       toast.success(t('auth.loginSuccess'));
-
       navigate('/dashboard');
-    } catch (error: any) {
-      toast.error(t('auth.errorInvalid'));
+    } catch (error: unknown) {
+      if (error instanceof HTTPError) {
+        const raw = await error.response.json();
+        const errorBody = ErrorResponse.parse(raw);
+        const errorCode = errorBody.code || 'auth.errors.serverError';
+        toast.error(
+          t(errorCode, {
+            lockedUntil: errorBody.lockedUntil,
+            defaultValue: t('auth.errors.serverError'),
+          }),
+          { position: 'top-center' }
+        );
+        reset();
+      }
     } finally {
       setIsLoading(false);
     }
@@ -75,7 +105,9 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
                   disabled={isLoading}
                 />
                 {errors.username && (
-                  <span className='text-xs text-destructive'>{errors.username.message}</span>
+                  <span className='text-xs text-destructive'>
+                    {t(errors.username.message ?? '')}
+                  </span>
                 )}
               </Field>
               <Field>
@@ -93,7 +125,9 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
                   disabled={isLoading}
                 />
                 {errors.password && (
-                  <span className='text-xs text-destructive'>{errors.password.message}</span>
+                  <span className='text-xs text-destructive'>
+                    {t(errors.password.message ?? '')}
+                  </span>
                 )}
               </Field>
               <Field orientation='horizontal'>
@@ -101,6 +135,12 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
                   id='rememberMe'
                   checked={rememberMeValue}
                   onCheckedChange={(checked) => setValue('rememberMe', !!checked)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                      handleSubmit(onSubmit)();
+                    }
+                  }}
                 ></Checkbox>
                 <FieldLabel htmlFor='rememberMe'>{t('auth.rememberMe')}</FieldLabel>
               </Field>
@@ -114,8 +154,10 @@ export default function LoginForm({ className, ...props }: React.ComponentProps<
           </form>
           <div className='bg-muted relative hidden md:block'>
             <img
-              src='/placeholder.svg'
-              alt='Image'
+              src={randomImage}
+              alt='Login Image'
+              draggable={false}
+              onContextMenu={(e) => e.preventDefault()}
               className='absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale'
             />
           </div>

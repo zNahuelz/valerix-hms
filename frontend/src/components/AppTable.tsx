@@ -44,6 +44,10 @@ export default function AppTable<T>({
             <TableRow key={i}>
               {columns.map((col) => {
                 const value = row[col.key];
+
+                if (col.render) {
+                  return <TableCell key={String(col.key)}>{col.render(row)}</TableCell>;
+                }
                 if (col.key === 'createdAt' || col.key === 'updatedAt') {
                   return <TableCell key={String(col.key)}>{formatAsDatetime(value)}</TableCell>;
                 }

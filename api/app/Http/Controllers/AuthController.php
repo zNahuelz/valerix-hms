@@ -28,7 +28,7 @@ class AuthController extends Controller
                 return response()->json([
                     'message' => 'User account is locked',
                     'code' => 'auth.errors.accountLocked',
-                    'locked_until' => $user->locked_until,
+                    'locked_until' => $user->locked_until->setTimezone('America/Lima')->format('d-m-Y h:i A'),
                 ], 423);
             }
         }

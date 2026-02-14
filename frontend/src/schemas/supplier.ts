@@ -4,7 +4,7 @@ export const SupplierSchema = z
   .object({
     id: z.number().optional(),
     name: z.string(),
-    manager: z.string(),
+    manager: z.string().nullish(),
     ruc: z.string(),
     address: z.string().nullish(),
     phone: z.string().nullish(),
@@ -18,7 +18,7 @@ export const SupplierSchema = z
     ...dto,
     id: dto.id,
     name: dto.name,
-    manager: dto.manager,
+    manager: dto.manager ?? null,
     ruc: dto.ruc,
     address: dto.address ?? null,
     phone: dto.phone ?? null,

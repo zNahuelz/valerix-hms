@@ -21,7 +21,11 @@ export default function SupplierTable({
     { key: 'id', label: t('common.idAlt') },
     { key: 'name', label: t('common.name_one') },
     { key: 'ruc', label: t('common.ruc').toUpperCase() },
-    { key: 'phone', label: t('common.phone'), render: (row) => `${row.phone ?? '-----'}` }, //TODO: Check!
+    {
+      key: 'phone',
+      label: t('common.phone'),
+      render: (row) => row.phone || '-----',
+    },
     {
       key: 'manager',
       label: t('common.manager_one'),

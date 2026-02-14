@@ -15,7 +15,7 @@ export default function DashboardView() {
       toast.error(t('auth.errors.missingPermissions'), { position: 'top-center' });
       navigate('/dashboard', { replace: true });
     }
-  }, []);
+  }, [searchParams]);
   return (
     <>
       <Helmet>

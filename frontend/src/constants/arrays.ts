@@ -4,3 +4,9 @@ export const PAGINATION_LIMITS = [
   { label: '50', value: 50 },
   { label: '100', value: 100 },
 ];
+
+export const SUPPLIER_SEARCH_CRITERIA = [
+  { label: 'POR ID', value: 'id' },
+  { label: 'POR RUC', value: 'ruc' },
+  { label: 'POR NOMBRE', value: 'name' },
+];
