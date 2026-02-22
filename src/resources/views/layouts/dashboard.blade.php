@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title ?? config('app.name') }}</title>
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
@@ -15,26 +16,51 @@
 <body class="min-h-screen bg-white dark:bg-zinc-800 antialiased">
     <flux:sidebar sticky collapsible class="bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
         <flux:sidebar.header>
-            <flux:sidebar.brand href="#" logo="https://fluxui.dev/img/demo/logo.png"
-                logo:dark="https://fluxui.dev/img/demo/dark-mode-logo.png" icon="beaker"
+            <flux:sidebar.brand href="#" logo="{{ asset('images/app-icon.png') }}"
+                logo:dark="{{ asset('images/app-icon.png') }}" icon="beaker"
                 name="{{ substr(auth()->user()->clinic->name, 10) }}" />
             <flux:sidebar.collapse
                 class="in-data-flux-sidebar-on-desktop:not-in-data-flux-sidebar-collapsed-desktop:-mr-2" />
         </flux:sidebar.header>
         <flux:sidebar.nav>
-            <flux:sidebar.item icon="home" href="/dashboard" wire:navigate>{{ __('common.home') }}
+            <flux:sidebar.item icon="home" href="{{ route('dashboard') }}" wire:navigate>{{ __('common.home') }}
             </flux:sidebar.item>
             <flux:sidebar.item icon="inbox" badge="12" href="#">Inbox</flux:sidebar.item>
-            <flux:sidebar.group expandable icon="building-office" heading="{{ trans_choice('supplier.supplier', 2) }}"
-                class="grid">
-                <flux:sidebar.item href="/dashboard/supplier/create" wire:navigate>{{ __('common.store') }}
-                </flux:sidebar.item>
-                <flux:sidebar.item href="/dashboard/supplier" wire:navigate>{{ __('common.index') }}</flux:sidebar.item>
-            </flux:sidebar.group>
+            @canany(['sys.admin', 'supplier.index', 'supplier.create', 'supplier.update', 'supplier.delete', 'supplier.restore'])
+                <flux:sidebar.group expandable :expanded="request()->routeIs('supplier.*')" persist icon="building-office" heading="{{ trans_choice('supplier.supplier', 2) }}"
+                    class="grid">
+                    @canany(['sys.admin', 'supplier.create'])
+                        <flux:sidebar.item href="{{ route('supplier.create') }}" wire:navigate>{{ __('common.store') }}
+                        </flux:sidebar.item>
+                    @endcanany
+                    @canany(['sys.admin', 'supplier.index'])
+                        <flux:sidebar.item href="{{ route('supplier.index') }}" wire:navigate>{{ __('common.index') }}
+                            
+                        </flux:sidebar.item>
+                    @endcanany
+                </flux:sidebar.group>
+            @endcanany
+
+            @canany(['sys.admin', 'medicine.index', 'medicine.create', 'medicine.update', 'medicine.delete', 'medicine.restore',
+             'presentation.index', 'presentation.create', 'presentation.update', 'presentation.delete', 'presentation.restore'])
+                <flux:sidebar.group expandable :expanded="request()->routeIs('medicine.*','presentation.*')" icon="beaker" heading="{{ trans_choice('medicine.medicine', 2) }}"
+                    class="grid">
+                    @canany(['sys.admin', 'medicine.create'])
+                        <flux:sidebar.item href="{{ route('medicine.create') }}" wire:navigate>{{ __('common.store') }}
+                        </flux:sidebar.item>
+                    @endcanany
+                    @canany(['sys.admin', 'medicine.index'])
+                        <flux:sidebar.item href="{{ route('medicine.index') }}" wire:navigate>{{ __('common.index') }}</flux:sidebar.item>
+                    @endcanany
+                    @canany(['sys.admin', 'presentation.index'])
+                        <flux:sidebar.item href="{{ route('presentation.index') }}" wire:navigate>{{ trans_choice('presentation.presentation', 2) }}</flux:sidebar.item>
+                    @endcanany
+                </flux:sidebar.group>
+            @endcanany
         </flux:sidebar.nav>
         <flux:sidebar.spacer />
         <flux:sidebar.nav>
-            <flux:sidebar.item icon="cog-6-tooth" href="#">Settings</flux:sidebar.item>
+            <flux:sidebar.item icon="cog-6-tooth" href="#">{{ __('common.settings') }}</flux:sidebar.item>
         </flux:sidebar.nav>
 
         <flux:dropdown position="top" align="start">

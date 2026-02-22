@@ -99,7 +99,8 @@ new class extends Component {
                             </flux:text>
                         </div>
                         <div class="space-y-6 mt-6">
-                            <flux:input wire:model="form.username" label="{{ __('auth.username') }}" type="text" />
+                            <flux:input wire:model="form.username" label="{{ __('auth.username') }}" type="text"
+                                wire:loading.attr="disabled" wire:target="login" />
                             <flux:field>
                                 <div class="mb-3 flex justify-between">
                                     <flux:label>
@@ -111,17 +112,20 @@ new class extends Component {
                                     </flux:link>
                                 </div>
 
-                                <flux:input wire:model="form.password" type="password" />
+                                <flux:input wire:model="form.password" type="password" wire:loading.attr="disabled"
+                                    wire:target="login" />
 
                                 <flux:error name="form.password" />
                             </flux:field>
                             <flux:field variant="inline">
-                                <flux:checkbox wire:model="form.remember_me" />
+                                <flux:checkbox wire:model="form.remember_me" wire:loading.attr="disabled"
+                                    wire:target="login" />
                                 <flux:label>{{ __('auth.remember_me') }}</flux:label>
                             </flux:field>
                         </div>
                         <div class="space-y-2 mt-6">
-                            <flux:button type="submit" variant="primary" class="w-full">
+                            <flux:button type="submit" variant="primary" class="w-full" wire:loading.attr="disabled"
+                                wire:target="login">
                                 {{ __('auth.login') }}
                             </flux:button>
                         </div>

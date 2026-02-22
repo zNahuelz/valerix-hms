@@ -24,7 +24,7 @@ class SupplierForm extends Form
 
     public $description = '';
 
-    protected function rules()
+    protected function rules(): array
     {
         return [
             'name' => [
@@ -43,7 +43,7 @@ class SupplierForm extends Form
                 'required',
                 'string',
                 'size:11',
-                'regex:/^\d{11}$/',
+                'regex:/^(10|20)\d{9}$/',
                 Rule::unique('suppliers', 'ruc')
                     ->ignore($this->supplier?->id),
             ],
@@ -74,15 +74,15 @@ class SupplierForm extends Form
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'name.required' => __('validation.name.required'),
-            'name.min' => __('validation.name.min'),
-            'name.max' => __('validation.name.max'),
+            'name.min' => __('validation.name.min', ['min' => '2']),
+            'name.max' => __('validation.name.max', ['max' => '150']),
             'description.required' => __('validation.description.required'),
-            'description.min' => __('validation.description.min'),
-            'description.max' => __('validation.description.max'),
+            'description.min' => __('validation.description.min', ['min' => '5']),
+            'description.max' => __('validation.description.max', ['max' => '150']),
             'manager.required' => __('validation.manager.required'),
             'manager.min' => __('validation.manager.min'),
             'manager.max' => __('validation.manager.max'),
@@ -99,6 +99,19 @@ class SupplierForm extends Form
             'email.email' => __('validation.email.email'),
             'description.min' => __('validation.description.min'),
             'description.max' => __('validation.description.max'),
+        ];
+    }
+
+    public function sanitized(): array
+    {
+        return [
+            'name' => strtoupper(trim($this->name)),
+            'manager' => strtoupper(trim($this->manager)),
+            'ruc' => trim($this->ruc),
+            'address' => $this->address ? strtoupper(trim($this->address)) : null,
+            'phone' => $this->phone ? trim($this->phone) : null,
+            'email' => $this->email ? strtolower(trim($this->email)) : null,
+            'description' => $this->description ? strtoupper(trim($this->description)) : null,
         ];
     }
 }

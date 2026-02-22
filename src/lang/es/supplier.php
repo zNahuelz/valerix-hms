@@ -5,10 +5,12 @@ return [
     'index' => 'Listado de Proveedores',
     'create' => 'Registro de Proveedor',
     'edit' => 'Modificar Proveedor',
+    'detail' => 'Detalle de Proveedor #:id: :name',
 
     'created' => 'Proveedor: :name registrado correctamente. Asignado el ID: :id',
     'updated' => 'Proveedor: :name de ID: :id actualizado correctamente.',
-    'is_deleted' => 'El proveedor se encuentra eliminado.',
+    'is_deleted' => 'El proveedor se encuentra eliminado; sus cambios serán visibles al restaurarlo.',
+    'is_deleted_alt' => 'El proveedor se encuentra eliminado, puede restaurarlo desde el área de edición.',
     'deleted' => 'Proveedor de ID: :id eliminado correctamente.',
     'restored' => 'Proveedor de ID: :id restaurado correctamente.',
 

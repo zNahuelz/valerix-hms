@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name', 50);
             $table->string('description', 100);
             $table->double('numeric_value');
+            $table->unique(['name', 'description', 'numeric_value'], 'unique_presentation');
             $table->softDeletes();
             $table->timestamps();
         });

@@ -17,7 +17,7 @@ class PermissionSeeder extends Seeder
         }
 
         Permission::create([
-            'name' => 'sys:admin',
+            'name' => 'sys.admin',
         ]);
     }
 }
