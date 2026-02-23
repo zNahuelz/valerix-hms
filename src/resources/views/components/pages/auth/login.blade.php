@@ -90,42 +90,44 @@ new class extends Component {
                 <div class="p-6 md:w-1/2 space-y-6">
                     <form wire:submit.prevent="login">
                         <div>
+                            <div class="flex flex-col items-center md:hidden">
+                                <img src="{{asset('images/app-icon.png')}}" class="md:hidden max-w-12.5" alt="App Icon">
+                            </div>
                             <flux:heading size="xl" class="font-bold! text-center">
                                 {{ __('auth.welcome') }}
                             </flux:heading>
-
                             <flux:text class="mt-2 text-center">
                                 {{ __('auth.login_title') }}
                             </flux:text>
                         </div>
                         <div class="space-y-6 mt-6">
                             <flux:input wire:model="form.username" label="{{ __('auth.username') }}" type="text"
-                                wire:loading.attr="disabled" wire:target="login" />
+                                        wire:loading.attr="disabled" wire:target="login"/>
                             <flux:field>
                                 <div class="mb-3 flex justify-between">
                                     <flux:label>
                                         {{ __('auth.password') }}
                                     </flux:label>
 
-                                    <flux:link href="#" variant="subtle" class="text-sm">
+                                    <flux:link href="#" variant="subtle" class="text-sm hover:text-green-900!">
                                         {{ __('auth.forgot_password') }}
                                     </flux:link>
                                 </div>
 
                                 <flux:input wire:model="form.password" type="password" wire:loading.attr="disabled"
-                                    wire:target="login" />
+                                            wire:target="login"/>
 
-                                <flux:error name="form.password" />
+                                <flux:error name="form.password"/>
                             </flux:field>
                             <flux:field variant="inline">
                                 <flux:checkbox wire:model="form.remember_me" wire:loading.attr="disabled"
-                                    wire:target="login" />
+                                               wire:target="login"/>
                                 <flux:label>{{ __('auth.remember_me') }}</flux:label>
                             </flux:field>
                         </div>
                         <div class="space-y-2 mt-6">
                             <flux:button type="submit" variant="primary" class="w-full" wire:loading.attr="disabled"
-                                wire:target="login">
+                                         wire:target="login">
                                 {{ __('auth.login') }}
                             </flux:button>
                         </div>
@@ -133,7 +135,7 @@ new class extends Component {
                 </div>
                 <div class="hidden md:block md:w-1/2">
                     <img src="{{ asset('images/auth/' . $loginImage) }}" alt="Login Image"
-                        class="h-full w-full object-cover" />
+                         class="h-full w-full object-cover"/>
                 </div>
             </div>
         </flux:card>

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\RedirectResponse;
 use Livewire\Component;
 use App\Models\Presentation;
 use App\Livewire\Forms\PresentationForm;
@@ -16,7 +17,7 @@ new class extends Component {
                 return;
             }
 
-            $presentation = Presentation::withTrashed()->find((int) $presentationId);
+            $presentation = Presentation::withTrashed()->find((int)$presentationId);
 
             if (!$presentation) {
                 $this->redirectWithError($presentationId);
@@ -28,7 +29,7 @@ new class extends Component {
         }
     }
 
-    protected function redirectWithError($presentationId)
+    protected function redirectWithError($presentationId): void
     {
         Session::flash('error', __('presentation.errors.not_found', ['id' => $presentationId]));
         $this->redirectRoute('presentation.index');
@@ -79,21 +80,21 @@ new class extends Component {
         @endif
 
         <flux:fieldset class="grid grid-cols-1 md:grid-cols-2 gap-3" wire:loading.attr="disabled"
-            wire:target="save, delete">
+                       wire:target="save, delete">
             <flux:field>
                 <flux:label badge="{{ __('common.required') }}">{{ trans_choice('common.name', 1) }}</flux:label>
-                <flux:input wire:model.live.blur="form.name" type="text" />
-                <flux:error name="form.name" />
+                <flux:input wire:model.live.blur="form.name" type="text"/>
+                <flux:error name="form.name"/>
             </flux:field>
             <flux:field>
                 <flux:label badge="{{ __('common.required') }}">{{ __('common.numeric_value') }}</flux:label>
-                <flux:input wire:model.live.blur="form.numeric_value" type="number" min="0.1" max="99999" />
-                <flux:error name="form.numeric_value" />
+                <flux:input wire:model.live.blur="form.numeric_value" type="number" min="0.1" max="99999"/>
+                <flux:error name="form.numeric_value"/>
             </flux:field>
             <flux:field class="md:col-span-full">
                 <flux:label badge="{{ __('common.required') }}">{{ __('common.description') }}</flux:label>
-                <flux:input wire:model.live.blur="form.description" type="text" />
-                <flux:error name="form.description" />
+                <flux:input wire:model.live.blur="form.description" type="text"/>
+                <flux:error name="form.description"/>
             </flux:field>
 
             <div class="col-span-full">
@@ -101,15 +102,17 @@ new class extends Component {
                     @if($this->form->presentation)
                         @canany(['sys.admin', 'presentation.delete', 'presentation.restore'])
                             <flux:button type="button" variant="primary"
-                                color="{{ $this->form->presentation->trashed() ? 'amber' : 'red' }}" wire:click="delete"
-                                class="w-full md:w-auto" wire:loading.attr="disabled" wire:target="delete, save">
+                                         color="{{ $this->form->presentation->trashed() ? 'amber' : 'red' }}"
+                                         wire:click="delete"
+                                         class="w-full md:w-auto" wire:loading.attr="disabled"
+                                         wire:target="delete, save">
                                 {{ $this->form->presentation->trashed() ? __('common.restore') : __('common.delete') }}
                             </flux:button>
                         @endcanany
                     @endif
                     @canany(['sys.admin', 'presentation.create', 'presentation.update'])
                         <flux:button type="submit" variant="primary" class="w-full md:w-auto md:ml-auto"
-                            wire:loading.attr="disabled" wire:target="delete, save">
+                                     wire:loading.attr="disabled" wire:target="delete, save">
                             {{ $this->form->presentation ? __('common.update') : __('common.save') }}
                         </flux:button>
                     @endcanany

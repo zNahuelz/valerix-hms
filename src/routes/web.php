@@ -7,6 +7,25 @@ Route::livewire('/', 'pages.auth.login')->middleware('guest')->name('login');
 
 Route::group(['prefix' => '/dashboard'], function () {
     Route::livewire('/', 'pages.shared.dashboard')->name('dashboard');
+
+    Route::group(['prefix' => '/clinic'], function () {
+        Route::livewire('/', 'pages.clinic.clinic-index')
+            ->middleware('require_permission:clinic.index')
+            ->name('clinic.index');
+
+        Route::livewire('/create', 'pages.clinic.clinic-form')
+            ->middleware('require_permission:clinic.create')
+            ->name('clinic.create');
+
+        Route::livewire('/{clinicId}', 'pages.clinic.clinic-detail')
+            ->middleware('require_permission:clinic.detail')
+            ->name('clinic.detail');
+
+        Route::livewire('/{clinicId}/edit', 'pages.clinic.clinic-form')
+            ->middleware('require_permission:clinic.edit')
+            ->name('clinic.edit');
+    });
+
     Route::group(['prefix' => '/supplier'], function () {
         Route::livewire('/', 'pages.supplier.supplier-index')
             ->middleware('require_permission:supplier.index')

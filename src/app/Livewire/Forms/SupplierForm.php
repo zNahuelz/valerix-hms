@@ -97,8 +97,6 @@ class SupplierForm extends Form
             'phone.regex' => __('validation.phone.regex'),
             'email.max' => __('validation.email.max'),
             'email.email' => __('validation.email.email'),
-            'description.min' => __('validation.description.min'),
-            'description.max' => __('validation.description.max'),
         ];
     }
 

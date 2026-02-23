@@ -14,11 +14,11 @@
 </head>
 
 <body>
-    {{ $slot ?? '' }}
-    @yield('content')
+{{ $slot ?? '' }}
+@yield('content')
 
-    @livewireScripts
-    @fluxScripts
+@livewireScripts
+@fluxScripts
 </body>
 
 </html>

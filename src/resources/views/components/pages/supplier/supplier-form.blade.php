@@ -17,7 +17,7 @@ new class extends Component {
                 return;
             }
 
-            $supplier = Supplier::withTrashed()->find((int) $supplierId);
+            $supplier = Supplier::withTrashed()->find((int)$supplierId);
 
             if (!$supplier) {
                 $this->redirectWithError($supplierId);
@@ -79,40 +79,42 @@ new class extends Component {
         @endif
 
         <flux:fieldset class="grid grid-cols-1 md:grid-cols-2 gap-3" wire:loading.attr="disabled"
-            wire:target="save, delete">
+                       wire:target="save, delete">
             <flux:field>
                 <flux:label badge="{{ __('common.required') }}">{{ trans_choice('common.name', 1) }}</flux:label>
-                <flux:input wire:model.live.blur="form.name" type="text" />
-                <flux:error name="form.name" />
+                <flux:input wire:model.live.blur="form.name" type="text"/>
+                <flux:error name="form.name"/>
             </flux:field>
             <flux:field>
                 <flux:label badge="{{ __('common.required') }}">{{ trans_choice('common.manager', 1) }}</flux:label>
-                <flux:input wire:model.live.blur="form.manager" type="text" />
-                <flux:error name="form.manager" />
+                <flux:input wire:model.live.blur="form.manager" type="text"/>
+                <flux:error name="form.manager"/>
             </flux:field>
             <flux:field>
                 <flux:label badge="{{ __('common.required') }}">{{ __('common.ruc') }}</flux:label>
-                <flux:input wire:model.live.blur="form.ruc" type="text" />
-                <flux:error name="form.ruc" />
+                <flux:input wire:model.live.blur="form.ruc" type="text"/>
+                <flux:error name="form.ruc"/>
             </flux:field>
-            <flux:input wire:model.live.blur="form.address" label="{{ __('common.address') }}" type="text" />
-            <flux:input wire:model.live.blur="form.phone" label="{{ __('common.phone') }}" type="text" />
-            <flux:input wire:model.live.blur="form.email" label="{{ __('common.email') }}" type="email" />
-            <flux:input wire:model.live.blur="form.description" label="{{ __('common.description') }}" type="text" />
+            <flux:input wire:model.live.blur="form.address" label="{{ __('common.address') }}" type="text"/>
+            <flux:input wire:model.live.blur="form.phone" label="{{ __('common.phone') }}" type="text"/>
+            <flux:input wire:model.live.blur="form.email" label="{{ __('common.email') }}" type="email"/>
+            <flux:input wire:model.live.blur="form.description" label="{{ __('common.description') }}" type="text"/>
             <div class="col-span-full">
                 <div class="flex flex-col md:flex-row md:justify-between gap-2">
                     @if($this->form->supplier)
                         @canany(['sys.admin', 'supplier.delete', 'supplier.restore'])
                             <flux:button type="button" variant="primary"
-                                color="{{ $this->form->supplier->trashed() ? 'amber' : 'red' }}" wire:click="delete"
-                                class="w-full md:w-auto" wire:loading.attr="disabled" wire:target="delete, save">
+                                         color="{{ $this->form->supplier->trashed() ? 'amber' : 'red' }}"
+                                         wire:click="delete"
+                                         class="w-full md:w-auto" wire:loading.attr="disabled"
+                                         wire:target="delete, save">
                                 {{ $this->form->supplier->trashed() ? __('common.restore') : __('common.delete') }}
                             </flux:button>
                         @endcanany
                     @endif
                     @canany(['sys.admin', 'supplier.create', 'supplier.update'])
                         <flux:button type="submit" variant="primary" class="w-full md:w-auto md:ml-auto"
-                            wire:loading.attr="disabled" wire:target="delete, save">
+                                     wire:loading.attr="disabled" wire:target="delete, save">
                             {{ $this->form->supplier ? __('common.update') : __('common.save') }}
                         </flux:button>
                     @endcanany

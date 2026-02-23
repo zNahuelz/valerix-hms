@@ -22,4 +22,10 @@ return [
         'edit' => 'Modificar Medicina | Valerix HCMS',
         'detail' => 'Detalle de Medicina | Valerix HCMS',
     ],
+    'clinic' => [
+        'index' => 'Listado de Clínicas | Valerix HCMS',
+        'create' => 'Registrar Clínica | Valerix HCMS',
+        'edit' => 'Modificar Clínica | Valerix HCMS',
+        'detail' => 'Detalle de Clínica | Valerix HCMS',
+    ],
 ];

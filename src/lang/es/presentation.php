@@ -16,12 +16,11 @@ return [
 
     'counter' => '{1} Mostrando :count Presentación de un total de :total|[2,*] Mostrando :count presentaciones de un total de :total',
 
-    'store_presentation' => 'Registro de Presentación',
-
     'errors' => [
         'not_found' => 'Presentación de ID: :id no encontrada',
         'not_deleted' => 'La Presentación de ID: :id no se encuentra eliminada',
         'already_deleted' => 'La Presentación de ID: :id ya se encuentra eliminada',
         'empty_set' => 'No se encontraron presentaciones con el criterio ingresado',
     ],
+    'select_one' => 'Seleccione una presentación...',
 ];

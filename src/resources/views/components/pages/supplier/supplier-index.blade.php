@@ -9,10 +9,10 @@ use Livewire\Attributes\Computed;
 new class extends Component {
     use WithPagination, WithoutUrlPagination;
 
-    public $keyword = '';
-    public $searchColumn = 'id';
-    public $visibilityFilter = 'visible';
-    public $searching = false;
+    public string $keyword = '';
+    public string $searchColumn = 'id';
+    public string $visibilityFilter = 'visible';
+    public bool $searching = false;
 
     protected function rules(): array
     {
@@ -92,7 +92,7 @@ new class extends Component {
             }
         }
 
-        return $query->orderBy('updated_at', 'desc')->paginate(10);
+        return $query->orderBy('updated_at', 'desc')->paginate(12);
     }
 
     public function render(): mixed
@@ -108,23 +108,23 @@ new class extends Component {
     <div class="flex flex-col md:flex-row w-full items-stretch md:items-center justify-between gap-4 mb-2">
         @canany(['sys.admin', 'supplier.create'])
             <flux:button variant="primary" icon="plus" wire:navigate href="{{ route('supplier.create') }}"
-                class="w-full md:w-auto">
+                         class="w-full md:w-auto">
                 {{ __('common.new') }}
             </flux:button>
         @endcanany
         <form wire:submit.prevent="search"
-            class="flex flex-col md:flex-row items-stretch md:items-center gap-2 w-full md:w-auto md:ml-auto">
+              class="flex flex-col md:flex-row items-stretch md:items-center gap-2 w-full md:w-auto md:ml-auto">
             <flux:select wire:model.live="searchColumn" class="w-full md:w-40">
                 <flux:select.option value="id">{{ __('common.id') }}</flux:select.option>
                 <flux:select.option value="name">{{ trans_choice('common.name', 1) }}</flux:select.option>
                 <flux:select.option value="ruc">{{ __('common.ruc') }}</flux:select.option>
             </flux:select>
-            <flux:input wire:model="keyword" :placeholder="__('common.search') . '...'" class="w-full md:w-64" />
+            <flux:input wire:model="keyword" :placeholder="__('common.search') . '...'" class="w-full md:w-64"/>
             <flux:button.group>
                 <flux:button type="button" icon="arrow-path" square wire:click="resetSearch"
-                    wire:loading.attr="disabled" wire:target="resetSearch" class="w-full md:w-auto p-3" />
+                             wire:loading.attr="disabled" wire:target="resetSearch" class="w-full md:w-auto p-3"/>
                 <flux:button type="submit" icon="magnifying-glass" wire:loading.attr="disabled" wire:target="search"
-                    class="w-full md:w-auto">
+                             class="w-full md:w-auto">
                     {{ __('common.search') }}
                 </flux:button>
             </flux:button.group>
@@ -160,14 +160,16 @@ new class extends Component {
                         <flux:button.group>
                             @canany(['sys.admin', 'supplier.edit', 'supplier.delete', 'supplier.restore'])
                                 <flux:button variant="ghost" size="sm" icon="pencil-square" inset="top bottom"
-                                    title="{{ __('common.edit') }}"
-                                    href="{{ route('supplier.edit', ['supplierId' => $supplier->id]) }}" wire:navigate>
+                                             title="{{ __('common.edit') }}"
+                                             href="{{ route('supplier.edit', ['supplierId' => $supplier->id]) }}"
+                                             wire:navigate>
                                 </flux:button>
                             @endcanany
                             @canany(['sys.admin', 'supplier.detail'])
                                 <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal" inset="top bottom"
-                                    title="{{ __('common.details') }}"
-                                    href="{{ route('supplier.detail', ['supplierId' => $supplier->id]) }}" wire:navigate>
+                                             title="{{ __('common.details') }}"
+                                             href="{{ route('supplier.detail', ['supplierId' => $supplier->id]) }}"
+                                             wire:navigate>
                                 </flux:button>
                             @endcanany
                         </flux:button.group>

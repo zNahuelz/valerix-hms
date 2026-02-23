@@ -45,4 +45,16 @@ return [
         'max' => 'El valor numérico debe ser 99999 como máximo.',
         'unique' => 'Ya existe una presentación registrada con los valores ingresados (nombre y valor numérico).',
     ],
+    'composition' => [
+        'required' => 'Debe ingresar la composición del medicamento.',
+        'min' => 'La composición debe tener mínimo :min carácteres.',
+        'max' => 'La composición debe tener máximo :max carácteres.',
+    ],
+    'barcode' => [
+        'required' => 'Debe ingresar un código de barras.',
+        'min' => 'El código de barras debe tener mínimo :min carácteres.',
+        'max' => 'El código de barras debe tener máximo :max carácteres.',
+        'regex' => 'El código de barras solo puede contener números y letras.',
+        'unique' => 'El código de barras ingresado ya se encuentra asignado a otro medicamento.',
+    ],
 ];

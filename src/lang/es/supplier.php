@@ -16,8 +16,6 @@ return [
 
     'counter' => '{1} Mostrando :count proveedor de un total de :total|[2,*] Mostrando :count proveedores de un total de :total',
 
-    'store_supplier' => 'Registro de Proveedor',
-
     'errors' => [
         'not_found' => 'Proveedor de ID: :id no encontrado',
         'not_deleted' => 'El proveedor de ID: :id no se encuentra eliminado',

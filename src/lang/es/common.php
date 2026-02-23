@@ -29,6 +29,7 @@ return [
     'phone' => 'Teléfono',
     'address' => 'Dirección',
     'description' => 'Descripción',
+    'composition' => 'Composición',
     'status' => 'Estado',
     'created_at' => 'Fecha de Registro',
     'updated_at' => 'Ult. Mod.',
@@ -38,6 +39,8 @@ return [
     'updated_by' => 'Modificado por',
     'inserted_by_null' => '-- BASE DE DATOS | MIGRACIÓN --',
     'null' => '-----',
+    'barcode' => 'Cod. Barras',
+    'barcode_alt' => 'Código de Barras',
 
     'enabled_entity' => 'Activo',
     'disabled_entity' => 'Inactivo',
@@ -66,4 +69,5 @@ return [
     'unauthorized' => 'Su cuenta no posee los permisos necesarios para acceder al módulo solicitado, comuniquese con administración.',
     'settings' => 'Configuración',
     'numeric_value' => 'Valor Numérico',
+    'randomize_barcode' => 'Generar Cod. Barras Aleatorio',
 ];
