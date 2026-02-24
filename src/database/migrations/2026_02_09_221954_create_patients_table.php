@@ -19,8 +19,8 @@ return new class extends Migration
             $table->date('birth_date');
             $table->string('dni', 15)->unique();
             $table->string('email', 50)->nullable();
-            $table->string('phone', 15)->default('000000000');
-            $table->string('address', 100)->default('-----');
+            $table->string('phone', 15)->nullable();
+            $table->string('address', 100)->nullable();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
             $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->softDeletes();

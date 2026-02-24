@@ -44,34 +44,34 @@ new class extends Component {
 
 <div class="flex justify-center px-4">
     <div class="w-full md:max-w-3xl">
-        @if($this->supplier && $this->supplier->trashed())
+        @if($supplier && $supplier->trashed())
             <x-shared.alert type="info">{{ __('supplier.is_deleted_alt') }}</x-shared.alert>
         @endif
 
         <flux:fieldset class="grid grid-cols-1 md:grid-cols-2 gap-2">
             <flux:field>
                 <flux:label>{{ trans_choice('common.name', 1) }}</flux:label>
-                <flux:input readonly value="{{ $this->supplier->name }}" type="text"/>
+                <flux:input readonly value="{{ $supplier->name }}" type="text"/>
             </flux:field>
             <flux:field>
                 <flux:label>{{ trans_choice('common.manager', 1) }}</flux:label>
-                <flux:input readonly value="{{ $this->supplier->manager }}" type="text"/>
+                <flux:input readonly value="{{ $supplier->manager }}" type="text"/>
             </flux:field>
             <flux:field>
                 <flux:label>{{ __('common.ruc') }}</flux:label>
-                <flux:input readonly value="{{ $this->supplier->ruc }}" type="text"/>
+                <flux:input readonly value="{{ $supplier->ruc }}" type="text"/>
             </flux:field>
-            <flux:input readonly value="{{ $this->supplier->address }}" label="{{ __('common.address') }}"
+            <flux:input readonly value="{{ $supplier->address ?? __('common.null') }}" label="{{ __('common.address') }}"
                         type="text"/>
-            <flux:input readonly value="{{ $this->supplier->phone }}" label="{{ __('common.phone') }}" type="text"/>
-            <flux:input readonly value="{{ $this->supplier->email }}" label="{{ __('common.email') }}" type="email"/>
+            <flux:input readonly value="{{ $supplier->phone ?? __('common.null') }}" label="{{ __('common.phone') }}" type="text"/>
+            <flux:input readonly value="{{ $supplier->email ?? __('common.null') }}" label="{{ __('common.email') }}" type="email"/>
             <div class="col-span-full">
-                <flux:input readonly value="{{ $this->supplier->description }}" label="{{ __('common.description') }}"
+                <flux:input readonly value="{{ $supplier->description ?? __('common.null') }}" label="{{ __('common.description') }}"
                             type="text"/>
             </div>
-            <flux:input readonly value="{{ $this->supplier->createdBy->username ?? __('common.inserted_by_null') }}"
+            <flux:input readonly value="{{ $supplier->createdBy->username ?? __('common.inserted_by_null') }}"
                         label="{{ __('common.created_by') }}" type="text"/>
-            <flux:input readonly value="{{ $this->supplier->updatedBy->username ?? __('common.inserted_by_null') }}"
+            <flux:input readonly value="{{ $supplier->updatedBy->username ?? __('common.inserted_by_null') }}"
                         label="{{ __('common.updated_by') }}" type="text"/>
             <flux:input readonly
                         value="{{ $supplier->created_at->timezone('America/Lima')->format('d/m/Y g:i A') ?? __('common.null') }}"
@@ -83,7 +83,7 @@ new class extends Component {
                 <div class="flex flex-col md:flex-row md:justify-between gap-2">
                     @canany(['sys.admin', 'supplier.update', 'supplier.delete', 'supplier.restore'])
                         <flux:button type="button" variant="primary" class="w-full md:w-auto md:ml-auto" wire:navigate
-                                     href="{{ route('supplier.edit', ['supplierId' => $this->supplier->id]) }}">
+                                     href="{{ route('supplier.edit', ['supplierId' => $supplier->id]) }}">
                             {{ __('common.edit') }}
                         </flux:button>
                     @endcanany

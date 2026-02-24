@@ -41,6 +41,7 @@ return [
     'null' => '-----',
     'barcode' => 'Cod. Barras',
     'barcode_alt' => 'Código de Barras',
+    'registered_users' => 'Usuarios Registrados',
 
     'enabled_entity' => 'Activo',
     'disabled_entity' => 'Inactivo',
@@ -49,6 +50,12 @@ return [
     'action' => '{1} Acción|[2,*] Acciones',
     'name' => '{1} Nombre|[2,*] Nombres',
     'manager' => '{1} Gerente|[2,*] Gerentes',
+    'paternal_surname' => 'Ap. Paterno',
+    'maternal_surname' => 'Ap. Materno',
+    'paternal_surname_alt' => 'Apellido Paterno',
+    'maternal_surname_alt' => 'Apellido Materno',
+    'dni' => 'DNI',
+    'birth_date' => 'Fecha de Nacimiento',
 
     'save' => 'Guardar',
     'saving' => 'Guardando',

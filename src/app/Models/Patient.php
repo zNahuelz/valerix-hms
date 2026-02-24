@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Observers\PatientObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 #[ObservedBy([PatientObserver::class])]
 class Patient extends Model
 {
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'names',
@@ -26,6 +27,11 @@ class Patient extends Model
         'created_by',
         'updated_by',
     ];
+
+    public function isDefaultPatient(): bool
+    {
+        return $this->dni == '00000000';
+    }
 
     public function appointments(): HasMany
     {

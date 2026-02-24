@@ -88,7 +88,7 @@ new class extends Component {
             </flux:field>
             <flux:field>
                 <flux:label badge="{{ __('common.required') }}">{{ __('common.numeric_value') }}</flux:label>
-                <flux:input wire:model.live.blur="form.numeric_value" type="number" min="0.1" max="99999"/>
+                <flux:input wire:model.live.blur="form.numeric_value" type="decimal" min="0.1" max="99999"/>
                 <flux:error name="form.numeric_value"/>
             </flux:field>
             <flux:field class="md:col-span-full">

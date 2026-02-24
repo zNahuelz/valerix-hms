@@ -53,6 +53,7 @@ class PresentationForm extends Form
             'description.min' => __('validation.description.min', ['min' => '2']),
             'description.max' => __('validation.description.max', ['max' => '100']),
             'numeric_value.required' => __('validation.numeric_value.required'),
+            'numeric_value.numeric' => __('validation.numeric_value.numeric'),
             'numeric_value.min' => __('validation.numeric_value.min'),
             'numeric_value.max' => __('validation.numeric_value.max'),
             'numeric_value.unique' => __('validation.numeric_value.unique'),

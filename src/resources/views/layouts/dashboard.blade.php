@@ -40,21 +40,6 @@
                 @endcanany
             </flux:sidebar.group>
         @endcanany
-        @canany(['sys.admin', 'supplier.index', 'supplier.create', 'supplier.update', 'supplier.delete', 'supplier.restore'])
-            <flux:sidebar.group expandable :expanded="request()->routeIs('supplier.*')" persist icon="globe-americas"
-                                heading="{{ trans_choice('supplier.supplier', 2) }}"
-                                class="grid">
-                @canany(['sys.admin', 'supplier.create'])
-                    <flux:sidebar.item href="{{ route('supplier.create') }}" wire:navigate>{{ __('common.store') }}
-                    </flux:sidebar.item>
-                @endcanany
-                @canany(['sys.admin', 'supplier.index'])
-                    <flux:sidebar.item href="{{ route('supplier.index') }}" wire:navigate>{{ __('common.index') }}
-                    </flux:sidebar.item>
-                @endcanany
-            </flux:sidebar.group>
-        @endcanany
-
         @canany(['sys.admin', 'medicine.index', 'medicine.create', 'medicine.update', 'medicine.delete', 'medicine.restore',
          'presentation.index', 'presentation.create', 'presentation.update', 'presentation.delete', 'presentation.restore'])
             <flux:sidebar.group expandable :expanded="request()->routeIs('medicine.*','presentation.*')" icon="beaker"
@@ -71,6 +56,35 @@
                 @canany(['sys.admin', 'presentation.index'])
                     <flux:sidebar.item href="{{ route('presentation.index') }}"
                                        wire:navigate>{{ trans_choice('presentation.presentation', 2) }}</flux:sidebar.item>
+                @endcanany
+            </flux:sidebar.group>
+        @endcanany
+        @canany(['sys.admin', 'patient.index', 'patient.create', 'patient.update', 'patient.delete', 'patient.restore'])
+            <flux:sidebar.group expandable :expanded="request()->routeIs('patient.*')" persist icon="users"
+                                heading="{{ trans_choice('patient.patient', 2) }}"
+                                class="grid">
+                @canany(['sys.admin', 'patient.create'])
+                    <flux:sidebar.item href="{{ route('patient.create') }}" wire:navigate>{{ __('common.store') }}
+                    </flux:sidebar.item>
+                @endcanany
+                @canany(['sys.admin', 'patient.index'])
+                    <flux:sidebar.item href="{{ route('patient.index') }}" wire:navigate>{{ __('common.index') }}
+                    </flux:sidebar.item>
+                @endcanany
+            </flux:sidebar.group>
+        @endcanany
+
+        @canany(['sys.admin', 'supplier.index', 'supplier.create', 'supplier.update', 'supplier.delete', 'supplier.restore'])
+            <flux:sidebar.group expandable :expanded="request()->routeIs('supplier.*')" persist icon="globe-americas"
+                                heading="{{ trans_choice('supplier.supplier', 2) }}"
+                                class="grid">
+                @canany(['sys.admin', 'supplier.create'])
+                    <flux:sidebar.item href="{{ route('supplier.create') }}" wire:navigate>{{ __('common.store') }}
+                    </flux:sidebar.item>
+                @endcanany
+                @canany(['sys.admin', 'supplier.index'])
+                    <flux:sidebar.item href="{{ route('supplier.index') }}" wire:navigate>{{ __('common.index') }}
+                    </flux:sidebar.item>
                 @endcanany
             </flux:sidebar.group>
         @endcanany

@@ -44,6 +44,24 @@ Route::group(['prefix' => '/dashboard'], function () {
             ->name('supplier.edit');
     });
 
+    Route::group(['prefix' => '/patient'], function () {
+        Route::livewire('/', 'pages.patient.patient-index')
+            ->middleware('require_permission:patient.index')
+            ->name('patient.index');
+
+        Route::livewire('/create', 'pages.patient.patient-form')
+            ->middleware('require_permission:patient.create')
+            ->name('patient.create');
+
+        Route::livewire('/{patientId}', 'pages.patient.patient-detail')
+            ->middleware('require_permission:patient.detail')
+            ->name('patient.detail');
+
+        Route::livewire('/{patientId}/edit', 'pages.patient.patient-form')
+            ->middleware('require_permission:patient.edit')
+            ->name('patient.edit');
+    });
+
     Route::group(['prefix' => '/presentation'], function () {
         Route::livewire('/', 'pages.presentation.presentation-index')
             ->middleware('require_permission:presentation.index')

@@ -28,4 +28,10 @@ return [
         'edit' => 'Modificar Clínica | Valerix HCMS',
         'detail' => 'Detalle de Clínica | Valerix HCMS',
     ],
+    'patient' => [
+        'index' => 'Listado de Pacientes | Valerix HCMS',
+        'create' => 'Registrar Paciente | Valerix HCMS',
+        'edit' => 'Modificar Paciente | Valerix HCMS',
+        'detail' => 'Detalle de Paciente | Valerix HCMS',
+    ],
 ];

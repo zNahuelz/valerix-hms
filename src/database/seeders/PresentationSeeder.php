@@ -18,7 +18,7 @@ class PresentationSeeder extends Seeder
 
         $presentations = [
             // Base
-            ['name', 'Unidad', 'description' => 'Uni.', 'numeric_value' => 1],
+            ['name' => 'Unidad', 'description' => 'Uni.', 'numeric_value' => 1],
             // Caja
             ['name' => 'Caja', 'description' => 'Caja 10 Unidades', 'numeric_value' => 10],
             ['name' => 'Caja', 'description' => 'Caja 20 Unidades', 'numeric_value' => 20],

@@ -5,6 +5,28 @@ return [
         'required' => 'Debe ingresar un nombre.',
         'min' => 'El nombre debe tener mínimo :min carácteres.',
         'max' => 'El nombre debe tener máximo :max carácteres',
+        'unique_clinic' => 'El nombre ingresado ya se encuentra asignado a una clínica.',
+    ],
+    'paternal_surname' => [
+        'required' => 'Debe ingresar un apellido paterno.',
+        'min' => 'El apellido paterno debe tener mínimo :min carácteres.',
+        'max' => 'El apellido paterno debe tener máximo :max carácteres',
+    ],
+    'maternal_surname' => [
+        'required' => 'Debe ingresar un apellido materno.',
+        'min' => 'El apellido materno debe tener mínimo :min carácteres.',
+        'max' => 'El apellido materno debe tener máximo :max carácteres',
+    ],
+    'dni' => [
+        'required' => 'Debe ingresar un DNI.',
+        'size' => 'El DNI debe tener entre 8 y 15 digitos.',
+        'unique' => 'El DNI ingresado ya se encuentra en uso por otro paciente.',
+        'regex' => 'El DNI solo puede contener números.',
+    ],
+    'birth_date' => [
+        'required' => 'Debe ingresar una fecha de nacimiento.',
+        'date' => 'La fecha de nacimiento debe tener el formato: AÑO/MES/DÍA.',
+        'before' => 'La fecha de nacimiento debe estar en el pasado.',
     ],
     'manager' => [
         'required' => 'Debe ingresar el nombre del encargado/gerente.',
