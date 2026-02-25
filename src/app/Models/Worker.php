@@ -27,10 +27,6 @@ class Worker extends Model
         'updated_by',
     ];
 
-    protected $casts = [
-        'hired_at' => 'date',
-    ];
-
     public function clinic(): BelongsTo
     {
         return $this->belongsTo(Clinic::class);

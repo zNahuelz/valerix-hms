@@ -40,6 +40,22 @@
                 @endcanany
             </flux:sidebar.group>
         @endcanany
+
+        @canany(['sys.admin', 'worker.index', 'worker.create', 'worker.update', 'worker.delete', 'worker.restore'])
+            <flux:sidebar.group expandable :expanded="request()->routeIs('worker.*')" persist icon="lifebuoy"
+                                heading="{{ trans_choice('worker.worker', 2) }}"
+                                class="grid">
+                @canany(['sys.admin', 'worker.create'])
+                    <flux:sidebar.item href="{{ route('worker.create') }}" wire:navigate>{{ __('common.store') }}
+                    </flux:sidebar.item>
+                @endcanany
+                @canany(['sys.admin', 'worker.index'])
+                    <flux:sidebar.item href="{{ route('worker.index') }}" wire:navigate>{{ __('common.index') }}
+                    </flux:sidebar.item>
+                @endcanany
+            </flux:sidebar.group>
+        @endcanany
+
         @canany(['sys.admin', 'medicine.index', 'medicine.create', 'medicine.update', 'medicine.delete', 'medicine.restore',
          'presentation.index', 'presentation.create', 'presentation.update', 'presentation.delete', 'presentation.restore'])
             <flux:sidebar.group expandable :expanded="request()->routeIs('medicine.*','presentation.*')" icon="beaker"

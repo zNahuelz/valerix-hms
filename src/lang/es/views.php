@@ -34,4 +34,10 @@ return [
         'edit' => 'Modificar Paciente | Valerix HCMS',
         'detail' => 'Detalle de Paciente | Valerix HCMS',
     ],
+    'worker' => [
+        'index' => 'Listado de Empleados | Valerix HCMS',
+        'create' => 'Registrar Empleado | Valerix HCMS',
+        'edit' => 'Modificar Empleado | Valerix HCMS',
+        'detail' => 'Detalle de Empleado | Valerix HCMS',
+    ],
 ];

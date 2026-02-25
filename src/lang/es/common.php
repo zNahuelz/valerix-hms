@@ -77,4 +77,6 @@ return [
     'settings' => 'Configuración',
     'numeric_value' => 'Valor Numérico',
     'randomize_barcode' => 'Generar Cod. Barras Aleatorio',
+    'position' => 'Cargo',
+    'hired_at' => 'Fecha de Contratación',
 ];

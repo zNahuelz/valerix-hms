@@ -30,6 +30,7 @@ class User extends Authenticatable
         'lockout_enabled',
         'failed_attempts',
         'locked_until',
+        'clinic_id',
     ];
 
     /**

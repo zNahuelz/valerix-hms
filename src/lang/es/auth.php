@@ -13,6 +13,7 @@ return [
     |
     */
 
+    'user' => '{1} Usuario|[2,*] Usuarios',
     'welcome' => '¡Bienvenido!',
     'login_title' => 'Inicio de Sesión - Valerix',
     'username' => 'Nombre de usuario',

@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
             'hired_at' => '2001-10-07',
             'clinic_id' => $clinic->id,
             'user_id' => $admin->id,
-            'position' => 'Administrador',
+            'position' => 'ADMINISTRADOR',
         ]);
 
         $manager = User::create([
@@ -56,7 +56,7 @@ class UserSeeder extends Seeder
             'hired_at' => '2010-02-13',
             'clinic_id' => $clinic->id,
             'user_id' => $manager->id,
-            'position' => 'Gerente',
+            'position' => 'GERENTE',
         ]);
 
         $secretary = User::create([
@@ -75,7 +75,7 @@ class UserSeeder extends Seeder
             'hired_at' => '2003-01-12',
             'clinic_id' => $clinic->id,
             'user_id' => $secretary->id,
-            'position' => 'Secretaria',
+            'position' => 'SECRETARIA',
         ]);
 
         $nurse = User::create([

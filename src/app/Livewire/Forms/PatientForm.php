@@ -100,7 +100,7 @@ class PatientForm extends Form
             'dni.required' => __('validation.dni.required'),
             'dni.min' => __('validation.dni.size'),
             'dni.max' => __('validation.dni.size'),
-            'dni.unique' => __('validation.dni.unique'),
+            'dni.unique' => __('validation.dni.unique', ['entity' => strtolower(trans_choice('patient.patient', 1))]),
             'dni.regex' => __('validation.dni.regex'),
             'email.max' => __('validation.email.max'),
             'email.email' => __('validation.email.email'),

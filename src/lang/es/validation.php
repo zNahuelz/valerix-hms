@@ -20,13 +20,18 @@ return [
     'dni' => [
         'required' => 'Debe ingresar un DNI.',
         'size' => 'El DNI debe tener entre 8 y 15 digitos.',
-        'unique' => 'El DNI ingresado ya se encuentra en uso por otro paciente.',
+        'unique' => 'El DNI ingresado ya se encuentra en uso por otro :entity.',
         'regex' => 'El DNI solo puede contener números.',
     ],
     'birth_date' => [
         'required' => 'Debe ingresar una fecha de nacimiento.',
         'date' => 'La fecha de nacimiento debe tener el formato: AÑO/MES/DÍA.',
         'before' => 'La fecha de nacimiento debe estar en el pasado.',
+    ],
+    'hired_at' => [
+        'required' => 'Debe ingresar una fecha de contratación.',
+        'date' => 'La fecha de contratación debe tener el formato: AÑO/MES/DÍA.',
+        'before_or_equal' => 'La fecha de contratación debe estar en el pasado.',
     ],
     'manager' => [
         'required' => 'Debe ingresar el nombre del encargado/gerente.',
@@ -54,6 +59,7 @@ return [
         'required' => 'Debe ingresar un correo electrónico válido.',
         'max' => 'El correo electrónico debe tener máximo 50 carácteres.',
         'email' => 'El correo electrónico debe tener el formato: EMAIL@DOMINIO.COM',
+        'unique' => 'El correo electrónico ingresado ya se encuentra en uso por otro usuario.',
     ],
     'description' => [
         'required' => 'Debe ingresar una descripción.',
@@ -78,5 +84,17 @@ return [
         'max' => 'El código de barras debe tener máximo :max carácteres.',
         'regex' => 'El código de barras solo puede contener números y letras.',
         'unique' => 'El código de barras ingresado ya se encuentra asignado a otro medicamento.',
+    ],
+    'position' => [
+        'required' => 'Debe seleccionar un cargo para el empleado.',
+        'in' => 'El cargo seleccionado es inválido.',
+    ],
+    'clinic_id' => [
+        'required' => 'Debe seleccionar un clínica para el empleado.',
+        'exists' => 'El clinica seleccionada es inválida.',
+    ],
+    'role_id' => [
+        'required' => 'Debe seleccionar un rol para el empleado.',
+        'exists' => 'El rol seleccionada es inválido.',
     ],
 ];

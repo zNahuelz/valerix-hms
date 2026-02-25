@@ -98,6 +98,24 @@ Route::group(['prefix' => '/dashboard'], function () {
             ->name('medicine.edit');
     });
 
+    Route::group(['prefix' => '/worker'], function () {
+        Route::livewire('/', 'pages.worker.worker-index')
+            ->middleware('require_permission:worker.index')
+            ->name('worker.index');
+
+        Route::livewire('/create', 'pages.worker.worker-form')
+            ->middleware('require_permission:worker.create')
+            ->name('worker.create');
+
+        Route::livewire('/{workerId}', 'pages.worker.worker-detail')
+            ->middleware('require_permission:worker.detail')
+            ->name('worker.detail');
+
+        Route::livewire('/{workerId}/edit', 'pages.worker.worker-form')
+            ->middleware('require_permission:worker.edit')
+            ->name('worker.edit');
+    });
+
 })->middleware('auth');
 
 Route::post('/logout', function () {
