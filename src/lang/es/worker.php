@@ -26,5 +26,6 @@ return [
         'creation_disabled_empty_clinics' => 'El sistema no cuenta con clínicas registradas; el módulo de registro de empleados se encuentra bloqueado. Debe registrar al menos una (1) clínica para utilizar el sistema con normalidad; comuniquese con administración de ser necesario.',
         'creation_disabled_empty_roles' => 'El sistema no cuenta con roles registrados; el módulo de registro de empleados se encuentra bloqueado. Debe registrar al menos un (1) rol para utilizar el sistema con normalidad; comuniquese con administración de ser necesario.',
         'editing_session' => '¡Ups! Solo puedes modificar las propiedades de tu usuario desde tu perfil.',
+        'editing_nurse' => '¡Ups! Solo puedes modificar las propiedades de una enfermera desde la sección correspondiente.',
     ],
 ];

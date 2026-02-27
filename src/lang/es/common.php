@@ -38,6 +38,7 @@ return [
     'created_by' => 'Creado por',
     'updated_by' => 'Modificado por',
     'inserted_by_null' => '-- BASE DE DATOS | MIGRACIÓN --',
+    'inserted_by_null_alt' => '-- MIGRACIÓN --',
     'null' => '-----',
     'barcode' => 'Cod. Barras',
     'barcode_alt' => 'Código de Barras',
@@ -79,4 +80,10 @@ return [
     'randomize_barcode' => 'Generar Cod. Barras Aleatorio',
     'position' => 'Cargo',
     'hired_at' => 'Fecha de Contratación',
+    'holiday' => '{1} Feriado|[2,*] Feriados',
+    'date' => 'Fecha',
+    'recurring_holiday' => '¿Feriado recurrente?',
+    'is_recurring' => 'Recurrente',
+    'yes' => 'SI',
+    'no' => 'NO',
 ];

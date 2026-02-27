@@ -40,4 +40,15 @@ return [
         'edit' => 'Modificar Empleado | Valerix HCMS',
         'detail' => 'Detalle de Empleado | Valerix HCMS',
     ],
+    'nurse' => [
+        'index' => 'Listado de Enfermeras | Valerix HCMS',
+        'create' => 'Registrar Enfermera | Valerix HCMS',
+        'edit' => 'Modificar Enfermera | Valerix HCMS',
+        'detail' => 'Detalle de Enfermera | Valerix HCMS',
+    ],
+    'holiday' => [
+        'index' => 'Listado de Feriados | Valerix HCMS',
+        'create' => 'Registrar Feriado | Valerix HCMS',
+        'edit' => 'Modificar Feriado | Valerix HCMS',
+    ],
 ];

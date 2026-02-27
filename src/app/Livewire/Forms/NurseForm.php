@@ -2,13 +2,13 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\Worker;
+use App\Models\Nurse;
 use Illuminate\Validation\Rule;
 use Livewire\Form;
 
-class WorkerForm extends Form
+class NurseForm extends Form
 {
-    public ?Worker $worker = null;
+    public ?Nurse $nurse = null;
 
     public $names = '';
 
@@ -27,8 +27,6 @@ class WorkerForm extends Form
     public $clinic_id = '';
 
     public $email = '';
-
-    public $position = '';
 
     public $role_id = '';
 
@@ -59,8 +57,8 @@ class WorkerForm extends Form
                 'min:8',
                 'max:15',
                 'regex:/^[0-9]{8,15}$/',
-                Rule::unique('workers', 'dni')
-                    ->ignore($this->worker?->id),
+                Rule::unique('nurses', 'dni')
+                    ->ignore($this->nurse?->id),
             ],
             'phone' => [
                 'required',
@@ -80,11 +78,6 @@ class WorkerForm extends Form
                 'date',
                 'before_or_equal:today',
             ],
-            'position' => [
-                'required',
-                'string',
-                'in:GERENTE,ENCARGADO,SECRETARIA,VENDEDOR,SUPERVISOR,OTRO',
-            ],
             'clinic_id' => [
                 'required',
                 Rule::exists('clinics', 'id'),
@@ -98,7 +91,7 @@ class WorkerForm extends Form
                 'email',
                 'max:50',
                 Rule::unique('users', 'email')
-                    ->ignore($this->worker?->user()->withTrashed()->first()?->id),
+                    ->ignore($this->nurse?->user()->withTrashed()->first()?->id),
             ],
         ];
     }
@@ -130,8 +123,6 @@ class WorkerForm extends Form
             'hired_at.required' => __('validation.hired_at.required'),
             'hired_at.date' => __('validation.hired_at.date'),
             'hired_at.before_or_equal' => __('validation.hired_at.before'),
-            'position.required' => __('validation.position.required'),
-            'position.in' => __('validation.position.in'),
             'email.required' => __('validation.email.required'),
             'email.max' => __('validation.email.max'),
             'email.email' => __('validation.email.email'),
@@ -153,7 +144,6 @@ class WorkerForm extends Form
             'phone' => trim($this->phone),
             'address' => strtoupper(trim($this->address)),
             'hired_at' => $this->hired_at,
-            'position' => strtoupper(trim($this->position)),
             'email' => strtolower(trim($this->email)),
             'clinic_id' => $this->clinic_id,
             'role_id' => $this->role_id,

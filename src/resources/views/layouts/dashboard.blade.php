@@ -56,6 +56,21 @@
             </flux:sidebar.group>
         @endcanany
 
+        @canany(['sys.admin', 'nurse.index', 'nurse.create', 'nurse.update', 'nurse.delete', 'nurse.restore'])
+            <flux:sidebar.group expandable :expanded="request()->routeIs('nurse.*')" persist icon="heart"
+                                heading="{{ trans_choice('nurse.nurse', 2) }}"
+                                class="grid">
+                @canany(['sys.admin', 'nurse.create'])
+                    <flux:sidebar.item href="{{ route('nurse.create') }}" wire:navigate>{{ __('common.store') }}
+                    </flux:sidebar.item>
+                @endcanany
+                @canany(['sys.admin', 'nurse.index'])
+                    <flux:sidebar.item href="{{ route('nurse.index') }}" wire:navigate>{{ __('common.index') }}
+                    </flux:sidebar.item>
+                @endcanany
+            </flux:sidebar.group>
+        @endcanany
+
         @canany(['sys.admin', 'medicine.index', 'medicine.create', 'medicine.update', 'medicine.delete', 'medicine.restore',
          'presentation.index', 'presentation.create', 'presentation.update', 'presentation.delete', 'presentation.restore'])
             <flux:sidebar.group expandable :expanded="request()->routeIs('medicine.*','presentation.*')" icon="beaker"
@@ -100,6 +115,17 @@
                 @endcanany
                 @canany(['sys.admin', 'supplier.index'])
                     <flux:sidebar.item href="{{ route('supplier.index') }}" wire:navigate>{{ __('common.index') }}
+                    </flux:sidebar.item>
+                @endcanany
+            </flux:sidebar.group>
+        @endcanany
+
+        @canany(['sys.admin', 'holiday.index', 'holiday.create', 'holiday.update', 'holiday.delete'])
+            <flux:sidebar.group expandable :expanded="request()->routeIs('holiday.*') || request()->routeIs('system.*')" persist icon="circle-stack"
+                                heading="{{ __('common.system') }}"
+                                class="grid">
+                @canany(['sys.admin', 'holiday.index'])
+                    <flux:sidebar.item href="{{ route('holiday.index') }}" wire:navigate>{{ trans_choice('common.holiday',2) }}
                     </flux:sidebar.item>
                 @endcanany
             </flux:sidebar.group>

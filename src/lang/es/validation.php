@@ -6,6 +6,7 @@ return [
         'min' => 'El nombre debe tener mínimo :min carácteres.',
         'max' => 'El nombre debe tener máximo :max carácteres',
         'unique_clinic' => 'El nombre ingresado ya se encuentra asignado a una clínica.',
+        'unique_holiday' => 'El nombre ingresado ya se encuentra registrado como feriado.',
     ],
     'paternal_surname' => [
         'required' => 'Debe ingresar un apellido paterno.',
@@ -96,5 +97,11 @@ return [
     'role_id' => [
         'required' => 'Debe seleccionar un rol para el empleado.',
         'exists' => 'El rol seleccionada es inválido.',
+    ],
+    'date' => [
+        'required' => 'Debe ingresar una fecha.',
+        'date' => 'Formato de fecha incorrecto.',
+        'unique_holiday' => 'La fecha ingresada ya se encuentra asignada como feriado.',
+        'recurring_date_taken' => 'La fecha ingresada ya se encuentra registrada como un feriado recurrente.',
     ],
 ];

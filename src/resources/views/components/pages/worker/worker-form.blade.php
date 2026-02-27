@@ -14,7 +14,7 @@ new class extends Component
     public array $clinics = [];
     public array $roles = [];
     public array $positions = [
-        'GERENTE', 'ENCARGADO', 'SECRETARIA', 'ENFERMERA', 'VENDEDOR', 'SUPERVISOR', 'OTRO',
+        'GERENTE', 'ENCARGADO', 'SECRETARIA', 'VENDEDOR', 'SUPERVISOR', 'OTRO',
     ];
 
     public function mount(?string $workerId = null): void
@@ -30,7 +30,7 @@ new class extends Component
             $this->redirectRoute('worker.index');
             return;
         }
-        $this->roles = Role::select(['id','name'])->whereNot('name','DOCTOR')->orderBy('name')->get()->toArray();
+        $this->roles = Role::select(['id','name'])->whereNot('name','DOCTOR')->whereNot('name','ENFERMERA')->orderBy('name')->get()->toArray();
         if(!$workerId){
             $this->form->clinic_id = $this->clinics[0]['id'];
             $this->form->role_id = $this->roles[0]['id'];
@@ -56,10 +56,15 @@ new class extends Component
                 $this->redirectRoute('worker.index');
                 return;
             }
+            if($worker->user?->hasRole('ENFERMERA')){
+                Session::flash('error', __('worker.errors.editing_nurse'));
+                $this->redirectRoute('worker.index');
+                return;
+            }
             $this->form->email = $worker->user->email ?? '';
             $this->form->position = strtoupper($worker->position);
-            $this->form->role_id = $worker->user->roles->first()->id;
-            $this->form->clinic_id = $worker->clinic->id;
+            $this->form->role_id = $worker->user?->roles->first()->id ?? $this->roles[0]['id'];
+            $this->form->clinic_id = $worker->clinic?->id;
             $this->form->worker = $worker;
             $this->form->fill($worker->toArray());
         }
@@ -76,6 +81,7 @@ new class extends Component
         $sanitized = $this->form->sanitized();
         $this->validate();
         if ($this->form->worker) {
+            $this->form->worker->load(['user' => fn($q) => $q->withTrashed()]);
             $this->form->worker->update($sanitized);
             $this->form->worker->user->update([
                 'email' => $sanitized['email'],
