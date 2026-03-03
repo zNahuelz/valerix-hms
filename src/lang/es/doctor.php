@@ -1,0 +1,38 @@
+<?php
+
+return [
+    'doctor' => '{1} Doctor|[2,*] Doctores',
+    'index' => 'Listado de Doctores',
+    'create' => 'Registro de Doctor',
+    'edit' => 'Modificar Doctor',
+    'detail' => 'Detalle de Doctor #:id: :name',
+    'doctor_info' => 'Información del Doctor',
+    'edit_availabilities' => 'Modificar Horario del Doctor',
+    'edit_availability' => 'Modificando Horario del Doctor: :doctor - DNI: :dni de ID: :id',
+
+    'created' => 'Doctor: :name registrado correctamente. Asignado el ID: :id y usuario :username; sus credenciales de acceso serán enviadas a su correo electrónico en los próximos 5 minutos.',
+    'updated' => 'Doctor: :name de ID: :id actualizado correctamente. El doctor será notificado acerca de estos cambios vía correo electrónico en los próximos 5 minutos.',
+    'updated_availabilities' => 'Horario del doctor de ID: :id actualizado correctamente.',
+    'is_deleted' => 'El doctor se encuentra eliminado; sus cambios serán visibles al restaurarlo.',
+    'is_deleted_alt' => 'El doctor se encuentra eliminado, puede restaurarlo desde el área de edición.',
+    'deleted' => 'Doctor de ID: :id eliminado correctamente; su cuenta de usuario ha sido deshabilitada.',
+    'restored' => 'Doctor de ID: :id restaurado correctamente; su cuenta de usuario ha sido habilitada.',
+    'username_generation' => 'Posterior al registro del doctor, se generará una cuenta de usuario para su uso; el nombre de usuario será generado en base a su DNI y las credenciales de acceso serán enviadas a su correo electrónico.',
+
+    'counter' => '{1} Mostrando :count doctor de un total de :total|[2,*] Mostrando :count doctores de un total de :total',
+
+    'errors' => [
+        'not_found' => 'Doctor de ID: :id no encontrado',
+        'not_deleted' => 'El doctor de ID: :id no se encuentra eliminado',
+        'already_deleted' => 'El doctor de ID: :id ya se encuentra eliminado',
+        'empty_set' => 'No se encontraron doctores con el criterio ingresado',
+        'default_doctor' => 'El doctor por defecto (DNI: 00000000) no puede ser modificado; comuniquese con administración.',
+        'creation_disabled_empty_clinics' => 'El sistema no cuenta con clínicas registradas; el módulo de registro de doctores se encuentra bloqueado. Debe registrar al menos una (1) clínica para utilizar el sistema con normalidad; comuniquese con administración de ser necesario.',
+        'creation_disabled_empty_roles' => 'El sistema no cuenta con roles registrados; el módulo de registro de doctores se encuentra bloqueado. Debe registrar al menos un (1) rol para utilizar el sistema con normalidad; comuniquese con administración de ser necesario.',
+        'creation_disabled_doctor_role_not_found' => 'El sistema no cuenta con el rol de doctor registrado; el módulo de registro de doctores se encuentra bloqueado. Debe registrar un rol llamado "DOCTOR" y asignarle los permisos correspondiente; comuniquese con administración de ser necesario.',
+        'editing_session' => '¡Ups! Solo puedes modificar las propiedades de tu usuario desde tu perfil.',
+        'creation_failed' => '¡Ups! Ha sucedido un error durante el registro del doctor, intente nuevamente o comuniquese con administración de ser necesario.',
+        'empty_availabilities' => 'El doctor no cuenta con un horario asignado, esto puede ser modificado desde el módulo de gestión de horarios.',
+        'availabilities_update_failed' => 'Error durante la actualización del horario del doctor, intente nuevamente o comuniquese con administración de ser necesario.',
+    ],
+];

@@ -91,7 +91,7 @@ new class extends Component
             <flux:field>
                 <flux:label>{{ trans_choice('role.role',1) }}</flux:label>
                 <flux:input.group>
-                    <flux:input readonly value="{{ $nurse->user?->roles()->first()?->name ?? __('common.null') }}"
+                    <flux:input readonly value="{{ $nurse->user?->roles->first()?->name ?? __('common.null') }}"
                                 type="text"/>
                     <flux:button type="button" variant="primary" color="cyan"
                                  icon="ellipsis-horizontal" wire:navigate

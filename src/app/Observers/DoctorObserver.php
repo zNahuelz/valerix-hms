@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Auth;
 
 class DoctorObserver
 {
+    public function creating(Doctor $doctor): void
+    {
+        if (Auth::check()) {
+            $doctor->updated_by = Auth::id();
+        }
+    }
+
     public function updating(Doctor $doctor): void
     {
         if ($doctor->isDirty('created_by')) {

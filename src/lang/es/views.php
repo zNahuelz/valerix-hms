@@ -51,4 +51,11 @@ return [
         'create' => 'Registrar Feriado | Valerix HCMS',
         'edit' => 'Modificar Feriado | Valerix HCMS',
     ],
+    'doctor' => [
+        'index' => 'Listado de Doctores | Valerix HCMS',
+        'create' => 'Registrar Doctor | Valerix HCMS',
+        'edit' => 'Modificar Doctor | Valerix HCMS',
+        'detail' => 'Detalle de Doctor | Valerix HCMS',
+        'edit_availabilities' => 'Modificar Horario del Doctor | Valerix HCMS',
+    ],
 ];

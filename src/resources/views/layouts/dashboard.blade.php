@@ -41,6 +41,21 @@
             </flux:sidebar.group>
         @endcanany
 
+        @canany(['sys.admin', 'doctor.index', 'doctor.create', 'doctor.update', 'doctor.delete', 'doctor.restore'])
+            <flux:sidebar.group expandable :expanded="request()->routeIs('doctor.*')" persist icon="hand-raised"
+                                heading="{{ trans_choice('doctor.doctor', 2) }}"
+                                class="grid">
+                @canany(['sys.admin', 'doctor.create'])
+                    <flux:sidebar.item href="{{ route('doctor.create') }}" wire:navigate>{{ __('common.store') }}
+                    </flux:sidebar.item>
+                @endcanany
+                @canany(['sys.admin', 'doctor.index'])
+                    <flux:sidebar.item href="{{ route('doctor.index') }}" wire:navigate>{{ __('common.index') }}
+                    </flux:sidebar.item>
+                @endcanany
+            </flux:sidebar.group>
+        @endcanany
+
         @canany(['sys.admin', 'worker.index', 'worker.create', 'worker.update', 'worker.delete', 'worker.restore'])
             <flux:sidebar.group expandable :expanded="request()->routeIs('worker.*')" persist icon="lifebuoy"
                                 heading="{{ trans_choice('worker.worker', 2) }}"
@@ -181,9 +196,6 @@
     </flux:dropdown>
 </flux:header>
 <flux:main>
-    @livewireScripts
-    @fluxScripts
-
     @foreach (['success', 'error', 'warning', 'info'] as $type)
         @if (session()->has($type))
             <x-shared.alert :type="$type">
@@ -191,7 +203,6 @@
             </x-shared.alert>
         @endif
     @endforeach
-
     @if(isset($heading))
         <flux:heading size="xl" level="1" class="mb-4">
             {{ $heading }}
@@ -202,6 +213,8 @@
         {{ $slot ?? '' }}
         @yield('content')
     </div>
+        @livewireScripts
+        @fluxScripts
 </flux:main>
 </body>
 </html>

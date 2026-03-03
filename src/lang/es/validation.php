@@ -104,4 +104,41 @@ return [
         'unique_holiday' => 'La fecha ingresada ya se encuentra asignada como feriado.',
         'recurring_date_taken' => 'La fecha ingresada ya se encuentra registrada como un feriado recurrente.',
     ],
+    'availabilities' => [
+        'required' => 'El doctor debe tener entre 5 y 7 disponibilidades a la semana.',
+        'array' => 'El doctor debe tener entre 5 y 7 disponibilidades a la semana.',
+        'min' => 'El doctor debe tener mínimo 5 disponibilidades a la semana.',
+        'max' => 'El doctor debe tener máximo 7 disponibilidades a la semana.',
+        'at_least_one_active' => 'Debe habilitar al menos un (1) día laboral para el doctor.',
+        'weekday' => [
+            'required' => 'Debe seleccionar un día de la semana.',
+            'integer' => 'El día de la semana debe ser un número entre 1 y 7',
+            'between' => 'El día de la semana debe estar entre lunes y domingo (1-7)',
+        ],
+        'start_time' => [
+            'required' => 'Debe seleccionar una hora de  inicio.',
+            'date_format' => 'Formato de hora incorrecto. (H:M)',
+        ],
+        'end_time' => [
+            'required' => 'Debe seleccionar una hora de fin.',
+            'date_format' => 'Formato de hora incorrecto. (H:M)',
+            'less_than_start' => 'La hora de fin debe ser posterior a la hora de inicio.',
+            'hour_diff' => 'El intervalo entre inicio y fin no puede superar 15 horas.',
+        ],
+        'break_start' => [
+            'required' => 'Debe seleccionar una hora de inicio para el descanso.',
+            'date_format' => 'Formato de hora incorrecto. (H:M)',
+            'less_than_start' => 'El descanso debe estar dentro del horario de trabajo.',
+        ],
+        'break_end' => [
+            'required' => 'Debe seleccionar una hora de fin para el descanso.',
+            'date_format' => 'Formato de hora incorrecto. (H:M)',
+            'less_than_start' => 'La hora de fin del descanso debe ser posterior a la hora de inicio.',
+            'hour_diff' => 'El descanso no puede superar 2 horas.',
+        ],
+        'is_active' => [
+            'required' => 'Debe definir si la disponibilidad se encuentra activa.',
+            'boolean' => 'Este campo solo puede ser verdadero o falso.',
+        ],
+    ],
 ];

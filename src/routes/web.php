@@ -134,6 +134,28 @@ Route::group(['prefix' => '/dashboard'], function () {
             ->name('worker.edit');
     });
 
+    Route::group(['prefix' => '/doctor'], function () {
+        Route::livewire('/', 'pages.doctor.doctor-index')
+            ->middleware('require_permission:doctor.index')
+            ->name('doctor.index');
+
+        Route::livewire('/create', 'pages.doctor.doctor-create-form')
+            ->middleware('require_permission:doctor.create')
+            ->name('doctor.create');
+
+        Route::livewire('/{doctorId}', 'pages.doctor.doctor-detail')
+            ->middleware('require_permission:doctor.detail')
+            ->name('doctor.detail');
+
+        Route::livewire('/{doctorId}/edit', 'pages.doctor.doctor-edit-form')
+            ->middleware('require_permission:doctor.edit')
+            ->name('doctor.edit');
+
+        Route::livewire('/{doctorId}/availabilities/edit', 'pages.doctor.doctor-availabilities-form')
+            ->middleware('require_permission:doctor.edit.availabilities')
+            ->name('doctor.edit.availabilities');
+    });
+
     Route::group(['prefix' => '/system/holiday'], function () {
         Route::livewire('/', 'pages.system.holiday.holiday-index')
             ->middleware('require_permission:holiday.index')
