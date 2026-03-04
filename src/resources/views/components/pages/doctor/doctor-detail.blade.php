@@ -144,13 +144,23 @@ new class extends Component
                 <div class="col-span-full">
                     <div class="flex flex-col md:flex-row md:justify-between gap-2">
                         @if(!auth()->user()->is($doctor->user))
-                                @canany(['sys.admin', 'doctor.edit.availabilities'])
+                                    <flux:button.group>
+                                        @canany(['sys.admin', 'doctor.edit.availabilities', 'doctor.detail.unavailabilities'])
                                     <flux:button type="button"
                                                  wire:navigate href="{{route('doctor.edit.availabilities', ['doctorId' => $doctor->id])}}"
                                                  class="w-full md:w-auto">
                                         {{  __('common.edit_availabilities') }}
                                     </flux:button>
-                                @endcanany
+                                        @endcanany
+                                        @canany(['sys.admin', 'doctor.detail.unavailabilities'])
+                                        <flux:button type="button"
+                                                     wire:navigate href="{{route('doctor.detail.unavailabilities', ['doctorId' => $doctor->id])}}"
+                                                     class="w-full md:w-auto">
+                                            {{  trans_choice('common.unavailability',2) }}
+                                        </flux:button>
+                                        @endcanany
+                                    </flux:button.group>
+
                             @canany(['sys.admin', 'doctor.update', 'doctor.delete', 'doctor.restore'])
                                 <flux:button type="button" variant="primary" class="w-full md:w-auto md:ml-auto" wire:navigate
                                              href="{{ route('doctor.edit', ['doctorId' => $doctor->id]) }}">

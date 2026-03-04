@@ -49,6 +49,11 @@
                     <flux:sidebar.item href="{{ route('doctor.create') }}" wire:navigate>{{ __('common.store') }}
                     </flux:sidebar.item>
                 @endcanany
+                    @canany(['sys.admin', 'doctor.create.unavailabilities'])
+                        <flux:sidebar.item href="{{ route('doctor.create.unavailabilities') }}"
+                                           wire:navigate>{{ __('common.store') . ' ' . trans_choice('common.unavailability',1) }}
+                        </flux:sidebar.item>
+                    @endcanany
                 @canany(['sys.admin', 'doctor.index'])
                     <flux:sidebar.item href="{{ route('doctor.index') }}" wire:navigate>{{ __('common.index') }}
                     </flux:sidebar.item>

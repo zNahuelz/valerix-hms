@@ -63,6 +63,8 @@ return [
     'cancel' => 'Cancelar',
     'edit' => 'Editar',
     'edit_availabilities' => 'Editar Horario',
+    'unavailabilities_detail' => 'Detalle Indisponibilidades',
+    'unavailability' => 'Indisponibilidad|[2,*] Indisponibilidades',
     'delete' => 'Eliminar',
     'restore' => 'Restaurar',
     'update' => 'Actualizar',
@@ -110,4 +112,7 @@ return [
     'back' => 'Volver',
     'review' => 'Revisión',
     'personal_info' => 'Información Personal',
+    'start_datetime' => 'Fecha y Hora Inicio',
+    'end_datetime' => 'Fecha y Hora Fin',
+    'reason' => 'Motivo',
 ];

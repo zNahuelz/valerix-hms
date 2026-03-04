@@ -141,4 +141,24 @@ return [
             'boolean' => 'Este campo solo puede ser verdadero o falso.',
         ],
     ],
+    'unavailabilities' => [
+        'doctor_id' => [
+            'required' => 'Debe seleccionar un doctor.',
+            'exists' => 'El doctor seleccionado no existe o no se encuentra disponible.',
+        ],
+        'start_datetime' => [
+            'required' => 'Debe seleccionar una fecha de inicio.',
+            'date' => 'Formato de fecha incorrecto.',
+        ],
+        'end_datetime' => [
+            'required' => 'Debe seleccionar una fecha de fin.',
+            'date' => 'Formato de fecha incorrecto.',
+            'after' => 'La fecha de fin debe ser posterior a la fecha de inicio.',
+            'min_gap' => 'La fecha de fin debe ser al menos 24 horas posterior a la fecha de inicio.',
+        ],
+        'reason' => [
+            'required' => 'Debe seleccionar una razón para la indisponibilidad.',
+            'enum' => 'La razón seleccionada es inválida.',
+        ],
+    ],
 ];

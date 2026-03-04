@@ -172,10 +172,17 @@ new class extends Component
                                                  wire:navigate>
                                     </flux:button>
                                 @endcanany
-                                    @canany(['sys.admin', 'doctor.edit.availabilities'])
+                                @canany(['sys.admin', 'doctor.edit.availabilities'])
                                         <flux:button variant="ghost" size="sm" icon="calendar-days" inset="top bottom"
                                                      title="{{ __('common.edit_availabilities') }}"
                                                      href="{{route('doctor.edit.availabilities', ['doctorId' => $doctor->id])}}"
+                                                     wire:navigate>
+                                        </flux:button>
+                                @endcanany
+                                    @canany(['sys.admin', 'doctor.detail.unavailabilities'])
+                                        <flux:button variant="ghost" size="sm" icon="clipboard-document-check" inset="top bottom"
+                                                     title="{{ __('common.unavailabilities_detail') }}"
+                                                     href="{{route('doctor.detail.unavailabilities', ['doctorId' => $doctor->id])}}"
                                                      wire:navigate>
                                         </flux:button>
                                     @endcanany

@@ -57,5 +57,8 @@ return [
         'edit' => 'Modificar Doctor | Valerix HCMS',
         'detail' => 'Detalle de Doctor | Valerix HCMS',
         'edit_availabilities' => 'Modificar Horario del Doctor | Valerix HCMS',
+        'create_unavailability' => 'Registrar Indisponibilidad | Valerix HCMS',
+        'edit_unavailability' => 'Modificar Indisponibilidad | Valerix HCMS',
+        'unavailabilities' => 'Listado de Indisponibilidades | Valerix HCMS',
     ],
 ];

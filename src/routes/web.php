@@ -154,6 +154,21 @@ Route::group(['prefix' => '/dashboard'], function () {
         Route::livewire('/{doctorId}/availabilities/edit', 'pages.doctor.doctor-availabilities-form')
             ->middleware('require_permission:doctor.edit.availabilities')
             ->name('doctor.edit.availabilities');
+
+    });
+
+    Route::group(['prefix' => '/d/unav'], function () {
+        Route::livewire('/create', 'pages.doctor.doctor-unavailabilities-form')
+            ->middleware('require_permission:doctor.create.unavailabilities')
+            ->name('doctor.create.unavailabilities');
+
+        Route::livewire('/{unavId}/edit', 'pages.doctor.doctor-unavailabilities-form')
+            ->middleware('require_permission:doctor.edit.unavailabilities')
+            ->name('doctor.edit.unavailabilities');
+
+        Route::livewire('/{doctorId}', 'pages.doctor.doctor-unavailabilities-detail')
+            ->middleware('require_permission:doctor.detail.unavailabilities')
+            ->name('doctor.detail.unavailabilities');
     });
 
     Route::group(['prefix' => '/system/holiday'], function () {
