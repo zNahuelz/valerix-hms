@@ -185,6 +185,52 @@ Route::group(['prefix' => '/dashboard'], function () {
             ->name('holiday.edit');
     });
 
+    Route::group(['prefix' => '/system/payment-type'], function () {
+        Route::livewire('/', 'pages.payment-type.payment-type-index')
+            ->middleware('require_permission:paymentType.index')
+            ->name('paymentType.index');
+
+        Route::livewire('/create', 'pages.payment-type.payment-type-form')
+            ->middleware('require_permission:paymentType.create')
+            ->name('paymentType.create');
+
+        Route::livewire('/{paymentTypeId}/edit', 'pages.payment-type.payment-type-form')
+            ->middleware('require_permission:paymentType.edit')
+            ->name('paymentType.edit');
+    });
+
+    Route::group(['prefix' => '/system/voucher-type'], function () {
+        Route::livewire('/', 'pages.voucher-type.voucher-type-index')
+            ->middleware('require_permission:voucherType.index')
+            ->name('voucherType.index');
+
+        Route::livewire('/{voucherTypeId}', 'pages.voucher-type.voucher-type-detail')
+            ->middleware('require_permission:voucherType.detail')
+            ->name('voucherType.detail');
+
+        Route::livewire('/create', 'pages.voucher-type.voucher-type-form')
+            ->middleware('require_permission:voucherType.create')
+            ->name('voucherType.create');
+
+        Route::livewire('/{voucherTypeId}/edit', 'pages.voucher-type.voucher-type-form')
+            ->middleware('require_permission:voucherType.edit')
+            ->name('voucherType.edit');
+    });
+
+    Route::group(['prefix' => '/system/voucher-serie'], function () {
+        Route::livewire('/', 'pages.voucher-serie.voucher-serie-index')
+            ->middleware('require_permission:voucherSerie.index')
+            ->name('voucherSerie.index');
+
+        Route::livewire('/create', 'pages.voucher-serie.voucher-serie-form')
+            ->middleware('require_permission:voucherSerie.create')
+            ->name('voucherSerie.create');
+
+        Route::livewire('/{voucherSerieId}/edit', 'pages.voucher-serie.voucher-serie-form')
+            ->middleware('require_permission:voucherSerie.edit')
+            ->name('voucherSerie.edit');
+    });
+
 })->middleware('auth');
 
 Route::post('/logout', function () {

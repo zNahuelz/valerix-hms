@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             MedicineSeeder::class,
             PatientSeeder::class,
             DoctorSeeder::class,
+            PaymentTypeSeeder::class,
+            VoucherTypeSeeder::class,
         ]);
     }
 }

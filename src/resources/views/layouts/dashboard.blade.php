@@ -148,6 +148,18 @@
                     <flux:sidebar.item href="{{ route('holiday.index') }}" wire:navigate>{{ trans_choice('common.holiday',2) }}
                     </flux:sidebar.item>
                 @endcanany
+                    @canany(['sys.admin', 'voucherType.index'])
+                        <flux:sidebar.item href="{{ route('voucherType.index') }}" wire:navigate>{{ trans_choice('voucher-type.voucher_type',2) }}
+                        </flux:sidebar.item>
+                    @endcanany
+                    @canany(['sys.admin', 'voucherSerie.index'])
+                        <flux:sidebar.item href="{{ route('voucherSerie.index') }}" wire:navigate>{{ trans_choice('voucher-serie.voucher_serie',2) }}
+                        </flux:sidebar.item>
+                    @endcanany
+                    @canany(['sys.admin', 'paymentType.index'])
+                        <flux:sidebar.item href="{{ route('paymentType.index') }}" wire:navigate>{{ trans_choice('payment-type.payment_type',2) }}
+                        </flux:sidebar.item>
+                    @endcanany
             </flux:sidebar.group>
         @endcanany
     </flux:sidebar.nav>

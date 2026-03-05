@@ -61,4 +61,20 @@ return [
         'edit_unavailability' => 'Modificar Indisponibilidad | Valerix HCMS',
         'unavailabilities' => 'Listado de Indisponibilidades | Valerix HCMS',
     ],
+    'payment_type' => [
+        'index' => 'Listado de Tipos de Pago | Valerix HCMS',
+        'create' => 'Registrar Tipo de Pago | Valerix HCMS',
+        'edit' => 'Modificar Tipo de Pago | Valerix HCMS',
+    ],
+    'voucher_type' => [
+        'index' => 'Listado de Tipos de Comprobantes | Valerix HCMS',
+        'create' => 'Registrar Tipo de Comprobantes | Valerix HCMS',
+        'edit' => 'Modificar Tipo de Comprobantes | Valerix HCMS',
+        'detail' => 'Detalle de Tipo de Comprobante | Valerix HCMS',
+    ],
+    'voucher_serie' => [
+        'index' => 'Listado de Series de Comprobantes | Valerix HCMS',
+        'create' => 'Registrar Serie de Comprobante | Valerix HCMS',
+        'edit' => 'Modificar Serie de Comprobante | Valerix HCMS',
+    ],
 ];

@@ -77,6 +77,11 @@ return [
         'only_visible' => 'SOLO HABILITADOS',
         'trashed' => 'SOLO DESHABILITADOS',
     ],
+    'status_filter' => [
+        'all' => 'TODAS',
+        'enabled' => 'SERIES HABILITADAS',
+        'disabled' => 'SERIES DESHABILITADAS',
+    ],
     'unauthorized' => 'Su cuenta no posee los permisos necesarios para acceder al módulo solicitado, comuniquese con administración.',
     'settings' => 'Configuración',
     'numeric_value' => 'Valor Numérico',
@@ -115,4 +120,6 @@ return [
     'start_datetime' => 'Fecha y Hora Inicio',
     'end_datetime' => 'Fecha y Hora Fin',
     'reason' => 'Motivo',
+    'next_value' => 'Próximo Valor',
+    'next_value_alt' => 'Prox. Valor',
 ];

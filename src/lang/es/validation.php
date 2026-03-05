@@ -161,4 +161,49 @@ return [
             'enum' => 'La razón seleccionada es inválida.',
         ],
     ],
+    'paymentType' => [
+        'name' => [
+            'required' => 'Debe ingresar un nombre.',
+            'min' => 'El nombre debe tener al menos 5 carácteres.',
+            'max' => 'El nombre debe tener como máximo 50 carácteres.',
+            'unique' => 'El nombre ingresado ya se encuentra asignado a un tipo de pago.',
+        ],
+        'action' => [
+            'required' => 'Debe seleccionar una acción para el tipo de pago.',
+            'enum' => 'La acción seleccionada es inválida o no se encuentra disponible.',
+        ],
+    ],
+    'voucherType' => [
+        'name' => [
+            'required' => 'Debe ingresar un nombre.',
+            'min' => 'El nombre debe tener al menos 5 carácteres.',
+            'max' => 'El nombre debe tener como máximo 20 carácteres.',
+            'unique' => 'El nombre ingresado ya se encuentra asignado a un tipo de comprobante.',
+        ],
+    ],
+    'voucherSerie' => [
+        'voucher_type_id' => [
+            'required' => 'Debe seleccionar un tipo de comprobante.',
+            'exists' => 'El tipo de comprobante seleccionado no existe o no se encuentra disponible.',
+        ],
+        'serie_number' => [
+            'required' => 'Debe ingresar un número de serie.',
+            'integer' => 'El número de serie debe ser entero.',
+            'min' => 'El número de serie debe ser como mínimo 1.',
+            'max' => 'El número de serie debe ser como máximo 999.',
+        ],
+        'serie' => [
+            'required' => 'Debe ingresar un valor numérico para la serie.',
+            'regex' => 'Debe ingresar una serie válida del formato: (Primera letra de tipo de comp.)(001-999)',
+            'unique' => 'El valor ingresado ya se encuentra asignado a otra serie.',
+        ],
+        'next_value' => [
+            'numeric' => 'Debe ingresar un valor numérico.',
+            'min' => 'El valor debe ser como mínimo 1.',
+            'max' => 'El valor debe ser como máximo 999.999.999',
+        ],
+        'is_active' => [
+            'boolean' => 'Solo se permite (Verdadero/Falso).',
+        ],
+    ],
 ];
