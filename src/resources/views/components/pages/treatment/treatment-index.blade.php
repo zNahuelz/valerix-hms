@@ -4,9 +4,10 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
 use Livewire\Attributes\Computed;
-use App\Models\Medicine;
+use App\Models\Treatment;
 
-new class extends Component {
+new class extends Component
+{
     use WithPagination, WithoutUrlPagination;
 
     public string $keyword = '';
@@ -19,12 +20,11 @@ new class extends Component {
         $rules = [
             'id' => ['regex:/^\d+$/'],
             'name' => ['required', 'string', 'min:3'],
-            'barcode' => ['required', 'regex:/^\d{13}$/'],
-            'composition' => ['required', 'string', 'min:3'],
             'description' => ['required', 'string', 'min:3'],
+            'procedure' => ['required', 'string', 'min:3'],
         ];
         return [
-            'searchColumn' => ['required', 'in:id,name,barcode,composition,description'],
+            'searchColumn' => ['required', 'in:id,name,description,procedure'],
             'keyword' => $rules[$this->searchColumn] ?? ['string', 'min:3']
         ];
     }
@@ -63,9 +63,9 @@ new class extends Component {
     }
 
     #[Computed]
-    public function medicines()
+    public function treatments()
     {
-        $query = Medicine::query()->with('presentation');
+        $query = Treatment::with(['medicines' => fn($q) => $q->select('medicines.id')]);
 
         if ($this->visibilityFilter) {
             switch ($this->visibilityFilter) {
@@ -88,14 +88,11 @@ new class extends Component {
                 case 'name':
                     $query->whereLike('name', "%{$this->keyword}%", caseSensitive: false);
                     break;
-                case 'barcode':
-                    $query->whereLike('barcode', $this->keyword);
-                    break;
-                case 'composition':
-                    $query->whereLike('composition', "%{$this->keyword}%", caseSensitive: false);
-                    break;
                 case 'description':
                     $query->whereLike('description', "%{$this->keyword}%", caseSensitive: false);
+                    break;
+                case 'procedure':
+                    $query->whereLike('procedure', "%{$this->keyword}%", caseSensitive: false);
                     break;
             }
         }
@@ -106,16 +103,16 @@ new class extends Component {
     public function render(): mixed
     {
         return $this->view()
-            ->layout('layouts::dashboard', ['heading' => __('medicine.index')])
-            ->title(__('views.medicine.index'));
+            ->layout('layouts::dashboard', ['heading' => __('treatment.index')])
+            ->title(__('views.treatment.index'));
     }
 };
 ?>
 
 <div>
     <div class="flex flex-col md:flex-row w-full items-stretch md:items-center justify-between gap-4 mb-2">
-        @canany(['sys.admin', 'medicine.create'])
-            <flux:button variant="primary" icon="plus" wire:navigate href="{{ route('medicine.create') }}"
+        @canany(['sys.admin', 'treatment.create'])
+            <flux:button variant="primary" icon="plus" wire:navigate href="{{ route('treatment.create') }}"
                          class="w-full md:w-auto">
                 {{ __('common.new') }}
             </flux:button>
@@ -125,9 +122,8 @@ new class extends Component {
             <flux:select wire:model.live="searchColumn" class="w-full md:w-40">
                 <flux:select.option value="id">{{ __('common.id') }}</flux:select.option>
                 <flux:select.option value="name">{{ trans_choice('common.name', 1) }}</flux:select.option>
-                <flux:select.option value="barcode">{{ __('common.barcode') }}</flux:select.option>
-                <flux:select.option value="composition">{{ __('common.composition') }}</flux:select.option>
                 <flux:select.option value="description">{{ __('common.description') }}</flux:select.option>
+                <flux:select.option value="procedure">{{ __('common.procedure') }}</flux:select.option>
             </flux:select>
             <flux:input wire:model="keyword" :placeholder="__('common.search') . '...'" class="w-full md:w-64"/>
             <flux:button.group>
@@ -144,41 +140,43 @@ new class extends Component {
         <flux:table.columns>
             <flux:table.column>{{ __('common.id_alt') }}</flux:table.column>
             <flux:table.column>{{ trans_choice('common.name', 1) }}</flux:table.column>
-            <flux:table.column>{{ __('common.barcode') }}</flux:table.column>
             <flux:table.column>{{ __('common.description')  }}</flux:table.column>
-            <flux:table.column>{{ trans_choice('presentation.presentation', 1) }}</flux:table.column>
+            <flux:table.column>{{ __('common.price') }}</flux:table.column>
+            <flux:table.column>{{ __('common.profit') }}</flux:table.column>
+            <flux:table.column>{{ __('common.required_medicines') }}</flux:table.column>
             <flux:table.column>{{ __('common.status') }}</flux:table.column>
             <flux:table.column>{{ __('common.updated_at') }}</flux:table.column>
             <flux:table.column></flux:table.column>
         </flux:table.columns>
         <flux:table.rows>
-            @forelse($this->medicines as $medicine)
+            @forelse($this->treatments as $treatment)
                 <flux:table.row class="hover:bg-accent-content/10">
-                    <flux:table.cell>{{ $medicine->id }}</flux:table.cell>
-                    <flux:table.cell>{{ $medicine->name }}</flux:table.cell>
-                    <flux:table.cell>{{ $medicine->barcode }}</flux:table.cell>
-                    <flux:table.cell>{{ $medicine->description != '' ? $medicine->description : __('common.null')  }}</flux:table.cell>
-                    <flux:table.cell>{{ $medicine->presentation->description }}</flux:table.cell>
+                    <flux:table.cell>{{ $treatment->id }}</flux:table.cell>
+                    <flux:table.cell>{{ $treatment->name }}</flux:table.cell>
+                    <flux:table.cell class="truncate max-w-sm">{{ $treatment->description != '' ? $treatment->description : __('common.null')  }}</flux:table.cell>
+                    <flux:table.cell>{{ $treatment->price }}</flux:table.cell>
+                    <flux:table.cell>{{ $treatment->profit }}</flux:table.cell>
+                    <flux:table.cell>{{ $treatment->medicines->count() }}</flux:table.cell>
                     <flux:table.cell>
-                        <flux:badge color="{{ $medicine->deleted_at ? 'red' : 'green' }}" size="sm" inset="top bottom">
-                            {{ $medicine->deleted_at ? __('common.disabled_entity') : __('common.enabled_entity') }}
+                        <flux:badge color="{{ $treatment->deleted_at ? 'red' : 'green' }}" size="sm" inset="top bottom">
+                            {{ $treatment->trashed() ? __('common.disabled_entity') : __('common.enabled_entity') }}
                         </flux:badge>
                     </flux:table.cell>
-                    <flux:table.cell>{{ $medicine->updated_at->timezone('America/Lima')->format('d/m/Y g:i A') }}
+                    <flux:table.cell>{{ $treatment->updated_at->timezone('America/Lima')->format('d/m/Y g:i A') }}
                     </flux:table.cell>
                     <flux:table.cell>
                         <flux:button.group>
-                            @canany(['sys.admin', 'medicine.edit', 'medicine.delete', 'medicine.restore'])
+                            @canany(['sys.admin', 'treatment.edit', 'treatment.delete', 'treatment.restore'])
                                 <flux:button variant="ghost" size="sm" icon="pencil-square" inset="top bottom"
                                              title="{{ __('common.edit') }}"
-                                             href="{{ route('medicine.edit', ['medicineId' => $medicine->id]) }}"
+                                             href="{{ route('treatment.edit', ['treatmentId' => $treatment->id]) }}"
                                              wire:navigate>
                                 </flux:button>
                             @endcanany
-                            @canany(['sys.admin', 'medicine.detail'])
+                            @canany(['sys.admin', 'treatment.detail'])
                                 <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal" inset="top bottom"
                                              title="{{ __('common.details') }}"
-                                             href="{{ route('medicine.detail', ['medicineId' => $medicine->id]) }}"
+                                             href="{{ route('treatment.detail', ['treatmentId' => $treatment->id]) }}"
                                              wire:navigate>
                                 </flux:button>
                             @endcanany
@@ -188,13 +186,13 @@ new class extends Component {
             @empty
                 <flux:table.row>
                     <flux:table.cell colspan="8" class="text-center text-lg md:text-xl font-light">
-                        {{ __('medicine.errors.empty_set') }}
+                        {{ __('treatment.errors.empty_set') }}
                     </flux:table.cell>
                 </flux:table.row>
             @endforelse
         </flux:table.rows>
     </flux:table>
-    <x-shared.pagination :paginator="$this->medicines"></x-shared.pagination>
+    <x-shared.pagination :paginator="$this->treatments"></x-shared.pagination>
     <div class="flex flex-col items-end mt-2">
         <flux:select wire:model.live="visibilityFilter" wire:loading.attr="disabled" class="w-full md:w-50">
             <flux:select.option value="all">{{ __('common.index_filter.all') }}</flux:select.option>

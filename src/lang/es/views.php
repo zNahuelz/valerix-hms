@@ -77,4 +77,10 @@ return [
         'create' => 'Registrar Serie de Comprobante | Valerix HCMS',
         'edit' => 'Modificar Serie de Comprobante | Valerix HCMS',
     ],
+    'treatment' => [
+        'index' => 'Listado de Tratamientos | Valerix HCMS',
+        'create' => 'Registrar Tratamiento | Valerix HCMS',
+        'edit' => 'Modificar Tratamiento | Valerix HCMS',
+        'detail' => 'Detalle de Tratamiento | Valerix HCMS',
+    ],
 ];

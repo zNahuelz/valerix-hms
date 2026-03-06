@@ -140,6 +140,21 @@
             </flux:sidebar.group>
         @endcanany
 
+        @canany(['sys.admin', 'treatment.index', 'treatment.create', 'treatment.update', 'treatment.delete', 'treatment.restore'])
+            <flux:sidebar.group expandable :expanded="request()->routeIs('treatment.*')" persist icon="swatch"
+                                heading="{{ trans_choice('treatment.treatment', 2) }}"
+                                class="grid">
+                @canany(['sys.admin', 'treatment.create'])
+                    <flux:sidebar.item href="{{ route('treatment.create') }}" wire:navigate>{{ __('common.store') }}
+                    </flux:sidebar.item>
+                @endcanany
+                @canany(['sys.admin', 'treatment.index'])
+                    <flux:sidebar.item href="{{ route('treatment.index') }}" wire:navigate>{{ __('common.index') }}
+                    </flux:sidebar.item>
+                @endcanany
+            </flux:sidebar.group>
+        @endcanany
+
         @canany(['sys.admin', 'holiday.index', 'holiday.create', 'holiday.update', 'holiday.delete'])
             <flux:sidebar.group expandable :expanded="request()->routeIs('holiday.*') || request()->routeIs('system.*')" persist icon="circle-stack"
                                 heading="{{ __('common.system') }}"

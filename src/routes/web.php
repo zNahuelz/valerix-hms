@@ -231,6 +231,24 @@ Route::group(['prefix' => '/dashboard'], function () {
             ->name('voucherSerie.edit');
     });
 
+    Route::group(['prefix' => '/treatment'], function () {
+        Route::livewire('/', 'pages.treatment.treatment-index')
+            ->middleware('require_permission:treatment.index')
+            ->name('treatment.index');
+
+        Route::livewire('/create', 'pages.treatment.treatment-form')
+            ->middleware('require_permission:treatment.create')
+            ->name('treatment.create');
+
+        Route::livewire('/{treatmentId}', 'pages.treatment.treatment-detail')
+            ->middleware('require_permission:treatment.detail')
+            ->name('treatment.detail');
+
+        Route::livewire('/{treatmentId}/edit', 'pages.treatment.treatment-form')
+            ->middleware('require_permission:treatment.edit')
+            ->name('treatment.edit');
+    });
+
 })->middleware('auth');
 
 Route::post('/logout', function () {

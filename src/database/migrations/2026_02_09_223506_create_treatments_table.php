@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('treatments', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->string('description')->default('-----');
-            $table->string('procedure')->default('-----');
+            $table->string('description')->nullable();
+            $table->string('procedure')->nullable();
             $table->double('price');
             $table->double('tax');
             $table->double('profit');

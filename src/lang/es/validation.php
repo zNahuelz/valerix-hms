@@ -7,6 +7,7 @@ return [
         'max' => 'El nombre debe tener máximo :max carácteres',
         'unique_clinic' => 'El nombre ingresado ya se encuentra asignado a una clínica.',
         'unique_holiday' => 'El nombre ingresado ya se encuentra registrado como feriado.',
+        'unique_treatment' => 'El nombre ingresado ya se encuentra asignado a un tratamiento',
     ],
     'paternal_surname' => [
         'required' => 'Debe ingresar un apellido paterno.',
@@ -205,5 +206,35 @@ return [
         'is_active' => [
             'boolean' => 'Solo se permite (Verdadero/Falso).',
         ],
+    ],
+    'price' => [
+        'required' => 'Debe ingresar un precio.',
+        'numeric' => 'Debe ingresar un valor numérico para el precio.',
+        'min' => 'El precio debe ser como mínimo :min.',
+        'max' => 'El precio debe ser como máximo :max.',
+    ],
+    'tax' => [
+        'numeric' => 'Debe ingresar un valor numérico para el IGV.',
+        'min' => 'El IGV debe ser como mínimo :min.',
+        'max' => 'El IGV debe ser como máximo :max.',
+    ],
+    'profit' => [
+        'required' => 'Debe ingresar la ganancia.',
+        'numeric' => 'Debe ingresar un valor numérico para la ganancia.',
+        'min' => 'La ganancia debe ser como mínimo :min.',
+        'max' => 'La ganancia debe ser como máximo :max.',
+        'lte' => 'La ganancia debe ser igual o inferior al precio.',
+    ],
+    'medicines' => [
+        'required' => 'El listado de medicamentos es obligatorio.',
+        'array' => 'Los medicamentos deben ser un listado.',
+        'barcode_empty' => 'Debe ingresar un código de barras válido.',
+        'barcode_not_found' => 'El código de barras ingresado no pertenece a un medicamento registrado.',
+        'already_added' => 'El medicamento ya se encuentra asignado al tratamiento.',
+    ],
+    'medicines.*' => [
+        'integer' => 'Cada medicamento debe poseer un ID válido.',
+        'distinct' => 'No se permite seleccionar medicamentos duplicados.',
+        'exists' => 'El medicamento seleccionado es inválido o no se encuentra disponible.',
     ],
 ];
