@@ -3,8 +3,7 @@
 use Livewire\Component;
 use App\Models\Treatment;
 
-new class extends Component
-{
+new class extends Component {
     public ?Treatment $treatment = null;
 
     public function mount(?string $treatmentId = null): void

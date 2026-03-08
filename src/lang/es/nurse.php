@@ -27,5 +27,7 @@ return [
         'creation_disabled_nurse_role_not_found' => 'El sistema no cuenta con el rol de enfermera registrado; el módulo de registro de enfermeras se encuentra bloqueado. Debe registrar un rol llamado "ENFERMERA" y asignarle los permisos correspondiente; comuniquese con administración de ser necesario.',
         'editing_session' => '¡Ups! Solo puedes modificar las propiedades de tu usuario desde tu perfil.',
         'editing_nurse' => '¡Ups! Solo puedes modificar las propiedades de una enfermera desde la sección correspondiente.',
+        'creation_failed' => 'Error durante el registro de la enfermera, intente nuevamente o comuniquese con administración.',
+        'update_failed' => 'Error durante la actualización de la enfermera, intente nuevamente o comuniquese con administración.',
     ],
 ];

@@ -61,12 +61,16 @@ new class extends Component {
                 <flux:label>{{ __('common.ruc') }}</flux:label>
                 <flux:input readonly value="{{ $supplier->ruc }}" type="text"/>
             </flux:field>
-            <flux:input readonly value="{{ $supplier->address ?? __('common.null') }}" label="{{ __('common.address') }}"
+            <flux:input readonly value="{{ $supplier->address ?? __('common.null') }}"
+                        label="{{ __('common.address') }}"
                         type="text"/>
-            <flux:input readonly value="{{ $supplier->phone ?? __('common.null') }}" label="{{ __('common.phone') }}" type="text"/>
-            <flux:input readonly value="{{ $supplier->email ?? __('common.null') }}" label="{{ __('common.email') }}" type="email"/>
+            <flux:input readonly value="{{ $supplier->phone ?? __('common.null') }}" label="{{ __('common.phone') }}"
+                        type="text"/>
+            <flux:input readonly value="{{ $supplier->email ?? __('common.null') }}" label="{{ __('common.email') }}"
+                        type="email"/>
             <div class="col-span-full">
-                <flux:input readonly value="{{ $supplier->description ?? __('common.null') }}" label="{{ __('common.description') }}"
+                <flux:input readonly value="{{ $supplier->description ?? __('common.null') }}"
+                            label="{{ __('common.description') }}"
                             type="text"/>
             </div>
             <flux:input readonly value="{{ $supplier->createdBy->username ?? __('common.inserted_by_null') }}"

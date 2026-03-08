@@ -132,4 +132,9 @@ return [
     'required_medicines_alt' => 'Medicamentos Requeridos',
     'main_money' => 'Soles',
     'main_money_alt' => 'S./',
+    'add' => 'Añadir',
+    'subtotal' => 'Subtotal',
+    'total' => 'Total',
+    'amount' => 'Cantidad',
+    'unit_price' => 'Precio Unitario',
 ];

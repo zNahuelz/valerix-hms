@@ -39,14 +39,19 @@ new class extends Component {
     {
         $sanitized = $this->form->sanitized();
         $this->validate();
-        if ($this->form->supplier) {
-            $this->form->supplier->update($sanitized);
-            Session::flash('success', __('supplier.updated', ['name' => $sanitized['name'], 'id' => $this->form->supplier->id]));
-        } else {
-            $supplier = Supplier::create($sanitized);
-            Session::flash('success', __('supplier.created', ['name' => $sanitized['name'], 'id' => $supplier->id]));
+        try {
+            if ($this->form->supplier) {
+                $this->form->supplier->update($sanitized);
+                Session::flash('success', __('supplier.updated', ['name' => $sanitized['name'], 'id' => $this->form->supplier->id]));
+            } else {
+                $supplier = Supplier::create($sanitized);
+                Session::flash('success', __('supplier.created', ['name' => $sanitized['name'], 'id' => $supplier->id]));
+            }
+            return redirect()->to(route('supplier.index'));
+        } catch (Exception) {
+            Session::flash('error', $this->form->supplier ? __('supplier.errors.update_failed') : __('supplier.errors.creation_failed'));
+            return redirect()->to(route('supplier.index'));
         }
-        return redirect()->to(route('supplier.index'));
     }
 
     public function delete()

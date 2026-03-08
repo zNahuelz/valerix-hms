@@ -24,31 +24,6 @@ class TreatmentForm extends Form
 
     public array $medicines = [];
 
-    protected function stepOneRules(): array
-    {
-        return [
-            'name' => ['required', 'string', 'min:5', 'max:100',
-                Rule::unique('treatments', 'name')->ignore($this->treatment?->id)],
-            'description' => ['nullable', 'string', 'min:5', 'max:255'],
-            'procedure' => ['nullable', 'string', 'min:5', 'max:255'],
-            'price' => ['required', 'numeric', 'min:1', 'max:999999'],
-            'profit' => ['required', 'numeric', 'min:0', 'max:999999', 'lte:price'],
-        ];
-    }
-
-    protected function stepTwoRules(): array
-    {
-        return [
-            'medicines' => ['nullable', 'array'],
-            'medicines.*' => ['integer', 'distinct', Rule::exists('medicines', 'id')],
-        ];
-    }
-
-    protected function rules(): array
-    {
-        return array_merge($this->stepOneRules(), $this->stepTwoRules());
-    }
-
     public function validateStep(int $step): void
     {
         $rules = $step === 1 ? $this->stepOneRules() : $this->stepTwoRules();
@@ -62,20 +37,6 @@ class TreatmentForm extends Form
         );
 
         $this->validate($rules, $relevantMessages);
-    }
-
-    public function recalculateTax(): void
-    {
-        $price = is_numeric($this->price) ? (float) $this->price : 0;
-        $profit = is_numeric($this->profit) ? (float) $this->profit : 0;
-
-        if ($price <= 0 || $price === $profit) {
-            $this->tax = 0;
-
-            return;
-        }
-
-        $this->tax = round($price / 1.18 * 0.18, 2);
     }
 
     public function messages(): array
@@ -109,6 +70,20 @@ class TreatmentForm extends Form
         ];
     }
 
+    public function recalculateTax(): void
+    {
+        $price = is_numeric($this->price) ? (float) $this->price : 0;
+        $profit = is_numeric($this->profit) ? (float) $this->profit : 0;
+
+        if ($price <= 0 || $price === $profit) {
+            $this->tax = 0;
+
+            return;
+        }
+
+        $this->tax = round($price / 1.18 * 0.18, 2);
+    }
+
     public function sanitized(): array
     {
         $medicines = $this->medicines;
@@ -122,6 +97,31 @@ class TreatmentForm extends Form
             'tax' => $this->tax,
             'profit' => $this->profit,
             'medicines' => $medicines,
+        ];
+    }
+
+    protected function rules(): array
+    {
+        return array_merge($this->stepOneRules(), $this->stepTwoRules());
+    }
+
+    protected function stepOneRules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'min:5', 'max:100',
+                Rule::unique('treatments', 'name')->ignore($this->treatment?->id)],
+            'description' => ['nullable', 'string', 'min:5', 'max:255'],
+            'procedure' => ['nullable', 'string', 'min:5', 'max:255'],
+            'price' => ['required', 'numeric', 'min:1', 'max:999999'],
+            'profit' => ['required', 'numeric', 'min:0', 'max:999999', 'lte:price'],
+        ];
+    }
+
+    protected function stepTwoRules(): array
+    {
+        return [
+            'medicines' => ['nullable', 'array'],
+            'medicines.*' => ['integer', 'distinct', Rule::exists('medicines', 'id')],
         ];
     }
 }

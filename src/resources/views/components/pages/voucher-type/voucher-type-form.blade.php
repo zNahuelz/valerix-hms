@@ -5,8 +5,7 @@ use App\Models\VoucherType;
 use App\Livewire\Forms\Voucher\VoucherTypeForm;
 use Illuminate\Support\Facades\Session;
 
-new class extends Component
-{
+new class extends Component {
     public VoucherTypeForm $form;
 
     public function mount(?string $voucherTypeId = null): void
@@ -39,14 +38,19 @@ new class extends Component
     {
         $sanitized = $this->form->sanitized();
         $this->validate();
-        if ($this->form->voucherType) {
-            $this->form->voucherType->update($sanitized);
-            Session::flash('success', __('voucher-type.updated', ['name' => $sanitized['name'], 'id' => $this->form->voucherType->id]));
-        } else {
-            $voucherType = VoucherType::create($sanitized);
-            Session::flash('success', __('voucher-type.created', ['name' => $sanitized['name'], 'id' => $voucherType->id]));
+        try {
+            if ($this->form->voucherType) {
+                $this->form->voucherType->update($sanitized);
+                Session::flash('success', __('voucher-type.updated', ['name' => $sanitized['name'], 'id' => $this->form->voucherType->id]));
+            } else {
+                $voucherType = VoucherType::create($sanitized);
+                Session::flash('success', __('voucher-type.created', ['name' => $sanitized['name'], 'id' => $voucherType->id]));
+            }
+            return redirect()->to(route('voucherType.index'));
+        } catch (Exception) {
+            Session::flash('error', $this->form->voucherType ? __('voucher-type.errors.update_failed') : __('voucher-type.errors.creation_failed'));
+            return redirect()->to(route('voucherType.index'));
         }
-        return redirect()->to(route('voucherType.index'));
     }
 
     public function render(): mixed

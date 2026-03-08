@@ -8,21 +8,20 @@ use App\Livewire\Forms\NurseForm;
 use Illuminate\Support\Facades\Session;
 use Spatie\Permission\Models\Role;
 
-new class extends Component
-{
+new class extends Component {
     public NurseForm $form;
     public array $clinics = [];
     public int $nurseRoleId = 0;
 
     public function mount(?string $nurseId = null): void
     {
-        if(!Clinic::whereNull('deleted_at')->exists()){
+        if (!Clinic::whereNull('deleted_at')->exists()) {
             Session::flash('error', __('nurse.errors.creation_disabled_empty_clinics'));
             $this->redirectRoute('nurse.index');
             return;
         }
-        $this->clinics = Clinic::select(['id','name'])->whereNull('deleted_at')->orderBy('name')->get()->toArray();
-        if(!Role::exists()){
+        $this->clinics = Clinic::select(['id', 'name'])->whereNull('deleted_at')->orderBy('name')->get()->toArray();
+        if (!Role::exists()) {
             Session::flash('error', __('nurse.errors.creation_disabled_empty_roles'));
             $this->redirectRoute('nurse.index');
             return;
@@ -31,13 +30,13 @@ new class extends Component
             ->orderBy('name')
             ->value('id') ?? 0;
 
-        if($this->nurseRoleId === 0){
+        if ($this->nurseRoleId === 0) {
             Session::flash('error', __('nurse.errors.creation_disabled_nurse_role_not_found'));
             $this->redirectRoute('nurse.index');
             return;
         }
 
-        if(!$nurseId){
+        if (!$nurseId) {
             $this->form->clinic_id = $this->clinics[0]['id'];
             $this->form->role_id = $this->nurseRoleId;
         }
@@ -53,10 +52,10 @@ new class extends Component
                 $this->redirectWithError($nurseId);
                 return;
             }
-            $nurse->load(['user' => function($query) {
+            $nurse->load(['user' => function ($query) {
                 $query->withTrashed();
             }]);
-            if(auth()->user()->is($nurse->user)){
+            if (auth()->user()->is($nurse->user)) {
                 Session::flash('warning', __('nurse.errors.editing_session'));
                 $this->redirectRoute('nurse.index');
                 return;
@@ -80,30 +79,35 @@ new class extends Component
     {
         $sanitized = $this->form->sanitized();
         $this->validate();
-        if ($this->form->nurse) {
-            $this->form->nurse->update($sanitized);
-            $this->form->nurse->user->update([
-                'email' => $sanitized['email'],
-                'clinic_id' => $sanitized['clinic_id'],
-            ]);
-            //TODO: Trigger user updated email.
-            Session::flash('success', __('nurse.updated', ['name' => $sanitized['names'] .' '. $sanitized['paternal_surname'], 'id' => $this->form->nurse->id]));
-        } else {
-            $user = User::create([
-                'username' => $this->generateUsername($sanitized['names'],$sanitized['paternal_surname'],$sanitized['dni']),
-                'password' => strrev($this->generateUsername($sanitized['names'],$sanitized['paternal_surname'],$sanitized['dni'])),
-                'email' => $sanitized['email'],
-                'avatar' => null,
-                'clinic_id' => $sanitized['clinic_id'],
-            ]);
-            $role = Role::findById($this->nurseRoleId);
-            $user->assignRole($role);
-            $sanitized['user_id'] = $user->id;
-            $nurse = Nurse::create($sanitized);
-            //TODO: Trigger user created email.
-            Session::flash('success', __('nurse.created', ['name' => $sanitized['names'] .' '. $sanitized['paternal_surname'], 'id' => $nurse->id, 'username' => $user->username]));
+        try {
+            if ($this->form->nurse) {
+                $this->form->nurse->update($sanitized);
+                $this->form->nurse->user->update([
+                    'email' => $sanitized['email'],
+                    'clinic_id' => $sanitized['clinic_id'],
+                ]);
+                //TODO: Trigger user updated email.
+                Session::flash('success', __('nurse.updated', ['name' => $sanitized['names'] . ' ' . $sanitized['paternal_surname'], 'id' => $this->form->nurse->id]));
+            } else {
+                $user = User::create([
+                    'username' => $this->generateUsername($sanitized['names'], $sanitized['paternal_surname'], $sanitized['dni']),
+                    'password' => strrev($this->generateUsername($sanitized['names'], $sanitized['paternal_surname'], $sanitized['dni'])),
+                    'email' => $sanitized['email'],
+                    'avatar' => null,
+                    'clinic_id' => $sanitized['clinic_id'],
+                ]);
+                $role = Role::findById($this->nurseRoleId);
+                $user->assignRole($role);
+                $sanitized['user_id'] = $user->id;
+                $nurse = Nurse::create($sanitized);
+                //TODO: Trigger user created email.
+                Session::flash('success', __('nurse.created', ['name' => $sanitized['names'] . ' ' . $sanitized['paternal_surname'], 'id' => $nurse->id, 'username' => $user->username]));
+            }
+            return redirect()->to(route('nurse.index'));
+        } catch (Exception) {
+            Session::flash('error', $this->form->nurse ? __('nurse.errors.update_failed') : __('nurse.errors.creation_failed'));
+            return redirect()->to(route('nurse.index'));
         }
-        return redirect()->to(route('nurse.index'));
     }
 
     public function delete()
@@ -162,7 +166,8 @@ new class extends Component
                 <flux:input wire:model.live.blur="form.paternal_surname" type="text"/>
                 <flux:error name="form.paternal_surname"/>
             </flux:field>
-            <flux:input wire:model.live.blur="form.maternal_surname" label="{{ __('common.maternal_surname') }}" type="text"/>
+            <flux:input wire:model.live.blur="form.maternal_surname" label="{{ __('common.maternal_surname') }}"
+                        type="text"/>
             <flux:field>
                 <flux:label badge="{{ __('common.required') }}">{{ __('common.hired_at') }}</flux:label>
                 <flux:input wire:model.live.blur="form.hired_at" type="date"/>

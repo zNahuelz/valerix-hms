@@ -5,8 +5,7 @@ use App\Models\Patient;
 use App\Livewire\Forms\PatientForm;
 use Illuminate\Support\Facades\Session;
 
-new class extends Component
-{
+new class extends Component {
     public PatientForm $form;
 
     public function mount(?string $patientId = null): void
@@ -24,7 +23,7 @@ new class extends Component
                 return;
             }
 
-            if($patient->isDefaultPatient()){
+            if ($patient->isDefaultPatient()) {
                 Session::flash('info', __('patient.errors.default_patient'));
                 $this->redirectRoute('patient.index');
                 return;
@@ -45,14 +44,19 @@ new class extends Component
     {
         $sanitized = $this->form->sanitized();
         $this->validate();
-        if ($this->form->patient) {
-            $this->form->patient->update($sanitized);
-            Session::flash('success', __('patient.updated', ['name' => $sanitized['names'] .' '. $sanitized['paternal_surname'], 'id' => $this->form->patient->id]));
-        } else {
-            $patient = Patient::create($sanitized);
-            Session::flash('success', __('patient.created', ['name' => $sanitized['names'] .' '. $sanitized['paternal_surname'], 'id' => $patient->id]));
+        try {
+            if ($this->form->patient) {
+                $this->form->patient->update($sanitized);
+                Session::flash('success', __('patient.updated', ['name' => $sanitized['names'] . ' ' . $sanitized['paternal_surname'], 'id' => $this->form->patient->id]));
+            } else {
+                $patient = Patient::create($sanitized);
+                Session::flash('success', __('patient.created', ['name' => $sanitized['names'] . ' ' . $sanitized['paternal_surname'], 'id' => $patient->id]));
+            }
+            return redirect()->to(route('patient.index'));
+        } catch (Exception) {
+            Session::flash('error', $this->form->patient ? __('patient.errors.update_failed') : __('patient.errors.creation_failed'));
+            return redirect()->to(route('patient.index'));
         }
-        return redirect()->to(route('patient.index'));
     }
 
     public function delete()
@@ -101,7 +105,8 @@ new class extends Component
                 <flux:input wire:model.live.blur="form.paternal_surname" type="text"/>
                 <flux:error name="form.paternal_surname"/>
             </flux:field>
-            <flux:input wire:model.live.blur="form.maternal_surname" label="{{ __('common.maternal_surname') }}" type="text"/>
+            <flux:input wire:model.live.blur="form.maternal_surname" label="{{ __('common.maternal_surname') }}"
+                        type="text"/>
             <flux:field>
                 <flux:label badge="{{ __('common.required') }}">{{ __('common.birth_date') }}</flux:label>
                 <flux:input wire:model.live.blur="form.birth_date" type="date"/>

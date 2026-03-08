@@ -6,8 +6,7 @@ use Livewire\WithPagination;
 use App\Models\PaymentType;
 use Livewire\Attributes\Computed;
 
-new class extends Component
-{
+new class extends Component {
     use WithPagination, WithoutUrlPagination;
 
     public string $keyword = '';
@@ -18,7 +17,7 @@ new class extends Component
     {
         $rules = [
             'id' => ['regex:/^\d+$/'],
-            'name' => ['required','string', 'min:3']
+            'name' => ['required', 'string', 'min:3']
         ];
         return [
             'searchColumn' => ['required', 'in:id,name'],
@@ -125,13 +124,13 @@ new class extends Component
                     <flux:table.cell>{{ $paymentType->created_at->timezone('America/Lima')->format('d/m/Y g:i A') }}</flux:table.cell>
                     <flux:table.cell>{{ $paymentType->updated_at->timezone('America/Lima')->format('d/m/Y g:i A') }}</flux:table.cell>
                     <flux:table.cell>
-                            @canany(['sys.admin', 'paymentType.edit'])
-                                <flux:button variant="ghost" size="sm" icon="pencil-square" inset="top bottom"
-                                             title="{{ __('common.edit') }}"
-                                             href="{{ route('paymentType.edit', ['paymentTypeId' => $paymentType->id]) }}"
-                                             wire:navigate>
-                                </flux:button>
-                            @endcanany
+                        @canany(['sys.admin', 'paymentType.edit'])
+                            <flux:button variant="ghost" size="sm" icon="pencil-square" inset="top bottom"
+                                         title="{{ __('common.edit') }}"
+                                         href="{{ route('paymentType.edit', ['paymentTypeId' => $paymentType->id]) }}"
+                                         wire:navigate>
+                            </flux:button>
+                        @endcanany
                     </flux:table.cell>
                 </flux:table.row>
             @empty

@@ -6,8 +6,7 @@ use Livewire\WithoutUrlPagination;
 use Livewire\Attributes\Computed;
 use App\Models\Treatment;
 
-new class extends Component
-{
+new class extends Component {
     use WithPagination, WithoutUrlPagination;
 
     public string $keyword = '';
@@ -153,7 +152,8 @@ new class extends Component
                 <flux:table.row class="hover:bg-accent-content/10">
                     <flux:table.cell>{{ $treatment->id }}</flux:table.cell>
                     <flux:table.cell>{{ $treatment->name }}</flux:table.cell>
-                    <flux:table.cell class="truncate max-w-sm">{{ $treatment->description != '' ? $treatment->description : __('common.null')  }}</flux:table.cell>
+                    <flux:table.cell
+                        class="truncate max-w-sm">{{ $treatment->description != '' ? $treatment->description : __('common.null')  }}</flux:table.cell>
                     <flux:table.cell>{{ $treatment->price }}</flux:table.cell>
                     <flux:table.cell>{{ $treatment->profit }}</flux:table.cell>
                     <flux:table.cell>{{ $treatment->medicines->count() }}</flux:table.cell>

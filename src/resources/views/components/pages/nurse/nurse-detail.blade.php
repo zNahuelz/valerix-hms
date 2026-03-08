@@ -4,8 +4,7 @@ use Livewire\Component;
 use App\Models\Nurse;
 use Illuminate\Support\Carbon;
 
-new class extends Component
-{
+new class extends Component {
     public ?Nurse $nurse = null;
 
     public function mount(?string $nurseId = null): void
@@ -23,7 +22,7 @@ new class extends Component
                 return;
             }
 
-            $nurse->load(['user' => fn($q) => $q->withTrashed()->with('roles'),'updatedBy']);
+            $nurse->load(['user' => fn($q) => $q->withTrashed()->with('roles'), 'updatedBy']);
 
             $this->nurse = $nurse;
         }
@@ -39,7 +38,7 @@ new class extends Component
     {
         return $this->view()
             ->layout('layouts::dashboard', ['heading' => __('nurse.detail', ['id' => $this->nurse->id, 'name' => ucwords(strtolower($this->nurse->names))
-                .' '.
+                . ' ' .
                 ucwords(strtolower($this->nurse->paternal_surname))])])
             ->title(__('views.nurse.detail'));
     }
@@ -71,12 +70,16 @@ new class extends Component
             </flux:field>
             <flux:field>
                 <flux:label>{{ __('common.hired_at') }}</flux:label>
-                <flux:input readonly value="{{ Carbon::createFromFormat('Y-m-d',$nurse->hired_at)->timezone('America/Lima')->format('d/m/Y') ?? __('common.null') }}" type="text"/>
-            </flux:field>
-            <flux:input readonly value="{{ $nurse->user?->email ?? __('common.null') }}" label="{{ __('common.email') }}" type="email"/>
-            <flux:input readonly value="{{ $nurse->phone ?? __('common.null') }}" label="{{ __('common.phone') }}" type="text"/>
-            <flux:input readonly value="{{ $nurse->address ?? __('common.null') }}" label="{{ __('common.address') }}"
+                <flux:input readonly
+                            value="{{ Carbon::createFromFormat('Y-m-d',$nurse->hired_at)->timezone('America/Lima')->format('d/m/Y') ?? __('common.null') }}"
                             type="text"/>
+            </flux:field>
+            <flux:input readonly value="{{ $nurse->user?->email ?? __('common.null') }}"
+                        label="{{ __('common.email') }}" type="email"/>
+            <flux:input readonly value="{{ $nurse->phone ?? __('common.null') }}" label="{{ __('common.phone') }}"
+                        type="text"/>
+            <flux:input readonly value="{{ $nurse->address ?? __('common.null') }}" label="{{ __('common.address') }}"
+                        type="text"/>
             <flux:field>
                 <flux:label>{{ trans_choice('auth.user',1) }}</flux:label>
                 <flux:input.group>
@@ -113,7 +116,8 @@ new class extends Component
                 <div class="flex flex-col md:flex-row md:justify-between gap-2">
                     @if(!auth()->user()->is($nurse->user))
                         @canany(['sys.admin', 'nurse.update', 'nurse.delete', 'nurse.restore'])
-                            <flux:button type="button" variant="primary" class="w-full md:w-auto md:ml-auto" wire:navigate
+                            <flux:button type="button" variant="primary" class="w-full md:w-auto md:ml-auto"
+                                         wire:navigate
                                          href="{{ route('nurse.edit', ['nurseId' => $nurse->id]) }}">
                                 {{ __('common.edit') }}
                             </flux:button>

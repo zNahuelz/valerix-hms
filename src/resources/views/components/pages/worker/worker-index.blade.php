@@ -6,8 +6,7 @@ use Livewire\WithPagination;
 use App\Models\Worker;
 use Livewire\Attributes\Computed;
 
-new class extends Component
-{
+new class extends Component {
     use WithPagination, WithoutUrlPagination;
 
     public string $keyword = '';
@@ -19,9 +18,9 @@ new class extends Component
     {
         $rules = [
             'id' => ['regex:/^\d+$/'],
-            'dni' => ['required','regex:/^[0-9]{8,15}$/'],
-            'names' => ['required','string', 'min:3'],
-            'paternal_surname' => ['required','string', 'min:3'],
+            'dni' => ['required', 'regex:/^[0-9]{8,15}$/'],
+            'names' => ['required', 'string', 'min:3'],
+            'paternal_surname' => ['required', 'string', 'min:3'],
         ];
         return [
             'searchColumn' => ['required', 'in:id,names,dni,paternal_surname'],
@@ -164,9 +163,9 @@ new class extends Component
                     </flux:table.cell>
                     <flux:table.cell>{{ $worker->updated_at->timezone('America/Lima')->format('d/m/Y g:i A') }}
                     </flux:table.cell>
-                        <flux:table.cell>
-                            <flux:button.group>
-                                @if(auth()->id() !== $worker->user_id)
+                    <flux:table.cell>
+                        <flux:button.group>
+                            @if(auth()->id() !== $worker->user_id)
                                 @canany(['sys.admin', 'worker.edit', 'worker.delete', 'worker.restore'])
                                     <flux:button variant="ghost" size="sm" icon="pencil-square" inset="top bottom"
                                                  title="{{ __('common.edit') }}"
@@ -181,9 +180,9 @@ new class extends Component
                                                  wire:navigate>
                                     </flux:button>
                                 @endcanany
-                                    @endif
-                            </flux:button.group>
-                        </flux:table.cell>
+                            @endif
+                        </flux:button.group>
+                    </flux:table.cell>
                 </flux:table.row>
             @empty
                 <flux:table.row>

@@ -25,5 +25,7 @@ return [
         'not_deleted' => 'El tipo de pago de ID: :id no se encuentra eliminado',
         'already_deleted' => 'El tipo de pago de ID: :id ya se encuentra eliminado',
         'empty_set' => 'No se encontraron tipos de pago con el criterio ingresado',
+        'creation_failed' => 'Error durante el registro del tipo de pago, intente nuevamente o comuniquese con administración.',
+        'update_failed' => 'Error durante la actualización del tipo de pago, intente nuevamente o comuniquese con administración.',
     ],
 ];

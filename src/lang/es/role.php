@@ -21,5 +21,7 @@ return [
         'not_deleted' => 'El rol de ID: :id no se encuentra eliminado',
         'already_deleted' => 'El rol de ID: :id ya se encuentra eliminado',
         'empty_set' => 'No se encontraron roles con el criterio ingresado',
+        'creation_failed' => 'Error durante el registro del rol, intente nuevamente o comuniquese con administración.',
+        'update_failed' => 'Error durante la actualización del rol, intente nuevamente o comuniquese con administración.',
     ],
 ];

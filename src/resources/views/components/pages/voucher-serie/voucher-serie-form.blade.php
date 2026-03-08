@@ -7,8 +7,7 @@ use App\Livewire\Forms\Voucher\VoucherSerieForm;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Computed;
 
-new class extends Component
-{
+new class extends Component {
     public VoucherSerieForm $form;
 
     public function mount(?string $voucherSerieId = null): void
@@ -29,7 +28,7 @@ new class extends Component
 
             $this->form->voucherSerie = $voucherSerie;
             $this->form->fill($voucherSerie->toArray());
-            $this->form->serie_number = (int) substr($voucherSerie->serie, 1);
+            $this->form->serie_number = (int)substr($voucherSerie->serie, 1);
         }
     }
 
@@ -49,27 +48,32 @@ new class extends Component
     {
         $sanitized = $this->form->sanitized();
         $this->validate();
-        if ($this->form->voucherSerie) {
-            $this->form->voucherSerie->update($sanitized);
-            $this->form->voucherSerie->refresh();
-            if($this->form->voucherSerie->is_active){
-                VoucherSerie::where('is_active', true)
-                    ->where('voucher_type_id', $this->form->voucherSerie->voucher_type_id)
-                    ->where('id', '!=', $this->form->voucherSerie->id)
-                    ->update(['is_active' => false]);
+        try {
+            if ($this->form->voucherSerie) {
+                $this->form->voucherSerie->update($sanitized);
+                $this->form->voucherSerie->refresh();
+                if ($this->form->voucherSerie->is_active) {
+                    VoucherSerie::where('is_active', true)
+                        ->where('voucher_type_id', $this->form->voucherSerie->voucher_type_id)
+                        ->where('id', '!=', $this->form->voucherSerie->id)
+                        ->update(['is_active' => false]);
+                }
+                Session::flash('success', __('voucher-serie.updated', ['name' => $sanitized['serie'], 'id' => $this->form->voucherSerie->id]));
+            } else {
+                $voucherSerie = VoucherSerie::create($sanitized);
+                if ($voucherSerie->is_active) {
+                    VoucherSerie::where('is_active', true)
+                        ->where('voucher_type_id', $voucherSerie->voucher_type_id)
+                        ->where('id', '!=', $voucherSerie->id)
+                        ->update(['is_active' => false]);
+                }
+                Session::flash('success', __('voucher-serie.created', ['name' => $sanitized['serie'], 'id' => $voucherSerie->id]));
             }
-            Session::flash('success', __('voucher-serie.updated', ['name' => $sanitized['serie'], 'id' => $this->form->voucherSerie->id]));
-        } else {
-            $voucherSerie = VoucherSerie::create($sanitized);
-            if($voucherSerie->is_active){
-                VoucherSerie::where('is_active', true)
-                    ->where('voucher_type_id', $voucherSerie->voucher_type_id)
-                    ->where('id', '!=', $voucherSerie->id)
-                    ->update(['is_active' => false]);
-            }
-            Session::flash('success', __('voucher-serie.created', ['name' => $sanitized['serie'], 'id' => $voucherSerie->id]));
+            return redirect()->to(route('voucherSerie.index'));
+        } catch (Exception) {
+            Session::flash('error', $this->form->voucherSerie ? __('voucher-serie.errors.update_failed') : __('voucher-serie.errors.creation_failed'));
+            return redirect()->to(route('voucherSerie.index'));
         }
-        return redirect()->to(route('voucherSerie.index'));
     }
 
     public function render(): mixed
@@ -86,7 +90,8 @@ new class extends Component
         <flux:fieldset class="grid grid-cols-1 md:grid-cols-2 gap-3" wire:loading.attr="disabled"
                        wire:target="save">
             <flux:field>
-                <flux:label badge="{{ __('common.required') }}">{{ trans_choice('voucher-type.voucher_type',1) }}</flux:label>
+                <flux:label
+                    badge="{{ __('common.required') }}">{{ trans_choice('voucher-type.voucher_type',1) }}</flux:label>
                 <flux:select wire:model.live="form.voucher_type_id" :disabled="(bool)$this->form->voucherSerie">
                     @foreach($this->voucherTypes as $type)
                         <flux:select.option value="{{ $type->id }}">{{ $type->name }}</flux:select.option>
@@ -96,7 +101,7 @@ new class extends Component
             <flux:field>
                 <flux:label badge="{{ __('common.required') }}">{{__('voucher-serie.serie')}}</flux:label>
                 <flux:input wire:model.live.blur="form.serie_number" type="number" min="1" max="999"
-                            :disabled="(bool)$this->form->voucherSerie" />
+                            :disabled="(bool)$this->form->voucherSerie"/>
                 <flux:error name="form.serie_number"/>
                 <flux:error name="form.serie"/>
             </flux:field>
@@ -107,7 +112,7 @@ new class extends Component
             </flux:field>
             <flux:field>
                 <flux:label badge="{{ __('common.required') }}">{{__('common.status')}}</flux:label>
-                <flux:checkbox wire:model="form.is_active" label="{{ __('common.status') }}" />
+                <flux:checkbox wire:model="form.is_active" label="{{ __('common.status') }}"/>
             </flux:field>
             @if($this->form->voucher_type_id && $form->serie_number)
                 <div class="text-sm text-gray-500 dark:text-white col-span-full">

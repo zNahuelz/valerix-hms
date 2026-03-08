@@ -16,6 +16,32 @@ class PresentationForm extends Form
 
     public $numeric_value = '';
 
+    public function messages(): array
+    {
+        return [
+            'name.required' => __('validation.name.required'),
+            'name.min' => __('validation.name.min', ['min' => '2']),
+            'name.max' => __('validation.name.max', ['max' => '50']),
+            'description.required' => __('validation.name.required'),
+            'description.min' => __('validation.description.min', ['min' => '2']),
+            'description.max' => __('validation.description.max', ['max' => '100']),
+            'numeric_value.required' => __('validation.numeric_value.required'),
+            'numeric_value.numeric' => __('validation.numeric_value.numeric'),
+            'numeric_value.min' => __('validation.numeric_value.min'),
+            'numeric_value.max' => __('validation.numeric_value.max'),
+            'numeric_value.unique' => __('validation.numeric_value.unique'),
+        ];
+    }
+
+    public function sanitized(): array
+    {
+        return [
+            'name' => strtoupper(trim($this->name)),
+            'description' => strtoupper(trim($this->description)),
+            'numeric_value' => $this->numeric_value,
+        ];
+    }
+
     protected function rules(): array
     {
         return [
@@ -40,32 +66,6 @@ class PresentationForm extends Form
                     ->where(fn ($query) => $query->whereRaw('LOWER(name) = ?', [strtolower($this->name)]))
                     ->ignore($this->presentation?->id),
             ],
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'name.required' => __('validation.name.required'),
-            'name.min' => __('validation.name.min', ['min' => '2']),
-            'name.max' => __('validation.name.max', ['max' => '50']),
-            'description.required' => __('validation.name.required'),
-            'description.min' => __('validation.description.min', ['min' => '2']),
-            'description.max' => __('validation.description.max', ['max' => '100']),
-            'numeric_value.required' => __('validation.numeric_value.required'),
-            'numeric_value.numeric' => __('validation.numeric_value.numeric'),
-            'numeric_value.min' => __('validation.numeric_value.min'),
-            'numeric_value.max' => __('validation.numeric_value.max'),
-            'numeric_value.unique' => __('validation.numeric_value.unique'),
-        ];
-    }
-
-    public function sanitized(): array
-    {
-        return [
-            'name' => strtoupper(trim($this->name)),
-            'description' => strtoupper(trim($this->description)),
-            'numeric_value' => $this->numeric_value,
         ];
     }
 }

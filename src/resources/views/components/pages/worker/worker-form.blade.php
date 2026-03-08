@@ -8,8 +8,7 @@ use App\Livewire\Forms\WorkerForm;
 use Illuminate\Support\Facades\Session;
 use Spatie\Permission\Models\Role;
 
-new class extends Component
-{
+new class extends Component {
     public WorkerForm $form;
     public array $clinics = [];
     public array $roles = [];
@@ -19,19 +18,19 @@ new class extends Component
 
     public function mount(?string $workerId = null): void
     {
-        if(!Clinic::whereNull('deleted_at')->exists()){
+        if (!Clinic::whereNull('deleted_at')->exists()) {
             Session::flash('error', __('worker.errors.creation_disabled_empty_clinics'));
             $this->redirectRoute('worker.index');
             return;
         }
-        $this->clinics = Clinic::select(['id','name'])->whereNull('deleted_at')->orderBy('name')->get()->toArray();
-        if(!Role::exists()){
+        $this->clinics = Clinic::select(['id', 'name'])->whereNull('deleted_at')->orderBy('name')->get()->toArray();
+        if (!Role::exists()) {
             Session::flash('error', __('worker.errors.creation_disabled_empty_roles'));
             $this->redirectRoute('worker.index');
             return;
         }
-        $this->roles = Role::select(['id','name'])->whereNot('name','DOCTOR')->whereNot('name','ENFERMERA')->orderBy('name')->get()->toArray();
-        if(!$workerId){
+        $this->roles = Role::select(['id', 'name'])->whereNot('name', 'DOCTOR')->whereNot('name', 'ENFERMERA')->orderBy('name')->get()->toArray();
+        if (!$workerId) {
             $this->form->clinic_id = $this->clinics[0]['id'];
             $this->form->role_id = $this->roles[0]['id'];
             $this->form->position = $this->positions[0];
@@ -48,15 +47,15 @@ new class extends Component
                 $this->redirectWithError($workerId);
                 return;
             }
-            $worker->load(['user' => function($query) {
+            $worker->load(['user' => function ($query) {
                 $query->withTrashed();
             }]);
-            if(auth()->user()->is($worker->user)){
+            if (auth()->user()->is($worker->user)) {
                 Session::flash('warning', __('worker.errors.editing_session'));
                 $this->redirectRoute('worker.index');
                 return;
             }
-            if($worker->user?->hasRole('ENFERMERA')){
+            if ($worker->user?->hasRole('ENFERMERA')) {
                 Session::flash('error', __('worker.errors.editing_nurse'));
                 $this->redirectRoute('worker.index');
                 return;
@@ -80,33 +79,38 @@ new class extends Component
     {
         $sanitized = $this->form->sanitized();
         $this->validate();
-        if ($this->form->worker) {
-            $this->form->worker->load(['user' => fn($q) => $q->withTrashed()]);
-            $this->form->worker->update($sanitized);
-            $this->form->worker->user->update([
-                'email' => $sanitized['email'],
-                'clinic_id' => $sanitized['clinic_id'],
-            ]);
-            $role = Role::findById($sanitized['role_id']);
-            $this->form->worker->user->syncRoles([$role]);
-            //TODO: Trigger user updated email.
-            Session::flash('success', __('worker.updated', ['name' => $sanitized['names'] .' '. $sanitized['paternal_surname'], 'id' => $this->form->worker->id]));
-        } else {
-            $user = User::create([
-                'username' => $this->generateUsername($sanitized['names'],$sanitized['paternal_surname'],$sanitized['dni']),
-                'password' => strrev($this->generateUsername($sanitized['names'],$sanitized['paternal_surname'],$sanitized['dni'])),
-                'email' => $sanitized['email'],
-                'avatar' => null,
-                'clinic_id' => $sanitized['clinic_id'],
-            ]);
-            $role = Role::findById($sanitized['role_id']);
-            $user->assignRole($role);
-            $sanitized['user_id'] = $user->id;
-            $worker = Worker::create($sanitized);
-            //TODO: Trigger user created email.
-            Session::flash('success', __('worker.created', ['name' => $sanitized['names'] .' '. $sanitized['paternal_surname'], 'id' => $worker->id, 'username' => $user->username]));
+        try {
+            if ($this->form->worker) {
+                $this->form->worker->load(['user' => fn($q) => $q->withTrashed()]);
+                $this->form->worker->update($sanitized);
+                $this->form->worker->user->update([
+                    'email' => $sanitized['email'],
+                    'clinic_id' => $sanitized['clinic_id'],
+                ]);
+                $role = Role::findById($sanitized['role_id']);
+                $this->form->worker->user->syncRoles([$role]);
+                //TODO: Trigger user updated email.
+                Session::flash('success', __('worker.updated', ['name' => $sanitized['names'] . ' ' . $sanitized['paternal_surname'], 'id' => $this->form->worker->id]));
+            } else {
+                $user = User::create([
+                    'username' => $this->generateUsername($sanitized['names'], $sanitized['paternal_surname'], $sanitized['dni']),
+                    'password' => strrev($this->generateUsername($sanitized['names'], $sanitized['paternal_surname'], $sanitized['dni'])),
+                    'email' => $sanitized['email'],
+                    'avatar' => null,
+                    'clinic_id' => $sanitized['clinic_id'],
+                ]);
+                $role = Role::findById($sanitized['role_id']);
+                $user->assignRole($role);
+                $sanitized['user_id'] = $user->id;
+                $worker = Worker::create($sanitized);
+                //TODO: Trigger user created email.
+                Session::flash('success', __('worker.created', ['name' => $sanitized['names'] . ' ' . $sanitized['paternal_surname'], 'id' => $worker->id, 'username' => $user->username]));
+            }
+            return redirect()->to(route('worker.index'));
+        } catch (Exception) {
+            Session::flash('error', $this->form->worker ? __('worker.errors.update_failed') : __('worker.errors.creation_failed'));
+            return redirect()->to(route('worker.index'));
         }
-        return redirect()->to(route('worker.index'));
     }
 
     public function delete()
@@ -145,8 +149,8 @@ new class extends Component
             <x-shared.alert type="info">{{ __('worker.is_deleted') }}</x-shared.alert>
         @endif
         @if(!$this->form->worker)
-                <x-shared.alert type="info">{{ __('worker.username_generation') }}</x-shared.alert>
-            @endif
+            <x-shared.alert type="info">{{ __('worker.username_generation') }}</x-shared.alert>
+        @endif
 
         <flux:fieldset class="grid grid-cols-1 md:grid-cols-2 gap-3" wire:loading.attr="disabled"
                        wire:target="save, delete">
@@ -165,7 +169,8 @@ new class extends Component
                 <flux:input wire:model.live.blur="form.paternal_surname" type="text"/>
                 <flux:error name="form.paternal_surname"/>
             </flux:field>
-            <flux:input wire:model.live.blur="form.maternal_surname" label="{{ __('common.maternal_surname') }}" type="text"/>
+            <flux:input wire:model.live.blur="form.maternal_surname" label="{{ __('common.maternal_surname') }}"
+                        type="text"/>
             <flux:field>
                 <flux:label badge="{{ __('common.required') }}">{{ __('common.hired_at') }}</flux:label>
                 <flux:input wire:model.live.blur="form.hired_at" type="date"/>

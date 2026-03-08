@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 
-new class extends Component
-{
+new class extends Component {
     public DoctorAvailabilitiesForm $form;
     public ?Doctor $doctor = null;
 
@@ -21,7 +20,7 @@ new class extends Component
             return;
         }
 
-        $doctor = Doctor::withTrashed()->find((int) $doctorId);
+        $doctor = Doctor::withTrashed()->find((int)$doctorId);
 
         if (!$doctor) {
             $this->redirectWithError($doctorId);
@@ -34,24 +33,24 @@ new class extends Component
         if ($doctor->availabilities->isNotEmpty()) {
             $this->form->availabilities = $doctor->availabilities
                 ->map(fn($av) => [
-                    'id'          => $av->id,
-                    'weekday'     => $av->weekday,
-                    'start_time'  => $av->start_time ? Carbon::parse($av->start_time)->format('H:i') : '08:00',
-                    'end_time'    => $av->end_time   ? Carbon::parse($av->end_time)->format('H:i')   : '17:00',
+                    'id' => $av->id,
+                    'weekday' => $av->weekday,
+                    'start_time' => $av->start_time ? Carbon::parse($av->start_time)->format('H:i') : '08:00',
+                    'end_time' => $av->end_time ? Carbon::parse($av->end_time)->format('H:i') : '17:00',
                     'break_start' => $av->break_start ? Carbon::parse($av->break_start)->format('H:i') : '12:00',
-                    'break_end'   => $av->break_end   ? Carbon::parse($av->break_end)->format('H:i')   : '13:00',
-                    'is_active'   => (bool) $av->is_active,
+                    'break_end' => $av->break_end ? Carbon::parse($av->break_end)->format('H:i') : '13:00',
+                    'is_active' => (bool)$av->is_active,
                 ])
                 ->toArray();
         } else {
             $this->form->availabilities = collect(range(1, 5))->map(fn($day) => [
-                'id'          => null,
-                'weekday'     => $day,
-                'start_time'  => '08:00',
-                'end_time'    => '17:00',
+                'id' => null,
+                'weekday' => $day,
+                'start_time' => '08:00',
+                'end_time' => '17:00',
                 'break_start' => '12:00',
-                'break_end'   => '13:00',
-                'is_active'   => true,
+                'break_end' => '13:00',
+                'is_active' => true,
             ])->toArray();
         }
     }
@@ -69,17 +68,17 @@ new class extends Component
         }
 
         $usedWeekdays = array_column($this->form->availabilities, 'weekday');
-        $nextWeekday  = collect(range(1, 7))->first(fn($d) => !in_array($d, $usedWeekdays));
+        $nextWeekday = collect(range(1, 7))->first(fn($d) => !in_array($d, $usedWeekdays));
 
         if ($nextWeekday) {
             $this->form->availabilities[] = [
-                'id'          => null,
-                'weekday'     => $nextWeekday,
-                'start_time'  => '08:00',
-                'end_time'    => '17:00',
+                'id' => null,
+                'weekday' => $nextWeekday,
+                'start_time' => '08:00',
+                'end_time' => '17:00',
                 'break_start' => '12:00',
-                'break_end'   => '13:00',
-                'is_active'   => true,
+                'break_end' => '13:00',
+                'is_active' => true,
             ];
         }
     }
@@ -91,7 +90,7 @@ new class extends Component
         try {
             DB::beginTransaction();
 
-            $sanitized   = $this->form->sanitized();
+            $sanitized = $this->form->sanitized();
             $incomingIds = collect($sanitized['availabilities'])->pluck('id')->filter()->all();
 
             // Delete availabilities removed by the user
@@ -103,13 +102,13 @@ new class extends Component
                 DoctorAvailability::updateOrCreate(
                     ['id' => $av['id'] ?? null, 'doctor_id' => $this->doctor->id],
                     [
-                        'doctor_id'   => $this->doctor->id,
-                        'weekday'     => $av['weekday'],
-                        'start_time'  => $av['start_time'],
-                        'end_time'    => $av['end_time'],
+                        'doctor_id' => $this->doctor->id,
+                        'weekday' => $av['weekday'],
+                        'start_time' => $av['start_time'],
+                        'end_time' => $av['end_time'],
                         'break_start' => $av['break_start'],
-                        'break_end'   => $av['break_end'],
-                        'is_active'   => $av['is_active'],
+                        'break_end' => $av['break_end'],
+                        'is_active' => $av['is_active'],
                     ]
                 );
             }

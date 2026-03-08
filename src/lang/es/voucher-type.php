@@ -21,5 +21,7 @@ return [
         'not_deleted' => 'El tipo de comprobante de ID: :id no se encuentra eliminado',
         'already_deleted' => 'El tipo de comprobante de ID: :id ya se encuentra eliminado',
         'empty_set' => 'No se encontraron tipos de comprobantes con el criterio ingresado',
+        'creation_failed' => 'Error durante el registro del tipo de comprobante, intente nuevamente o comuniquese con administración.',
+        'update_failed' => 'Error durante la actualización del tipo de comprobante, intente nuevamente o comuniquese con administración.',
     ],
 ];

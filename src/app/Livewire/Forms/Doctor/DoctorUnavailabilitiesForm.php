@@ -20,6 +20,22 @@ class DoctorUnavailabilitiesForm extends Form
 
     public $reason = '';
 
+    public function messages(): array
+    {
+        return [
+            'doctor_id.required' => __('validation.unavailabilities.doctor_id.required'),
+            'doctor_id.exists' => __('validation.unavailabilities.doctor_id.exists'),
+            'start_datetime.required' => __('validation.unavailabilities.start_datetime.required'),
+            'start_datetime.date' => __('validation.unavailabilities.start_datetime.date'),
+            'end_datetime.required' => __('validation.unavailabilities.end_datetime.required'),
+            'end_datetime.date' => __('validation.unavailabilities.end_datetime.date'),
+            'end_datetime.after' => __('validation.unavailabilities.end_datetime.after'),
+            'end_datetime.min_gap' => __('validation.unavailabilities.end_datetime.min_gap'),
+            'reason.required' => __('validation.unavailabilities.reason.required'),
+            'reason.exists' => __('validation.unavailabilities.reason.enum'),
+        ];
+    }
+
     protected function rules(): array
     {
         return [
@@ -38,22 +54,6 @@ class DoctorUnavailabilitiesForm extends Form
                     }
                 }, ],
             'reason' => ['required', Rule::enum(UnavailabilityReason::class)],
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'doctor_id.required' => __('validation.unavailabilities.doctor_id.required'),
-            'doctor_id.exists' => __('validation.unavailabilities.doctor_id.exists'),
-            'start_datetime.required' => __('validation.unavailabilities.start_datetime.required'),
-            'start_datetime.date' => __('validation.unavailabilities.start_datetime.date'),
-            'end_datetime.required' => __('validation.unavailabilities.end_datetime.required'),
-            'end_datetime.date' => __('validation.unavailabilities.end_datetime.date'),
-            'end_datetime.after' => __('validation.unavailabilities.end_datetime.after'),
-            'end_datetime.min_gap' => __('validation.unavailabilities.end_datetime.min_gap'),
-            'reason.required' => __('validation.unavailabilities.reason.required'),
-            'reason.exists' => __('validation.unavailabilities.reason.enum'),
         ];
     }
 }

@@ -25,5 +25,7 @@ return [
         'empty_set' => 'No se encontraron medicinas con el criterio ingresado',
         'creation_disabled_empty_presentations' => 'El sistema no cuenta con presentaciones de medicinas registradas; el módulo de registro de medicinas se encuentra bloqueado. Debe registrar al menos una (1) presentación para utilizar el módulo con normalidad; comuniquese con administración de ser necesario.',
         'barcode_generation_failed' => 'Ha fallado la generación aleatoria de códigos de barra, intente nuevamente o comuniquese con administración. ',
+        'creation_failed' => 'Error durante el registro del medicamento, intente nuevamente o comuniquese con administración.',
+        'update_failed' => 'Error durante la actualización del medicamento, intente nuevamente o comuniquese con administración.',
     ],
 ];

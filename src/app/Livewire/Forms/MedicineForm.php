@@ -20,17 +20,6 @@ class MedicineForm extends Form
 
     public string $presentation_id = '';
 
-    protected function rules(): array
-    {
-        return [
-            'name' => ['required', 'string', 'min:5', 'max:100'],
-            'composition' => ['required', 'string', 'min:5', 'max:255'],
-            'description' => ['nullable', 'string', 'min:5', 'max:255'],
-            'barcode' => ['required', 'string', 'min:8', 'max:30', 'regex:/^[A-Za-z0-9]{8,30}$/', Rule::unique('medicines', 'barcode')->ignore($this->medicine?->id)],
-            'presentation_id' => ['required', Rule::exists('presentations', 'id')],
-        ];
-    }
-
     public function messages(): array
     {
         return [
@@ -59,6 +48,17 @@ class MedicineForm extends Form
             'description' => strtoupper(trim($this->description)),
             'barcode' => strtoupper(trim($this->barcode)),
             'presentation_id' => $this->presentation_id,
+        ];
+    }
+
+    protected function rules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'min:5', 'max:100'],
+            'composition' => ['required', 'string', 'min:5', 'max:255'],
+            'description' => ['nullable', 'string', 'min:5', 'max:255'],
+            'barcode' => ['required', 'string', 'min:8', 'max:30', 'regex:/^[A-Za-z0-9]{8,30}$/', Rule::unique('medicines', 'barcode')->ignore($this->medicine?->id)],
+            'presentation_id' => ['required', Rule::exists('presentations', 'id')],
         ];
     }
 }

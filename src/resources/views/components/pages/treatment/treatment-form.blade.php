@@ -5,23 +5,22 @@ use App\Models\Medicine;
 use App\Models\Treatment;
 use Livewire\Component;
 
-new class extends Component
-{
+new class extends Component {
     public TreatmentForm $form;
 
-    public int    $step           = 1;
-    public int    $totalSteps     = 2;
-    public bool   $isEditing      = false;
+    public int $step = 1;
+    public int $totalSteps = 2;
+    public bool $isEditing = false;
 
-    public string $barcodeInput   = '';
+    public string $barcodeInput = '';
     public ?array $scannedMedicine = null;
-    public string $barcodeError   = '';
+    public string $barcodeError = '';
 
     public array $resolvedMedicines = [];
 
     public function mount(?string $treatmentId = null): void
     {
-        if($treatmentId){
+        if ($treatmentId) {
             if (!is_numeric($treatmentId)) {
                 $this->redirectWithError($treatmentId);
                 return;
@@ -36,8 +35,8 @@ new class extends Component
             $this->isEditing = true;
             $this->form->treatment = $treatment;
             $this->form->fill($treatment->toArray());
-            $this->form->medicines     = $treatment->medicines->pluck('id')->toArray();
-            $this->resolvedMedicines   = $treatment->medicines->toArray();
+            $this->form->medicines = $treatment->medicines->pluck('id')->toArray();
+            $this->resolvedMedicines = $treatment->medicines->toArray();
         }
     }
 
@@ -70,7 +69,7 @@ new class extends Component
 
     public function scanBarcode(): void
     {
-        $this->barcodeError   = '';
+        $this->barcodeError = '';
         $this->scannedMedicine = null;
 
         $barcode = trim($this->barcodeInput);
@@ -87,9 +86,8 @@ new class extends Component
             return;
         }
 
-        if($medicine->trashed())
-        {
-            Session::flash('info',__('treatment.errors.medicine_trashed', ['name' => $medicine->name, 'id' => $medicine->id ]));
+        if ($medicine->trashed()) {
+            Session::flash('info', __('treatment.errors.medicine_trashed', ['name' => $medicine->name, 'id' => $medicine->id]));
         }
 
         $medicine->load('presentation');
@@ -99,18 +97,18 @@ new class extends Component
             return;
         }
 
-        $this->form->medicines[]  = $medicine->id;
+        $this->form->medicines[] = $medicine->id;
         $this->resolvedMedicines[] = $medicine->toArray();
-        $this->barcodeInput        = '';
+        $this->barcodeInput = '';
     }
 
 
     public function removeMedicine(int $medicineId): void
     {
-        $this->form->medicines     = array_values(
+        $this->form->medicines = array_values(
             array_filter($this->form->medicines, fn($id) => $id !== $medicineId)
         );
-        $this->resolvedMedicines   = array_values(
+        $this->resolvedMedicines = array_values(
             array_filter($this->resolvedMedicines, fn($m) => $m['id'] !== $medicineId)
         );
     }
@@ -119,21 +117,26 @@ new class extends Component
     {
         $this->form->validateStep(2);
 
-        $data      = $this->form->sanitized();
+        $data = $this->form->sanitized();
         $medicines = $data['medicines'];
         unset($data['medicines']);
 
-        if ($this->isEditing) {
-            $this->form->treatment->update($data);
-            $this->form->treatment->medicines()->sync($medicines);
-            Session::flash('success',__('treatment.updated', ['id' => $this->form->treatment->id, 'name' => $this->form->treatment->name]));
-        } else {
-            $treatment = Treatment::create($data);
-            $treatment->medicines()->sync($medicines);
-            Session::flash('success',__('treatment.created', ['name' => $treatment->name, 'id' => $treatment->id]));
-        }
+        try {
+            if ($this->isEditing) {
+                $this->form->treatment->update($data);
+                $this->form->treatment->medicines()->sync($medicines);
+                Session::flash('success', __('treatment.updated', ['id' => $this->form->treatment->id, 'name' => $this->form->treatment->name]));
+            } else {
+                $treatment = Treatment::create($data);
+                $treatment->medicines()->sync($medicines);
+                Session::flash('success', __('treatment.created', ['name' => $treatment->name, 'id' => $treatment->id]));
+            }
 
-        return redirect()->to(route('treatment.index'));
+            return redirect()->to(route('treatment.index'));
+        } catch (Exception) {
+            Session::flash('error', $this->form->treatment ? __('treatment.errors.update_failed') : __('treatment.errors.creation_failed'));
+            return redirect()->to(route('treatment.index'));
+        }
     }
 
     public function delete()
@@ -177,7 +180,8 @@ new class extends Component
             <flux:fieldset class="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div class="col-span-full">
                     <flux:field>
-                        <flux:label badge="{{ __('common.required') }}">{{ trans_choice('common.name', 1) }}</flux:label>
+                        <flux:label
+                            badge="{{ __('common.required') }}">{{ trans_choice('common.name', 1) }}</flux:label>
                         <flux:input wire:model.live.blur="form.name" type="text"/>
                         <flux:error name="form.name"/>
                     </flux:field>

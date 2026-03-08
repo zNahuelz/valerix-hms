@@ -6,8 +6,7 @@ use Livewire\WithPagination;
 use App\Models\Nurse;
 use Livewire\Attributes\Computed;
 
-new class extends Component
-{
+new class extends Component {
     use WithPagination, WithoutUrlPagination;
 
     public string $keyword = '';
@@ -19,9 +18,9 @@ new class extends Component
     {
         $rules = [
             'id' => ['regex:/^\d+$/'],
-            'dni' => ['required','regex:/^[0-9]{8,15}$/'],
-            'names' => ['required','string', 'min:3'],
-            'paternal_surname' => ['required','string', 'min:3'],
+            'dni' => ['required', 'regex:/^[0-9]{8,15}$/'],
+            'names' => ['required', 'string', 'min:3'],
+            'paternal_surname' => ['required', 'string', 'min:3'],
         ];
         return [
             'searchColumn' => ['required', 'in:id,names,dni,paternal_surname'],

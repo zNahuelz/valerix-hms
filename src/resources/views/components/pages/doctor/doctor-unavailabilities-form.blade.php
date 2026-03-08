@@ -7,8 +7,7 @@ use App\Livewire\Forms\Doctor\DoctorUnavailabilitiesForm;
 use Illuminate\Support\Facades\Session;
 use App\Enums\UnavailabilityReason;
 
-new class extends Component
-{
+new class extends Component {
     public DoctorUnavailabilitiesForm $form;
     public array $doctors = [];
 
@@ -28,7 +27,7 @@ new class extends Component
 
         if (!$unavId) {
             $this->form->doctor_id = $this->doctors[0]['id'];
-            $this->form->reason  = UnavailabilityReason::cases()[0]->value;
+            $this->form->reason = UnavailabilityReason::cases()[0]->value;
             return;
         }
 
@@ -63,10 +62,10 @@ new class extends Component
         $this->validate();
         if ($this->form->doctorUnavailability) {
             $this->form->doctorUnavailability->update([
-                'doctor_id'      => $this->form->doctor_id,
+                'doctor_id' => $this->form->doctor_id,
                 'start_datetime' => $this->form->start_datetime,
-                'end_datetime'   => $this->form->end_datetime,
-                'reason'         => $this->form->reason,
+                'end_datetime' => $this->form->end_datetime,
+                'reason' => $this->form->reason,
             ]);
             Session::flash('success', __('doctor.unavailability.updated', ['id' => $this->form->doctorUnavailability->id]));
         } else {
@@ -98,7 +97,7 @@ new class extends Component
     public function render(): mixed
     {
         return $this->view()
-            ->layout('layouts::dashboard', ['heading' => __($this->form->doctorUnavailability? 'doctor.unavailability.edit' : 'doctor.unavailability.create')])
+            ->layout('layouts::dashboard', ['heading' => __($this->form->doctorUnavailability ? 'doctor.unavailability.edit' : 'doctor.unavailability.create')])
             ->title(__($this->form->doctorUnavailability ? 'views.doctor.edit_unavailability' : 'views.doctor.create_unavailability'));
     }
 };

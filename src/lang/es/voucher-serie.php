@@ -20,6 +20,8 @@ return [
     'errors' => [
         'not_found' => 'Serie de comprobante de ID: :id no encontrada',
         'empty_set' => 'No se encontraron series de comprobantes con el criterio ingresado',
+        'creation_failed' => 'Error durante el registro de la serie de comprobante de pago, intente nuevamente o comuniquese con administración.',
+        'update_failed' => 'Error durante la actualización de la serie de comprobante de pago, intente nuevamente o comuniquese con administración.',
     ],
     'serie_preview' => 'Serie-Correlativo a Asignar',
 ];

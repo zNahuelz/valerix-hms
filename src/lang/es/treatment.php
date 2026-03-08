@@ -25,5 +25,7 @@ return [
         'medicine_trashed' => 'El medicamento: :name de ID: :id se encuentra eliminado.',
         'no_medicines' => 'Sin medicamentos asignados',
         'no_medicines_hint' => 'Escanee el código de barras de medicamentos para añadirlos como requisitos para el tratamiento',
+        'creation_failed' => 'Error durante el registro del tratamiento, intente nuevamente o comuniquese con administración.',
+        'update_failed' => 'Error durante la actualización del tratamiento, intente nuevamente o comuniquese con administración.',
     ],
 ];

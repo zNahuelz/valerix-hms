@@ -21,5 +21,7 @@ return [
         'not_deleted' => 'El proveedor de ID: :id no se encuentra eliminado',
         'already_deleted' => 'El proveedor de ID: :id ya se encuentra eliminado',
         'empty_set' => 'No se encontraron proveedores con el criterio ingresado',
+        'creation_failed' => 'Error durante el registro del proveedor, intente nuevamente o comuniquese con administración.',
+        'update_failed' => 'Error durante la actualización del proveedor, intente nuevamente o comuniquese con administración.',
     ],
 ];

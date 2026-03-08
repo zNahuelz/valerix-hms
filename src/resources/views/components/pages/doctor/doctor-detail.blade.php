@@ -4,8 +4,7 @@ use Livewire\Component;
 use App\Models\Doctor;
 use Illuminate\Support\Carbon;
 
-new class extends Component
-{
+new class extends Component {
     public ?Doctor $doctor = null;
 
     public function mount(?string $doctorId = null): void
@@ -24,7 +23,7 @@ new class extends Component
             }
 
             $doctor->load([
-                'user'           => fn($q) => $q->withTrashed()->with('roles'),
+                'user' => fn($q) => $q->withTrashed()->with('roles'),
                 'updatedBy',
                 'availabilities' => fn($q) => $q->orderBy('weekday', 'asc'),
                 'clinic',
@@ -44,7 +43,7 @@ new class extends Component
     {
         return $this->view()
             ->layout('layouts::dashboard', ['heading' => __('doctor.detail', ['id' => $this->doctor->id, 'name' => ucwords(strtolower($this->doctor->names))
-                .' '.
+                . ' ' .
                 ucwords(strtolower($this->doctor->paternal_surname))])])
             ->title(__('views.doctor.detail'));
     }
@@ -58,7 +57,7 @@ new class extends Component
         @endif
 
         @if($doctor && $doctor->availabilities->isEmpty())
-                <x-shared.alert type="error">{{ __('doctor.errors.empty_availabilities') }}</x-shared.alert>
+            <x-shared.alert type="error">{{ __('doctor.errors.empty_availabilities') }}</x-shared.alert>
         @endif
 
         <div @class([
@@ -90,11 +89,16 @@ new class extends Component
                 </flux:field>
                 <flux:field>
                     <flux:label>{{ __('common.hired_at') }}</flux:label>
-                    <flux:input readonly value="{{ Carbon::createFromFormat('Y-m-d',$doctor->hired_at)->timezone('America/Lima')->format('d/m/Y') ?? __('common.null') }}" type="text"/>
+                    <flux:input readonly
+                                value="{{ Carbon::createFromFormat('Y-m-d',$doctor->hired_at)->timezone('America/Lima')->format('d/m/Y') ?? __('common.null') }}"
+                                type="text"/>
                 </flux:field>
-                <flux:input readonly value="{{ $doctor->user?->email ?? __('common.null') }}" label="{{ __('common.email') }}" type="email"/>
-                <flux:input readonly value="{{ $doctor->phone ?? __('common.null') }}" label="{{ __('common.phone') }}" type="text"/>
-                <flux:input readonly value="{{ $doctor->address ?? __('common.null') }}" label="{{ __('common.address') }}"
+                <flux:input readonly value="{{ $doctor->user?->email ?? __('common.null') }}"
+                            label="{{ __('common.email') }}" type="email"/>
+                <flux:input readonly value="{{ $doctor->phone ?? __('common.null') }}" label="{{ __('common.phone') }}"
+                            type="text"/>
+                <flux:input readonly value="{{ $doctor->address ?? __('common.null') }}"
+                            label="{{ __('common.address') }}"
                             type="text"/>
                 <flux:field>
                     <flux:label>{{ trans_choice('auth.user',1) }}</flux:label>
@@ -144,25 +148,28 @@ new class extends Component
                 <div class="col-span-full">
                     <div class="flex flex-col md:flex-row md:justify-between gap-2">
                         @if(!auth()->user()->is($doctor->user))
-                                    <flux:button.group>
-                                        @canany(['sys.admin', 'doctor.edit.availabilities', 'doctor.detail.unavailabilities'])
+                            <flux:button.group>
+                                @canany(['sys.admin', 'doctor.edit.availabilities', 'doctor.detail.unavailabilities'])
                                     <flux:button type="button"
-                                                 wire:navigate href="{{route('doctor.edit.availabilities', ['doctorId' => $doctor->id])}}"
+                                                 wire:navigate
+                                                 href="{{route('doctor.edit.availabilities', ['doctorId' => $doctor->id])}}"
                                                  class="w-full md:w-auto">
                                         {{  __('common.edit_availabilities') }}
                                     </flux:button>
-                                        @endcanany
-                                        @canany(['sys.admin', 'doctor.detail.unavailabilities'])
-                                        <flux:button type="button"
-                                                     wire:navigate href="{{route('doctor.detail.unavailabilities', ['doctorId' => $doctor->id])}}"
-                                                     class="w-full md:w-auto">
-                                            {{  trans_choice('common.unavailability',2) }}
-                                        </flux:button>
-                                        @endcanany
-                                    </flux:button.group>
+                                @endcanany
+                                @canany(['sys.admin', 'doctor.detail.unavailabilities'])
+                                    <flux:button type="button"
+                                                 wire:navigate
+                                                 href="{{route('doctor.detail.unavailabilities', ['doctorId' => $doctor->id])}}"
+                                                 class="w-full md:w-auto">
+                                        {{  trans_choice('common.unavailability',2) }}
+                                    </flux:button>
+                                @endcanany
+                            </flux:button.group>
 
                             @canany(['sys.admin', 'doctor.update', 'doctor.delete', 'doctor.restore'])
-                                <flux:button type="button" variant="primary" class="w-full md:w-auto md:ml-auto" wire:navigate
+                                <flux:button type="button" variant="primary" class="w-full md:w-auto md:ml-auto"
+                                             wire:navigate
                                              href="{{ route('doctor.edit', ['doctorId' => $doctor->id]) }}">
                                     {{ __('common.edit') }}
                                 </flux:button>
@@ -172,36 +179,36 @@ new class extends Component
                 </div>
             </flux:fieldset>
             @if($doctor->availabilities->isNotEmpty())
-            <div>
-                <flux:legend class="text-xl! mb-2">{{ __('common.schedule_settings') }}</flux:legend>
-                <flux:separator></flux:separator>
-                <div class="space-y-4 mt-2">
-                    @foreach($doctor->availabilities as $av)
-                        <flux:card class="space-y-4 gap-2">
-                            <div class="flex items-center justify-between">
-                                <flux:heading class="flex items-center gap-2">
-                                    {{ __('common.weekdays')[$av->weekday] }}
-                                </flux:heading>
-                                @if(!$av->is_active)
-                                    <flux:badge size="sm" color="red">{{ __('common.inactive') }}</flux:badge>
-                                @else
-                                    <flux:badge size="sm" color="emerald">{{ __('common.active') }}</flux:badge>
-                                @endif
-                            </div>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
-                                <flux:input type="time" readonly label="{{ __('common.start_time') }}"
-                                            value="{{ $av->start_time ? Carbon::parse($av->start_time)->format('H:i') : __('common.null') }}" />
-                                <flux:input type="time" readonly label="{{ __('common.end_time') }}"
-                                            value="{{ $av->end_time ?  Carbon::parse($av->end_time)->format('H:i') : __('common.null') }}" />
-                                <flux:input type="time" readonly label="{{ __('common.break_start') }}"
-                                            value="{{ $av->break_start ? Carbon::parse($av->break_start)->format('H:i') : __('common.null') }}" />
-                                <flux:input type="time" readonly label="{{ __('common.break_end') }}"
-                                            value="{{ $av->break_end ? Carbon::parse($av->break_end)->format('H:i') : __('common.null') }}" />
-                            </div>
-                        </flux:card>
-                    @endforeach
+                <div>
+                    <flux:legend class="text-xl! mb-2">{{ __('common.schedule_settings') }}</flux:legend>
+                    <flux:separator></flux:separator>
+                    <div class="space-y-4 mt-2">
+                        @foreach($doctor->availabilities as $av)
+                            <flux:card class="space-y-4 gap-2">
+                                <div class="flex items-center justify-between">
+                                    <flux:heading class="flex items-center gap-2">
+                                        {{ __('common.weekdays')[$av->weekday] }}
+                                    </flux:heading>
+                                    @if(!$av->is_active)
+                                        <flux:badge size="sm" color="red">{{ __('common.inactive') }}</flux:badge>
+                                    @else
+                                        <flux:badge size="sm" color="emerald">{{ __('common.active') }}</flux:badge>
+                                    @endif
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+                                    <flux:input type="time" readonly label="{{ __('common.start_time') }}"
+                                                value="{{ $av->start_time ? Carbon::parse($av->start_time)->format('H:i') : __('common.null') }}"/>
+                                    <flux:input type="time" readonly label="{{ __('common.end_time') }}"
+                                                value="{{ $av->end_time ?  Carbon::parse($av->end_time)->format('H:i') : __('common.null') }}"/>
+                                    <flux:input type="time" readonly label="{{ __('common.break_start') }}"
+                                                value="{{ $av->break_start ? Carbon::parse($av->break_start)->format('H:i') : __('common.null') }}"/>
+                                    <flux:input type="time" readonly label="{{ __('common.break_end') }}"
+                                                value="{{ $av->break_end ? Carbon::parse($av->break_end)->format('H:i') : __('common.null') }}"/>
+                                </div>
+                            </flux:card>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
             @endif
         </div>
     </div>

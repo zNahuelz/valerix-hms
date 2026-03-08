@@ -6,8 +6,7 @@ use App\Livewire\Forms\PaymentTypeForm;
 use Illuminate\Support\Facades\Session;
 use App\Enums\PaymentAction;
 
-new class extends Component
-{
+new class extends Component {
     public PaymentTypeForm $form;
 
     public function mount(?string $paymentTypeId = null): void
@@ -42,14 +41,19 @@ new class extends Component
     {
         $sanitized = $this->form->sanitized();
         $this->validate();
-        if ($this->form->paymentType) {
-            $this->form->paymentType->update($sanitized);
-            Session::flash('success', __('payment-type.updated', ['name' => $sanitized['name'], 'id' => $this->form->paymentType->id]));
-        } else {
-            $paymentType = PaymentType::create($sanitized);
-            Session::flash('success', __('payment-type.created', ['name' => $sanitized['name'], 'id' => $paymentType->id]));
+        try {
+            if ($this->form->paymentType) {
+                $this->form->paymentType->update($sanitized);
+                Session::flash('success', __('payment-type.updated', ['name' => $sanitized['name'], 'id' => $this->form->paymentType->id]));
+            } else {
+                $paymentType = PaymentType::create($sanitized);
+                Session::flash('success', __('payment-type.created', ['name' => $sanitized['name'], 'id' => $paymentType->id]));
+            }
+            return redirect()->to(route('paymentType.index'));
+        } catch (Exception) {
+            Session::flash('error', $this->form->paymentType ? __('payment-type.errors.update_failed') : __('payment-type.errors.creation_failed'));
+            return redirect()->to(route('paymentType.index'));
         }
-        return redirect()->to(route('paymentType.index'));
     }
 
     public function render(): mixed

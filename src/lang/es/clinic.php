@@ -21,5 +21,7 @@ return [
         'not_deleted' => 'La clínica de ID: :id no se encuentra eliminada',
         'already_deleted' => 'La clínica de ID: :id ya se encuentra eliminada',
         'empty_set' => 'No se encontraron clínicas con el criterio ingresado',
+        'creation_failed' => 'Error durante el registro de la clínica, intente nuevamente o comuniquese con administración.',
+        'update_failed' => 'Error durante la actualización de la clínica, intente nuevamente o comuniquese con administración.',
     ],
 ];

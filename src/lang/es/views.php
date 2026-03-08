@@ -83,4 +83,10 @@ return [
         'edit' => 'Modificar Tratamiento | Valerix HCMS',
         'detail' => 'Detalle de Tratamiento | Valerix HCMS',
     ],
+    'buy_order' => [
+        'index' => 'Listado de Ordenes de Compra | Valerix HCMS',
+        'create' => 'Registrar Orden de Compra | Valerix HCMS',
+        'edit' => 'Modificar Orden de Compra | Valerix HCMS',
+        'detail' => 'Detalle de Orden de Compra | Valerix HCMS',
+    ],
 ];

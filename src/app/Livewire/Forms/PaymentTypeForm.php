@@ -15,15 +15,6 @@ class PaymentTypeForm extends Form
 
     public $action = '';
 
-    protected function rules(): array
-    {
-        return [
-            'name' => ['required', 'string', 'min:3', 'max:50', Rule::unique('payment_types', 'name')
-                ->ignore($this->paymentType?->id)],
-            'action' => ['required', Rule::enum(PaymentAction::class)],
-        ];
-    }
-
     public function messages(): array
     {
         return [
@@ -41,6 +32,15 @@ class PaymentTypeForm extends Form
         return [
             'name' => strtoupper(trim($this->name)),
             'action' => strtoupper(trim($this->action)),
+        ];
+    }
+
+    protected function rules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'min:3', 'max:50', Rule::unique('payment_types', 'name')
+                ->ignore($this->paymentType?->id)],
+            'action' => ['required', Rule::enum(PaymentAction::class)],
         ];
     }
 

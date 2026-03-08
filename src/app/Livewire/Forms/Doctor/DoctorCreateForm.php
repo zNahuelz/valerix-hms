@@ -34,6 +34,14 @@ class DoctorCreateForm extends Form
 
     public $availabilities = [];
 
+    public function validateStep(int $step): void
+    {
+        $this->validate($this->rulesForStep($step));
+        if ($step === 2) {
+            $this->validateAvailabilityTimes();
+        }
+    }
+
     public function rulesForStep(int $step): array
     {
         return match ($step) {
@@ -108,14 +116,6 @@ class DoctorCreateForm extends Form
             ],
             default => [],
         };
-    }
-
-    public function validateStep(int $step): void
-    {
-        $this->validate($this->rulesForStep($step));
-        if ($step === 2) {
-            $this->validateAvailabilityTimes();
-        }
     }
 
     private function validateAvailabilityTimes(): void

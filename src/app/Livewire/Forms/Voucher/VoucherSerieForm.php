@@ -21,18 +21,6 @@ class VoucherSerieForm extends Form
 
     public $is_active = false;
 
-    protected function rules(): array
-    {
-        return [
-            'voucher_type_id' => ['required', Rule::exists('voucher_types', 'id')],
-            'serie_number' => ['required', 'integer', 'min:1', 'max:999'],
-            'serie' => ['required', Rule::unique('voucher_series', 'serie')
-                ->ignore($this->voucherSerie?->id)],
-            'next_value' => ['numeric', 'min:1', 'max:999999999'],
-            'is_active' => ['boolean'],
-        ];
-    }
-
     public function messages(): array
     {
         return [
@@ -62,13 +50,6 @@ class VoucherSerieForm extends Form
         ];
     }
 
-    protected function prepareForValidation($attributes)
-    {
-        $attributes['serie'] = $this->computedSerie();
-
-        return $attributes;
-    }
-
     public function computedSerie(): string
     {
         if (! $this->voucher_type_id || ! $this->serie_number) {
@@ -80,5 +61,24 @@ class VoucherSerieForm extends Form
         $number = str_pad((int) $this->serie_number, 3, '0', STR_PAD_LEFT);
 
         return "{$letter}{$number}";
+    }
+
+    protected function rules(): array
+    {
+        return [
+            'voucher_type_id' => ['required', Rule::exists('voucher_types', 'id')],
+            'serie_number' => ['required', 'integer', 'min:1', 'max:999'],
+            'serie' => ['required', Rule::unique('voucher_series', 'serie')
+                ->ignore($this->voucherSerie?->id)],
+            'next_value' => ['numeric', 'min:1', 'max:999999999'],
+            'is_active' => ['boolean'],
+        ];
+    }
+
+    protected function prepareForValidation($attributes)
+    {
+        $attributes['serie'] = $this->computedSerie();
+
+        return $attributes;
     }
 }

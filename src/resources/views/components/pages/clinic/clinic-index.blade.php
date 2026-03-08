@@ -6,8 +6,7 @@ use Livewire\WithPagination;
 use App\Models\Clinic;
 use Livewire\Attributes\Computed;
 
-new class extends Component
-{
+new class extends Component {
     use WithPagination, WithoutUrlPagination;
 
     public string $keyword = '';
@@ -19,8 +18,8 @@ new class extends Component
     {
         $rules = [
             'id' => ['regex:/^\d+$/'],
-            'name' => ['required','string', 'min:3'],
-            'address' => ['required','string','min:3'],
+            'name' => ['required', 'string', 'min:3'],
+            'address' => ['required', 'string', 'min:3'],
         ];
         return [
             'searchColumn' => ['required', 'in:id,name,address'],

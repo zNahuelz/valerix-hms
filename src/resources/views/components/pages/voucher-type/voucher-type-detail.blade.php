@@ -3,8 +3,7 @@
 use Livewire\Component;
 use App\Models\VoucherType;
 
-new class extends Component
-{
+new class extends Component {
     public ?VoucherType $voucherType = null;
 
 
@@ -80,7 +79,8 @@ new class extends Component
                                 <flux:table.cell>{{ $voucherSerie->serie }}</flux:table.cell>
                                 <flux:table.cell>{{ $voucherSerie->next_value }}</flux:table.cell>
                                 <flux:table.cell>
-                                    <flux:badge color="{{ $voucherSerie->is_active ? 'green' : 'red' }}" size="sm" inset="top bottom">
+                                    <flux:badge color="{{ $voucherSerie->is_active ? 'green' : 'red' }}" size="sm"
+                                                inset="top bottom">
                                         {{ $voucherSerie->is_active ? __('common.enabled_entity') : __('common.disabled_entity') }}
                                     </flux:badge>
                                 </flux:table.cell>

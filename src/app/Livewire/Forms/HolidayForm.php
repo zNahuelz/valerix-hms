@@ -17,6 +17,28 @@ class HolidayForm extends Form
 
     public $is_recurring = false;
 
+    public function messages(): array
+    {
+        return [
+            'name.required' => __('validation.name.required'),
+            'name.min' => __('validation.name.min', ['min' => '5']),
+            'name.max' => __('validation.name.max', ['max' => '100']),
+            'name.unique' => __('validation.name.unique_holiday'),
+            'date.required' => __('validation.date.required'),
+            'date.date' => __('validation.date.date'),
+            'date.unique' => __('validation.date.unique_holiday'),
+        ];
+    }
+
+    public function sanitized(): array
+    {
+        return [
+            'name' => strtoupper(trim($this->name)),
+            'date' => $this->date,
+            'is_recurring' => (bool) $this->is_recurring,
+        ];
+    }
+
     protected function rules(): array
     {
         return [
@@ -44,28 +66,6 @@ class HolidayForm extends Form
                     }
                 },
             ],
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'name.required' => __('validation.name.required'),
-            'name.min' => __('validation.name.min', ['min' => '5']),
-            'name.max' => __('validation.name.max', ['max' => '100']),
-            'name.unique' => __('validation.name.unique_holiday'),
-            'date.required' => __('validation.date.required'),
-            'date.date' => __('validation.date.date'),
-            'date.unique' => __('validation.date.unique_holiday'),
-        ];
-    }
-
-    public function sanitized(): array
-    {
-        return [
-            'name' => strtoupper(trim($this->name)),
-            'date' => $this->date,
-            'is_recurring' => (bool) $this->is_recurring,
         ];
     }
 }

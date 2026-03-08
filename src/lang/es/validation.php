@@ -92,7 +92,7 @@ return [
         'in' => 'El cargo seleccionado es inválido.',
     ],
     'clinic_id' => [
-        'required' => 'Debe seleccionar un clínica para el empleado.',
+        'required' => 'Debe seleccionar un clínica válida.',
         'exists' => 'El clinica seleccionada es inválida.',
     ],
     'role_id' => [
@@ -214,9 +214,30 @@ return [
         'max' => 'El precio debe ser como máximo :max.',
     ],
     'tax' => [
+        'required' => 'Debe ingresar un valor para el IGV.',
         'numeric' => 'Debe ingresar un valor numérico para el IGV.',
         'min' => 'El IGV debe ser como mínimo :min.',
         'max' => 'El IGV debe ser como máximo :max.',
+    ],
+    'subtotal' => [
+        'required' => 'Debe ingresar un valor para el subtotal.',
+        'numeric' => 'Debe ingresar un valor numérico para el subtotal.',
+        'min' => 'El subtotal debe ser como mínimo :min.',
+        'max' => 'El subtotal debe ser como máximo :max.',
+    ],
+    'total' => [
+        'required' => 'Debe ingresar un valor para el total.',
+        'numeric' => 'Debe ingresar un valor numérico para el total.',
+        'min' => 'El total debe ser como mínimo :min.',
+        'max' => 'El total debe ser como máximo :max.',
+    ],
+    'buy_order_status' => [
+        'required' => 'Debe seleccionar un estado para la orden de compra.',
+        'enum' => 'El estado seleccionado es inválido.',
+    ],
+    'buy_order_detail' => [
+        'required' => 'Debe seleccionar medicamentos para la orden de compra.',
+        'array' => 'Debe seleccionar al menos un (1) medicamento para generar la orden de compra.',
     ],
     'profit' => [
         'required' => 'Debe ingresar la ganancia.',
@@ -236,5 +257,25 @@ return [
         'integer' => 'Cada medicamento debe poseer un ID válido.',
         'distinct' => 'No se permite seleccionar medicamentos duplicados.',
         'exists' => 'El medicamento seleccionado es inválido o no se encuentra disponible.',
+    ],
+    'supplier_id' => [
+        'required' => 'Debe seleccionar un proveedor válido.',
+        'exists' => 'El proveedor seleccionado es inválido.',
+    ],
+    'medicine_id' => [
+        'required' => 'Debe seleccionar un medicamento válido.',
+        'exists' => 'El medicamento seleccionado es inválido o no se encuentra disponible.',
+    ],
+    'amount' => [
+        'required' => 'Debe ingresar una cantidad.',
+        'numeric' => 'El valor de cantidad debe ser numérico.',
+        'min' => 'La cantidad debe ser como mínimo :min.',
+        'max' => 'La cantidad debe ser como máximo :max.',
+    ],
+    'unit_price' => [
+        'required' => 'Debe ingresar el precio unitario.',
+        'numeric' => 'El precio unitario debe ser numérico.',
+        'min' => 'El precio unitario debe ser como mínimo :min.',
+        'max' => 'El precio unitario debe ser como máximo :max.',
     ],
 ];

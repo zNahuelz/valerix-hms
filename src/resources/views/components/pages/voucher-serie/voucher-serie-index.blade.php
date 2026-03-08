@@ -6,8 +6,7 @@ use Livewire\WithPagination;
 use App\Models\VoucherSerie;
 use Livewire\Attributes\Computed;
 
-new class extends Component
-{
+new class extends Component {
     use WithPagination, WithoutUrlPagination;
 
     public string $keyword = '';
@@ -19,7 +18,7 @@ new class extends Component
     {
         $rules = [
             'id' => ['regex:/^\d+$/'],
-            'serie' => ['required','string', 'min:2']
+            'serie' => ['required', 'string', 'min:2']
         ];
         return [
             'searchColumn' => ['required', 'in:id,serie'],
@@ -68,10 +67,10 @@ new class extends Component
         if ($this->statusFilter) {
             switch ($this->statusFilter) {
                 case 'enabled':
-                    $query->where('is_active',true);
+                    $query->where('is_active', true);
                     break;
                 case 'disabled':
-                    $query->where('is_active',false);
+                    $query->where('is_active', false);
                     break;
                 default:
                     break;
@@ -113,7 +112,8 @@ new class extends Component
               class="flex flex-col md:flex-row items-stretch md:items-center gap-2 w-full md:w-auto md:ml-auto">
             <flux:select wire:model.live="searchColumn" class="w-full md:w-40">
                 <flux:select.option value="id">{{ __('common.id') }}</flux:select.option>
-                <flux:select.option value="serie">{{ trans_choice('voucher-serie.voucher_serie', 1) }}</flux:select.option>
+                <flux:select.option
+                    value="serie">{{ trans_choice('voucher-serie.voucher_serie', 1) }}</flux:select.option>
             </flux:select>
             <flux:input wire:model="keyword" :placeholder="__('common.search') . '...'" class="w-full md:w-64"/>
             <flux:button.group>
@@ -145,7 +145,8 @@ new class extends Component
                     <flux:table.cell>{{ $voucherSerie->serie }}</flux:table.cell>
                     <flux:table.cell>{{ $voucherSerie->next_value }}</flux:table.cell>
                     <flux:table.cell>
-                        <flux:badge color="{{ $voucherSerie->is_active ? 'green' : 'red' }}" size="sm" inset="top bottom">
+                        <flux:badge color="{{ $voucherSerie->is_active ? 'green' : 'red' }}" size="sm"
+                                    inset="top bottom">
                             {{ $voucherSerie->is_active ? __('common.enabled_entity') : __('common.disabled_entity') }}
                         </flux:badge>
                     </flux:table.cell>

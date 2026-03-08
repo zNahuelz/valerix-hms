@@ -18,8 +18,8 @@ new class extends Component {
     {
         $rules = [
             'id' => ['regex:/^\d+$/'],
-            'ruc' => ['required','regex:/^(10|20)\d{9}$/'],
-            'name' => ['required','string', 'min:3']
+            'ruc' => ['required', 'regex:/^(10|20)\d{9}$/'],
+            'name' => ['required', 'string', 'min:3']
         ];
         return [
             'searchColumn' => ['required', 'in:id,name,ruc'],

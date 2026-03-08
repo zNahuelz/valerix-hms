@@ -24,6 +24,45 @@ class SupplierForm extends Form
 
     public $description = '';
 
+    public function messages(): array
+    {
+        return [
+            'name.required' => __('validation.name.required'),
+            'name.min' => __('validation.name.min', ['min' => '2']),
+            'name.max' => __('validation.name.max', ['max' => '150']),
+            'description.required' => __('validation.description.required'),
+            'description.min' => __('validation.description.min', ['min' => '5']),
+            'description.max' => __('validation.description.max', ['max' => '150']),
+            'manager.required' => __('validation.manager.required'),
+            'manager.min' => __('validation.manager.min'),
+            'manager.max' => __('validation.manager.max'),
+            'ruc.required' => __('validation.ruc.required'),
+            'ruc.size' => __('validation.ruc.size'),
+            'ruc.regex' => __('validation.ruc.regex'),
+            'ruc.unique' => __('validation.ruc.unique'),
+            'address.min' => __('validation.address.min'),
+            'address.max' => __('validation.address.max'),
+            'phone.min' => __('validation.phone.min'),
+            'phone.max' => __('validation.phone.max'),
+            'phone.regex' => __('validation.phone.regex'),
+            'email.max' => __('validation.email.max'),
+            'email.email' => __('validation.email.email'),
+        ];
+    }
+
+    public function sanitized(): array
+    {
+        return [
+            'name' => strtoupper(trim($this->name)),
+            'manager' => strtoupper(trim($this->manager)),
+            'ruc' => trim($this->ruc),
+            'address' => $this->address ? strtoupper(trim($this->address)) : null,
+            'phone' => $this->phone ? trim($this->phone) : null,
+            'email' => $this->email ? strtolower(trim($this->email)) : null,
+            'description' => $this->description ? strtoupper(trim($this->description)) : null,
+        ];
+    }
+
     protected function rules(): array
     {
         return [
@@ -71,45 +110,6 @@ class SupplierForm extends Form
                 'min:5',
                 'max:150',
             ],
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'name.required' => __('validation.name.required'),
-            'name.min' => __('validation.name.min', ['min' => '2']),
-            'name.max' => __('validation.name.max', ['max' => '150']),
-            'description.required' => __('validation.description.required'),
-            'description.min' => __('validation.description.min', ['min' => '5']),
-            'description.max' => __('validation.description.max', ['max' => '150']),
-            'manager.required' => __('validation.manager.required'),
-            'manager.min' => __('validation.manager.min'),
-            'manager.max' => __('validation.manager.max'),
-            'ruc.required' => __('validation.ruc.required'),
-            'ruc.size' => __('validation.ruc.size'),
-            'ruc.regex' => __('validation.ruc.regex'),
-            'ruc.unique' => __('validation.ruc.unique'),
-            'address.min' => __('validation.address.min'),
-            'address.max' => __('validation.address.max'),
-            'phone.min' => __('validation.phone.min'),
-            'phone.max' => __('validation.phone.max'),
-            'phone.regex' => __('validation.phone.regex'),
-            'email.max' => __('validation.email.max'),
-            'email.email' => __('validation.email.email'),
-        ];
-    }
-
-    public function sanitized(): array
-    {
-        return [
-            'name' => strtoupper(trim($this->name)),
-            'manager' => strtoupper(trim($this->manager)),
-            'ruc' => trim($this->ruc),
-            'address' => $this->address ? strtoupper(trim($this->address)) : null,
-            'phone' => $this->phone ? trim($this->phone) : null,
-            'email' => $this->email ? strtolower(trim($this->email)) : null,
-            'description' => $this->description ? strtoupper(trim($this->description)) : null,
         ];
     }
 }

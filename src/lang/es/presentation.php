@@ -21,6 +21,8 @@ return [
         'not_deleted' => 'La Presentación de ID: :id no se encuentra eliminada',
         'already_deleted' => 'La Presentación de ID: :id ya se encuentra eliminada',
         'empty_set' => 'No se encontraron presentaciones con el criterio ingresado',
+        'creation_failed' => 'Error durante el registro de la presentación, intente nuevamente o comuniquese con administración.',
+        'update_failed' => 'Error durante la actualización de la presentación, intente nuevamente o comuniquese con administración.',
     ],
     'select_one' => 'Seleccione una presentación...',
 ];

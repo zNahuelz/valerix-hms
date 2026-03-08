@@ -12,14 +12,6 @@ class VoucherTypeForm extends Form
 
     public $name = '';
 
-    protected function rules(): array
-    {
-        return [
-            'name' => ['required', 'string', 'min:3', 'max:20', Rule::unique('voucher_types', 'name')
-                ->ignore($this->voucherType?->id)],
-        ];
-    }
-
     public function messages(): array
     {
         return [
@@ -34,6 +26,14 @@ class VoucherTypeForm extends Form
     {
         return [
             'name' => strtoupper(trim($this->name)),
+        ];
+    }
+
+    protected function rules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'min:3', 'max:20', Rule::unique('voucher_types', 'name')
+                ->ignore($this->voucherType?->id)],
         ];
     }
 

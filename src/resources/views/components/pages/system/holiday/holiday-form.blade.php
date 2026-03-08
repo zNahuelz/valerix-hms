@@ -5,8 +5,7 @@ use App\Models\Holiday;
 use App\Livewire\Forms\HolidayForm;
 use Illuminate\Support\Facades\Session;
 
-new class extends Component
-{
+new class extends Component {
     public HolidayForm $form;
 
     public function mount(?string $holidayId = null): void
@@ -39,14 +38,19 @@ new class extends Component
     {
         $sanitized = $this->form->sanitized();
         $this->validate();
-        if ($this->form->holiday) {
-            $this->form->holiday->update($sanitized);
-            Session::flash('success', __('holiday.updated', ['name' => $sanitized['name'], 'id' => $this->form->holiday->id, 'date' => $sanitized['date']]));
-        } else {
-            $holiday = Holiday::create($sanitized);
-            Session::flash('success', __('holiday.created', ['name' => $sanitized['name'], 'id' => $holiday->id, 'date' => $sanitized['date']]));
+        try {
+            if ($this->form->holiday) {
+                $this->form->holiday->update($sanitized);
+                Session::flash('success', __('holiday.updated', ['name' => $sanitized['name'], 'id' => $this->form->holiday->id, 'date' => $sanitized['date']]));
+            } else {
+                $holiday = Holiday::create($sanitized);
+                Session::flash('success', __('holiday.created', ['name' => $sanitized['name'], 'id' => $holiday->id, 'date' => $sanitized['date']]));
+            }
+            return redirect()->to(route('holiday.index'));
+        } catch (Exception) {
+            Session::flash('error', $this->form->holiday ? __('holiday.errors.update_failed') : __('holiday.errors.creation_failed'));
+            return redirect()->to(route('holiday.index'));
         }
-        return redirect()->to(route('holiday.index'));
     }
 
     public function delete()

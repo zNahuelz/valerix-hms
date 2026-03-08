@@ -8,21 +8,20 @@ use App\Livewire\Forms\Doctor\DoctorEditForm;
 use Illuminate\Support\Facades\Session;
 use Spatie\Permission\Models\Role;
 
-new class extends Component
-{
+new class extends Component {
     public DoctorEditForm $form;
     public array $clinics = [];
     public int $doctorRoleId = 0;
 
     public function mount(?string $doctorId = null): void
     {
-        if(!Clinic::whereNull('deleted_at')->exists()){
+        if (!Clinic::whereNull('deleted_at')->exists()) {
             Session::flash('error', __('doctor.errors.creation_disabled_empty_clinics'));
             $this->redirectRoute('doctor.index');
             return;
         }
-        $this->clinics = Clinic::select(['id','name'])->whereNull('deleted_at')->orderBy('name')->get()->toArray();
-        if(!Role::exists()){
+        $this->clinics = Clinic::select(['id', 'name'])->whereNull('deleted_at')->orderBy('name')->get()->toArray();
+        if (!Role::exists()) {
             Session::flash('error', __('doctor.errors.creation_disabled_empty_roles'));
             $this->redirectRoute('doctor.index');
             return;
@@ -31,7 +30,7 @@ new class extends Component
             ->orderBy('name')
             ->value('id') ?? 0;
 
-        if($this->doctorRoleId === 0){
+        if ($this->doctorRoleId === 0) {
             Session::flash('error', __('doctor.errors.creation_disabled_doctor_role_not_found'));
             $this->redirectRoute('doctor.index');
             return;
@@ -49,10 +48,10 @@ new class extends Component
                 $this->redirectWithError($doctorId);
                 return;
             }
-            $doctor->load(['user' => function($query) {
+            $doctor->load(['user' => function ($query) {
                 $query->withTrashed();
             }]);
-            if(auth()->user()->is($doctor->user)){
+            if (auth()->user()->is($doctor->user)) {
                 Session::flash('warning', __('doctor.errors.editing_session'));
                 $this->redirectRoute('doctor.index');
                 return;
@@ -82,7 +81,7 @@ new class extends Component
                 'clinic_id' => $sanitized['clinic_id'],
             ]);
             //TODO: Trigger user updated email.
-            Session::flash('success', __('doctor.updated', ['name' => $sanitized['names'] .' '. $sanitized['paternal_surname'], 'id' => $this->form->doctor->id]));
+            Session::flash('success', __('doctor.updated', ['name' => $sanitized['names'] . ' ' . $sanitized['paternal_surname'], 'id' => $this->form->doctor->id]));
         }
         return redirect()->to(route('doctor.index'));
     }
@@ -135,7 +134,8 @@ new class extends Component
                 <flux:input wire:model.live.blur="form.paternal_surname" type="text"/>
                 <flux:error name="form.paternal_surname"/>
             </flux:field>
-            <flux:input wire:model.live.blur="form.maternal_surname" label="{{ __('common.maternal_surname') }}" type="text"/>
+            <flux:input wire:model.live.blur="form.maternal_surname" label="{{ __('common.maternal_surname') }}"
+                        type="text"/>
             <flux:field>
                 <flux:label badge="{{ __('common.required') }}">{{ __('common.hired_at') }}</flux:label>
                 <flux:input wire:model.live.blur="form.hired_at" type="date"/>

@@ -35,6 +35,7 @@ return [
         'empty_availabilities' => 'El doctor no cuenta con un horario asignado, esto puede ser modificado desde el módulo de gestión de horarios.',
         'availabilities_update_failed' => 'Error durante la actualización del horario del doctor, intente nuevamente o comuniquese con administración de ser necesario.',
         'unav_creation_disabled_empty_doctors' => 'El sistema no cuenta con doctores registrados, el módulo de registro de indisponibilidades se encuentra bloqueado. Debe registrar al menos un (1) doctor para utilizar el sistema con normalidad; comuniquese con administración de ser necesario.',
+        'update_failed' => 'Error durante la actualización de la orden de compra, intente nuevamente o comuniquese con administración.',
     ],
     'unavailability' => [
         'create' => 'Registrar Indisponibilidad',
@@ -47,5 +48,7 @@ return [
         'is_deleted' => 'La indisponibilidad se encuentra eliminada; sus cambios serán visibles al restaurarla.',
         'index' => 'Listado de Indisponibilidades - Doctor: :name #:id',
         'empty_set' => 'El doctor no cuenta con indisponibilidades registradas.',
+        'creation_failed' => 'Error durante el registro de la indisponibilidad, intente nuevamente o comuniquese con administración.',
+        'update_failed' => 'Error durante la actualización de la indisponibilidad, intente nuevamente o comuniquese con administración.',
     ],
 ];

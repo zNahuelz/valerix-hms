@@ -8,9 +8,9 @@ use App\Models\DoctorUnavailability;
 use Illuminate\Support\Carbon;
 
 
-new class extends Component
-{
+new class extends Component {
     use WithPagination, WithoutUrlPagination;
+
     public ?Doctor $doctor = null;
 
     public function mount(?string $doctorId = null): void
@@ -54,7 +54,7 @@ new class extends Component
     {
         return $this->view()
             ->layout('layouts::dashboard', ['heading' => __('doctor.unavailability.index', ['id' => $this->doctor->id, 'name' => ucwords(strtolower($this->doctor->names))
-                .' '.
+                . ' ' .
                 ucwords(strtolower($this->doctor->paternal_surname))])])
             ->title(__('views.doctor.unavailabilities'));
     }
@@ -64,7 +64,8 @@ new class extends Component
 <div>
     <div class="flex flex-col md:flex-row w-full items-stretch md:items-center justify-between gap-4 mb-2">
         @canany(['sys.admin', 'doctor.create.unavailability'])
-            <flux:button variant="primary" icon="plus" wire:navigate href="{{ route('doctor.create.unavailabilities') }}"
+            <flux:button variant="primary" icon="plus" wire:navigate
+                         href="{{ route('doctor.create.unavailabilities') }}"
                          class="w-full md:w-auto">
                 {{ __('common.new') }}
             </flux:button>

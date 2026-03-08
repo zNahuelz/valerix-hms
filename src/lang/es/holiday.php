@@ -16,5 +16,7 @@ return [
     'errors' => [
         'not_found' => 'Feriado de ID: :id no encontrado',
         'empty_set' => 'No se encontraron feriados con el criterio ingresado',
+        'creation_failed' => 'Error durante el registro del feriado, intente nuevamente o comuniquese con administración.',
+        'update_failed' => 'Error durante la actualización del feriado, intente nuevamente o comuniquese con administración.',
     ],
 ];

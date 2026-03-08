@@ -4,8 +4,7 @@ use Livewire\Component;
 use App\Models\Worker;
 use Illuminate\Support\Carbon;
 
-new class extends Component
-{
+new class extends Component {
     public ?Worker $worker = null;
 
     public function mount(?string $workerId = null): void
@@ -23,7 +22,7 @@ new class extends Component
                 return;
             }
 
-            $worker->load(['user' => fn($q) => $q->withTrashed()->with('roles'),'updatedBy']);
+            $worker->load(['user' => fn($q) => $q->withTrashed()->with('roles'), 'updatedBy']);
 
             $this->worker = $worker;
         }
@@ -39,7 +38,7 @@ new class extends Component
     {
         return $this->view()
             ->layout('layouts::dashboard', ['heading' => __('worker.detail', ['id' => $this->worker->id, 'name' => ucwords(strtolower($this->worker->names))
-                .' '.
+                . ' ' .
                 ucwords(strtolower($this->worker->paternal_surname))])])
             ->title(__('views.worker.detail'));
     }
@@ -71,13 +70,19 @@ new class extends Component
             </flux:field>
             <flux:field>
                 <flux:label>{{ __('common.hired_at') }}</flux:label>
-                <flux:input readonly value="{{ Carbon::createFromFormat('Y-m-d',$worker->hired_at)->timezone('America/Lima')->format('d/m/Y') ?? __('common.null') }}" type="text"/>
+                <flux:input readonly
+                            value="{{ Carbon::createFromFormat('Y-m-d',$worker->hired_at)->timezone('America/Lima')->format('d/m/Y') ?? __('common.null') }}"
+                            type="text"/>
             </flux:field>
-            <flux:input readonly value="{{ $worker->user?->email ?? __('common.null') }}" label="{{ __('common.email') }}" type="email"/>
-            <flux:input readonly value="{{ $worker->phone ?? __('common.null') }}" label="{{ __('common.phone') }}" type="text"/>
-            <flux:input readonly value="{{ $worker->position ?? __('common.null') }}" label="{{ __('common.position') }}" type="text"/>
+            <flux:input readonly value="{{ $worker->user?->email ?? __('common.null') }}"
+                        label="{{ __('common.email') }}" type="email"/>
+            <flux:input readonly value="{{ $worker->phone ?? __('common.null') }}" label="{{ __('common.phone') }}"
+                        type="text"/>
+            <flux:input readonly value="{{ $worker->position ?? __('common.null') }}"
+                        label="{{ __('common.position') }}" type="text"/>
             <div class="col-span-full">
-                <flux:input readonly value="{{ $worker->address ?? __('common.null') }}" label="{{ __('common.address') }}"
+                <flux:input readonly value="{{ $worker->address ?? __('common.null') }}"
+                            label="{{ __('common.address') }}"
                             type="text"/>
             </div>
             <flux:field>
@@ -116,7 +121,8 @@ new class extends Component
                 <div class="flex flex-col md:flex-row md:justify-between gap-2">
                     @if(!auth()->user()->is($worker->user))
                         @canany(['sys.admin', 'worker.update', 'worker.delete', 'worker.restore'])
-                            <flux:button type="button" variant="primary" class="w-full md:w-auto md:ml-auto" wire:navigate
+                            <flux:button type="button" variant="primary" class="w-full md:w-auto md:ml-auto"
+                                         wire:navigate
                                          href="{{ route('worker.edit', ['workerId' => $worker->id]) }}">
                                 {{ __('common.edit') }}
                             </flux:button>

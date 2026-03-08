@@ -11,8 +11,7 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\DB;
 
-new class extends Component
-{
+new class extends Component {
     public DoctorCreateForm $form;
     public array $clinics = [];
     public int $doctorRoleId = 0;
@@ -21,13 +20,13 @@ new class extends Component
 
     public function mount(): void
     {
-        if(!Clinic::whereNull('deleted_at')->exists()){
+        if (!Clinic::whereNull('deleted_at')->exists()) {
             Session::flash('error', __('doctor.errors.creation_disabled_empty_clinics'));
             $this->redirectRoute('doctor.index');
             return;
         }
-        $this->clinics = Clinic::select(['id','name'])->whereNull('deleted_at')->orderBy('name')->get()->toArray();
-        if(!Role::exists()){
+        $this->clinics = Clinic::select(['id', 'name'])->whereNull('deleted_at')->orderBy('name')->get()->toArray();
+        if (!Role::exists()) {
             Session::flash('error', __('doctor.errors.creation_disabled_empty_roles'));
             $this->redirectRoute('doctor.index');
             return;
@@ -36,19 +35,19 @@ new class extends Component
             ->orderBy('name')
             ->value('id') ?? 0;
 
-        if($this->doctorRoleId === 0){
+        if ($this->doctorRoleId === 0) {
             Session::flash('error', __('doctor.errors.creation_disabled_doctor_role_not_found'));
             $this->redirectRoute('doctor.index');
             return;
         }
 
         $this->form->availabilities = collect(range(1, 5))->map(fn($day) => [
-            'weekday'    => $day,
+            'weekday' => $day,
             'start_time' => '08:00',
-            'end_time'   => '17:00',
-            'break_start'=> '12:00',
-            'break_end'  => '13:00',
-            'is_active'  => true,
+            'end_time' => '17:00',
+            'break_start' => '12:00',
+            'break_end' => '13:00',
+            'is_active' => true,
         ])->toArray();
 
         $this->form->clinic_id = $this->clinics[0]['id'];
@@ -78,12 +77,12 @@ new class extends Component
         if (count($this->form->availabilities) < 7) {
             $nextWeekday = max(array_column($this->form->availabilities, 'weekday')) + 1;
             $this->form->availabilities[] = [
-                'weekday'     => $nextWeekday,
-                'start_time'  => '08:00',
-                'end_time'    => '17:00',
+                'weekday' => $nextWeekday,
+                'start_time' => '08:00',
+                'end_time' => '17:00',
                 'break_start' => '12:00',
-                'break_end'   => '13:00',
-                'is_active'   => true,
+                'break_end' => '13:00',
+                'is_active' => true,
             ];
         }
     }
@@ -102,12 +101,12 @@ new class extends Component
             $this->currentStep = 2;
             throw $e;
         }
-        try{
+        try {
             DB::beginTransaction();
             $sanitized = $this->form->sanitized();
             $user = User::create([
-                'username' => $this->generateUsername($sanitized['names'],$sanitized['paternal_surname'],$sanitized['dni']),
-                'password' => strrev($this->generateUsername($sanitized['names'],$sanitized['paternal_surname'],$sanitized['dni'])),
+                'username' => $this->generateUsername($sanitized['names'], $sanitized['paternal_surname'], $sanitized['dni']),
+                'password' => strrev($this->generateUsername($sanitized['names'], $sanitized['paternal_surname'], $sanitized['dni'])),
                 'email' => $sanitized['email'],
                 'avatar' => null,
                 'clinic_id' => $sanitized['clinic_id'],
@@ -126,8 +125,7 @@ new class extends Component
                 'user_id' => $user->id,
             ]);
 
-            foreach($sanitized['availabilities'] as $av)
-            {
+            foreach ($sanitized['availabilities'] as $av) {
                 DoctorAvailability::create([
                     'doctor_id' => $doctor->id,
                     'weekday' => $av['weekday'],
@@ -140,12 +138,11 @@ new class extends Component
             }
             DB::commit();
             //TODO: Trigger doctor created email.
-            Session::flash('success', __('doctor.created', ['name' => $sanitized['names'] .' '. $sanitized['paternal_surname'], 'id' => $doctor->id, 'username' => $user->username]));
+            Session::flash('success', __('doctor.created', ['name' => $sanitized['names'] . ' ' . $sanitized['paternal_surname'], 'id' => $doctor->id, 'username' => $user->username]));
             return redirect()->to(route('doctor.index'));
-        }
-        catch(Exception $e){
+        } catch (Exception $e) {
             DB::rollBack();
-            Session::flash('error',__('doctor.errors.creation_failed'));
+            Session::flash('error', __('doctor.errors.creation_failed'));
             return redirect()->to(route('doctor.index'));
         }
     }
@@ -350,7 +347,8 @@ new class extends Component
                         </div>
                         <div>
                             <flux:text class="text-zinc-400">{{ __('common.username') }}</flux:text>
-                            <flux:text class="font-medium">{{ $this->generateUsername($this->form->names,$this->form->paternal_surname,$this->form->dni) ?? __('common.null') }}</flux:text>
+                            <flux:text
+                                class="font-medium">{{ $this->generateUsername($this->form->names,$this->form->paternal_surname,$this->form->dni) ?? __('common.null') }}</flux:text>
                         </div>
                     </div>
                 </flux:card>
@@ -359,7 +357,8 @@ new class extends Component
                     <flux:heading>{{ __('common.schedule_settings') }}</flux:heading>
                     <div class="space-y-2">
                         @foreach ($form->availabilities as $slot)
-                            <div class="grid grid-cols-1 sm:grid-cols-5 gap-2 items-center text-sm border-b pb-2 last:border-0 last:pb-0">
+                            <div
+                                class="grid grid-cols-1 sm:grid-cols-5 gap-2 items-center text-sm border-b pb-2 last:border-0 last:pb-0">
                                 <flux:text class="font-semibold">
                                     {{ __('common.weekdays')[$slot['weekday']] }}
                                     @if(!$slot['is_active'])

@@ -22,5 +22,7 @@ return [
         'already_deleted' => 'El paciente de ID: :id ya se encuentra eliminado',
         'empty_set' => 'No se encontraron pacientes con el criterio ingresado',
         'default_patient' => 'El paciente por defecto (DNI: 00000000) no puede ser modificado; comuniquese con administración.',
+        'creation_failed' => 'Error durante el registro del paciente, intente nuevamente o comuniquese con administración.',
+        'update_failed' => 'Error durante la actualización del paciente, intente nuevamente o comuniquese con administración.',
     ],
 ];

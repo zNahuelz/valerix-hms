@@ -249,6 +249,24 @@ Route::group(['prefix' => '/dashboard'], function () {
             ->name('treatment.edit');
     });
 
+    Route::group(['prefix' => '/buy-order'], function () {
+        Route::livewire('/', 'pages.buy-order.buy-order-index')
+            ->middleware('require_permission:buyOrder.index')
+            ->name('buyOrder.index');
+
+        Route::livewire('/create', 'pages.buy-order.buy-order-form')
+            ->middleware('require_permission:buyOrder.create')
+            ->name('buyOrder.create');
+
+        Route::livewire('/{buyOrderId}', 'pages.buy-order.buy-order-detail')
+            ->middleware('require_permission:buyOrder.detail')
+            ->name('buyOrder.detail');
+
+        Route::livewire('/{buyOrderId}/edit', 'pages.buy-order.buy-order-form')
+            ->middleware('require_permission:buyOrder.edit')
+            ->name('buyOrder.edit');
+    });
+
 })->middleware('auth');
 
 Route::post('/logout', function () {

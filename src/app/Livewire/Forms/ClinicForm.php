@@ -18,6 +18,37 @@ class ClinicForm extends Form
 
     public string $phone = '';
 
+    public function messages(): array
+    {
+        return [
+            'name.required' => __('validation.name.required'),
+            'name.min' => __('validation.name.min', ['min' => '2']),
+            'name.max' => __('validation.name.max', ['max' => '100']),
+            'name.unique' => __('validation.name.unique_clinic'),
+            'ruc.required' => __('validation.ruc.required'),
+            'ruc.size' => __('validation.ruc.size'),
+            'ruc.regex' => __('validation.ruc.regex'),
+            'ruc.unique' => __('validation.ruc.unique'),
+            'address.required' => __('validation.address.required'),
+            'address.min' => __('validation.address.min'),
+            'address.max' => __('validation.address.max'),
+            'phone.required' => __('validation.phone.required'),
+            'phone.min' => __('validation.phone.min'),
+            'phone.max' => __('validation.phone.max'),
+            'phone.regex' => __('validation.phone.regex'),
+        ];
+    }
+
+    public function sanitized(): array
+    {
+        return [
+            'name' => strtoupper(trim($this->name)),
+            'ruc' => trim($this->ruc),
+            'address' => $this->address ? strtoupper(trim($this->address)) : null,
+            'phone' => $this->phone ? trim($this->phone) : null,
+        ];
+    }
+
     protected function rules(): array
     {
         return [
@@ -48,37 +79,6 @@ class ClinicForm extends Form
                 'max:15',
                 'regex:/^\+?\d{6,15}$/',
             ],
-        ];
-    }
-
-    public function messages(): array
-    {
-        return [
-            'name.required' => __('validation.name.required'),
-            'name.min' => __('validation.name.min', ['min' => '2']),
-            'name.max' => __('validation.name.max', ['max' => '100']),
-            'name.unique' => __('validation.name.unique_clinic'),
-            'ruc.required' => __('validation.ruc.required'),
-            'ruc.size' => __('validation.ruc.size'),
-            'ruc.regex' => __('validation.ruc.regex'),
-            'ruc.unique' => __('validation.ruc.unique'),
-            'address.required' => __('validation.address.required'),
-            'address.min' => __('validation.address.min'),
-            'address.max' => __('validation.address.max'),
-            'phone.required' => __('validation.phone.required'),
-            'phone.min' => __('validation.phone.min'),
-            'phone.max' => __('validation.phone.max'),
-            'phone.regex' => __('validation.phone.regex'),
-        ];
-    }
-
-    public function sanitized(): array
-    {
-        return [
-            'name' => strtoupper(trim($this->name)),
-            'ruc' => trim($this->ruc),
-            'address' => $this->address ? strtoupper(trim($this->address)) : null,
-            'phone' => $this->phone ? trim($this->phone) : null,
         ];
     }
 }

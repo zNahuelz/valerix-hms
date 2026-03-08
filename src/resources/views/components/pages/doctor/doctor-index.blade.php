@@ -6,8 +6,7 @@ use Livewire\WithPagination;
 use App\Models\Doctor;
 use Livewire\Attributes\Computed;
 
-new class extends Component
-{
+new class extends Component {
     use WithPagination, WithoutUrlPagination;
 
     public string $keyword = '';
@@ -19,9 +18,9 @@ new class extends Component
     {
         $rules = [
             'id' => ['regex:/^\d+$/'],
-            'dni' => ['required','regex:/^[0-9]{8,15}$/'],
-            'names' => ['required','string', 'min:3'],
-            'paternal_surname' => ['required','string', 'min:3'],
+            'dni' => ['required', 'regex:/^[0-9]{8,15}$/'],
+            'names' => ['required', 'string', 'min:3'],
+            'paternal_surname' => ['required', 'string', 'min:3'],
         ];
         return [
             'searchColumn' => ['required', 'in:id,names,dni,paternal_surname'],
@@ -173,19 +172,20 @@ new class extends Component
                                     </flux:button>
                                 @endcanany
                                 @canany(['sys.admin', 'doctor.edit.availabilities'])
-                                        <flux:button variant="ghost" size="sm" icon="calendar-days" inset="top bottom"
-                                                     title="{{ __('common.edit_availabilities') }}"
-                                                     href="{{route('doctor.edit.availabilities', ['doctorId' => $doctor->id])}}"
-                                                     wire:navigate>
-                                        </flux:button>
+                                    <flux:button variant="ghost" size="sm" icon="calendar-days" inset="top bottom"
+                                                 title="{{ __('common.edit_availabilities') }}"
+                                                 href="{{route('doctor.edit.availabilities', ['doctorId' => $doctor->id])}}"
+                                                 wire:navigate>
+                                    </flux:button>
                                 @endcanany
-                                    @canany(['sys.admin', 'doctor.detail.unavailabilities'])
-                                        <flux:button variant="ghost" size="sm" icon="clipboard-document-check" inset="top bottom"
-                                                     title="{{ __('common.unavailabilities_detail') }}"
-                                                     href="{{route('doctor.detail.unavailabilities', ['doctorId' => $doctor->id])}}"
-                                                     wire:navigate>
-                                        </flux:button>
-                                    @endcanany
+                                @canany(['sys.admin', 'doctor.detail.unavailabilities'])
+                                    <flux:button variant="ghost" size="sm" icon="clipboard-document-check"
+                                                 inset="top bottom"
+                                                 title="{{ __('common.unavailabilities_detail') }}"
+                                                 href="{{route('doctor.detail.unavailabilities', ['doctorId' => $doctor->id])}}"
+                                                 wire:navigate>
+                                    </flux:button>
+                                @endcanany
                                 @canany(['sys.admin', 'doctor.detail'])
                                     <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal" inset="top bottom"
                                                  title="{{ __('common.details') }}"

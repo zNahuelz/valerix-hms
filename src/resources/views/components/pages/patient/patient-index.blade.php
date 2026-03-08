@@ -6,8 +6,7 @@ use Livewire\WithPagination;
 use App\Models\Patient;
 use Livewire\Attributes\Computed;
 
-new class extends Component
-{
+new class extends Component {
     use WithPagination, WithoutUrlPagination;
 
     public string $keyword = '';
@@ -19,9 +18,9 @@ new class extends Component
     {
         $rules = [
             'id' => ['regex:/^\d+$/'],
-            'dni' => ['required','regex:/^[0-9]{8,15}$/'],
-            'names' => ['required','string', 'min:3'],
-            'paternal_surname' => ['required','string', 'min:3'],
+            'dni' => ['required', 'regex:/^[0-9]{8,15}$/'],
+            'names' => ['required', 'string', 'min:3'],
+            'paternal_surname' => ['required', 'string', 'min:3'],
         ];
         return [
             'searchColumn' => ['required', 'in:id,names,dni,paternal_surname'],
@@ -165,25 +164,25 @@ new class extends Component
                     <flux:table.cell>{{ $patient->updated_at->timezone('America/Lima')->format('d/m/Y g:i A') }}
                     </flux:table.cell>
                     @if(!$patient->isDefaultPatient())
-                    <flux:table.cell>
-                        <flux:button.group>
-                            @canany(['sys.admin', 'patient.edit', 'patient.delete', 'patient.restore'])
-                                <flux:button variant="ghost" size="sm" icon="pencil-square" inset="top bottom"
-                                             title="{{ __('common.edit') }}"
-                                             href="{{ route('patient.edit', ['patientId' => $patient->id]) }}"
-                                             wire:navigate>
-                                </flux:button>
-                            @endcanany
-                            @canany(['sys.admin', 'patient.detail'])
-                                <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal" inset="top bottom"
-                                             title="{{ __('common.details') }}"
-                                             href="{{ route('patient.detail', ['patientId' => $patient->id]) }}"
-                                             wire:navigate>
-                                </flux:button>
-                            @endcanany
-                        </flux:button.group>
-                    </flux:table.cell>
-                        @endif
+                        <flux:table.cell>
+                            <flux:button.group>
+                                @canany(['sys.admin', 'patient.edit', 'patient.delete', 'patient.restore'])
+                                    <flux:button variant="ghost" size="sm" icon="pencil-square" inset="top bottom"
+                                                 title="{{ __('common.edit') }}"
+                                                 href="{{ route('patient.edit', ['patientId' => $patient->id]) }}"
+                                                 wire:navigate>
+                                    </flux:button>
+                                @endcanany
+                                @canany(['sys.admin', 'patient.detail'])
+                                    <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal" inset="top bottom"
+                                                 title="{{ __('common.details') }}"
+                                                 href="{{ route('patient.detail', ['patientId' => $patient->id]) }}"
+                                                 wire:navigate>
+                                    </flux:button>
+                                @endcanany
+                            </flux:button.group>
+                        </flux:table.cell>
+                    @endif
                 </flux:table.row>
             @empty
                 <flux:table.row>

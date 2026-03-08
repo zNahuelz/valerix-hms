@@ -6,8 +6,7 @@ use Livewire\WithPagination;
 use App\Models\Holiday;
 use Livewire\Attributes\Computed;
 
-new class extends Component
-{
+new class extends Component {
     use WithPagination, WithoutUrlPagination;
 
     public string $keyword = '';
@@ -19,7 +18,7 @@ new class extends Component
     {
         $rules = [
             'id' => ['regex:/^\d+$/'],
-            'name' => ['required','string', 'min:3']
+            'name' => ['required', 'string', 'min:3']
         ];
         return [
             'searchColumn' => ['required', 'in:id,name'],
@@ -89,7 +88,7 @@ new class extends Component
             }
         }
 
-        return $query->with(['createdBy','updatedBy'])->orderBy('updated_at', 'desc')->paginate(12);
+        return $query->with(['createdBy', 'updatedBy'])->orderBy('updated_at', 'desc')->paginate(12);
     }
 
     public function render(): mixed
@@ -158,13 +157,13 @@ new class extends Component
                     <flux:table.cell>{{ $holiday->updated_at->timezone('America/Lima')->format('d/m/Y g:i A') }}
                     </flux:table.cell>
                     <flux:table.cell>
-                            @canany(['sys.admin', 'holiday.edit', 'holiday.delete'])
-                                <flux:button variant="ghost" size="sm" icon="pencil-square" inset="top bottom"
-                                             title="{{ __('common.edit') }}"
-                                             href="{{ route('holiday.edit', ['holidayId' => $holiday->id]) }}"
-                                             wire:navigate>
-                                </flux:button>
-                            @endcanany
+                        @canany(['sys.admin', 'holiday.edit', 'holiday.delete'])
+                            <flux:button variant="ghost" size="sm" icon="pencil-square" inset="top bottom"
+                                         title="{{ __('common.edit') }}"
+                                         href="{{ route('holiday.edit', ['holidayId' => $holiday->id]) }}"
+                                         wire:navigate>
+                            </flux:button>
+                        @endcanany
                     </flux:table.cell>
                 </flux:table.row>
             @empty

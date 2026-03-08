@@ -5,8 +5,7 @@ use App\Models\Clinic;
 use App\Livewire\Forms\ClinicForm;
 use Illuminate\Support\Facades\Session;
 
-new class extends Component
-{
+new class extends Component {
     public ClinicForm $form;
 
     public function mount(?string $clinicId = null): void
@@ -39,14 +38,19 @@ new class extends Component
     {
         $sanitized = $this->form->sanitized();
         $this->validate();
-        if ($this->form->clinic) {
-            $this->form->clinic->update($sanitized);
-            Session::flash('success', __('clinic.updated', ['name' => $sanitized['name'], 'id' => $this->form->clinic->id]));
-        } else {
-            $clinic = Clinic::create($sanitized);
-            Session::flash('success', __('clinic.created', ['name' => $sanitized['name'], 'id' => $clinic->id]));
+        try {
+            if ($this->form->clinic) {
+                $this->form->clinic->update($sanitized);
+                Session::flash('success', __('clinic.updated', ['name' => $sanitized['name'], 'id' => $this->form->clinic->id]));
+            } else {
+                $clinic = Clinic::create($sanitized);
+                Session::flash('success', __('clinic.created', ['name' => $sanitized['name'], 'id' => $clinic->id]));
+            }
+            return redirect()->to(route('clinic.index'));
+        } catch (Exception) {
+            Session::flash('error', $this->form->clinic ? __('clinic.errors.update_failed') : __('clinic.errors.creation_failed'));
+            return redirect()->to(route('clinic.index'));
         }
-        return redirect()->to(route('clinic.index'));
     }
 
     public function render(): mixed
@@ -78,7 +82,7 @@ new class extends Component
             </flux:field>
             <flux:field>
                 <flux:label badge="{{ __('common.required') }}">{{ __('common.address') }}</flux:label>
-                <flux:input wire:model.live.blur="form.address"  type="text"/>
+                <flux:input wire:model.live.blur="form.address" type="text"/>
                 <flux:error name="form.address"/>
             </flux:field>
             <flux:field>

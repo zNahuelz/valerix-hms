@@ -6,8 +6,7 @@ use Livewire\WithPagination;
 use App\Models\VoucherType;
 use Livewire\Attributes\Computed;
 
-new class extends Component
-{
+new class extends Component {
     use WithPagination, WithoutUrlPagination;
 
     public string $keyword = '';
@@ -18,7 +17,7 @@ new class extends Component
     {
         $rules = [
             'id' => ['regex:/^\d+$/'],
-            'name' => ['required','string', 'min:3']
+            'name' => ['required', 'string', 'min:3']
         ];
         return [
             'searchColumn' => ['required', 'in:id,name'],
@@ -130,13 +129,13 @@ new class extends Component
                                          wire:navigate>
                             </flux:button>
                         @endcanany
-                            @canany(['sys.admin', 'voucherType.detail'])
-                                <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal" inset="top bottom"
-                                             title="{{ __('common.details') }}"
-                                             href="{{ route('voucherType.detail', ['voucherTypeId' => $voucherType->id]) }}"
-                                             wire:navigate>
-                                </flux:button>
-                            @endcanany
+                        @canany(['sys.admin', 'voucherType.detail'])
+                            <flux:button variant="ghost" size="sm" icon="ellipsis-horizontal" inset="top bottom"
+                                         title="{{ __('common.details') }}"
+                                         href="{{ route('voucherType.detail', ['voucherTypeId' => $voucherType->id]) }}"
+                                         wire:navigate>
+                            </flux:button>
+                        @endcanany
                     </flux:table.cell>
                 </flux:table.row>
             @empty
