@@ -101,6 +101,7 @@ new class extends Component {
                                          color="red"
                                          wire:click="delete"
                                          class="w-full md:w-auto" wire:loading.attr="disabled"
+                                         icon="{{ $form->holiday->trashed() ? 'arrow-path' : 'trash' }}"
                                          wire:target="delete, save">
                                 {{  __('common.delete') }}
                             </flux:button>

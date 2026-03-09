@@ -63,7 +63,7 @@ class PresentationForm extends Form
                 'min:0.1',
                 'max:99999',
                 Rule::unique('presentations', 'numeric_value')
-                    ->where(fn ($query) => $query->whereRaw('LOWER(name) = ?', [strtolower($this->name)]))
+                    ->where(fn($query) => $query->whereRaw('LOWER(name) = ?', [strtolower($this->name)]))
                     ->ignore($this->presentation?->id),
             ],
         ];

@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             PaymentTypeSeeder::class,
             VoucherTypeSeeder::class,
             TreatmentSeeder::class,
+            ClinicMedicineSeeder::class,
         ]);
     }
 }

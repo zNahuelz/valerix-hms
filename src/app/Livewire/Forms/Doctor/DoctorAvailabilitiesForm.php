@@ -93,7 +93,7 @@ class DoctorAvailabilitiesForm extends Form
             }
         }
 
-        if (! empty($errors)) {
+        if (!empty($errors)) {
             throw ValidationException::withMessages($errors);
         }
     }

@@ -267,6 +267,24 @@ Route::group(['prefix' => '/dashboard'], function () {
             ->name('buyOrder.edit');
     });
 
+    Route::group(['prefix' => '/clinic-medicine'], function () {
+        Route::livewire('/', 'pages.clinic-medicine.clinic-medicine-index')
+            ->middleware('require_permission:clinicMedicine.index')
+            ->name('clinicMedicine.index');
+
+        Route::livewire('/create', 'pages.clinic-medicine.clinic-medicine-form')
+            ->middleware('require_permission:clinicMedicine.create')
+            ->name('clinicMedicine.create');
+
+        Route::livewire('/{clinicMedicineId}', 'pages.clinic-medicine.clinic-medicine-detail')
+            ->middleware('require_permission:clinicMedicine.detail')
+            ->name('clinicMedicine.detail');
+
+        Route::livewire('/{clinicMedicineId}/edit', 'pages.clinic-medicine.clinic-medicine-form')
+            ->middleware('require_permission:clinicMedicine.edit')
+            ->name('clinicMedicine.edit');
+    });
+
 })->middleware('auth');
 
 Route::post('/logout', function () {

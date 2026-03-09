@@ -112,7 +112,7 @@ new class extends Component {
             </flux:field>
             <flux:field>
                 <flux:label badge="{{ __('common.required') }}">{{__('common.status')}}</flux:label>
-                <flux:checkbox wire:model="form.is_active" label="{{ __('common.status') }}"/>
+                <flux:checkbox wire:model="form.is_active" label="{{ __('common.enabled_entity') }}"/>
             </flux:field>
             @if($this->form->voucher_type_id && $form->serie_number)
                 <div class="text-sm text-gray-500 dark:text-white col-span-full">

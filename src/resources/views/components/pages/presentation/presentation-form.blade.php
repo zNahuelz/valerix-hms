@@ -110,6 +110,7 @@ new class extends Component {
                                          color="{{ $this->form->presentation->trashed() ? 'amber' : 'red' }}"
                                          wire:click="delete"
                                          class="w-full md:w-auto" wire:loading.attr="disabled"
+                                         icon="{{ $form->presentation->trashed() ? 'arrow-path' : 'trash' }}"
                                          wire:target="delete, save">
                                 {{ $this->form->presentation->trashed() ? __('common.restore') : __('common.delete') }}
                             </flux:button>

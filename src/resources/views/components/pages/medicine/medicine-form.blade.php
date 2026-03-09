@@ -166,6 +166,7 @@ new class extends Component {
                                          color="{{ $this->form->medicine->trashed() ? 'amber' : 'red' }}"
                                          wire:click="delete"
                                          class="w-full md:w-auto" wire:loading.attr="disabled"
+                                         icon="{{ $form->medicine->trashed() ? 'arrow-path' : 'trash' }}"
                                          wire:target="generateRandomBarcode, delete, save">
                                 {{ $this->form->medicine->trashed() ? __('common.restore') : __('common.delete') }}
                             </flux:button>

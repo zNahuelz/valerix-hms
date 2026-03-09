@@ -31,12 +31,32 @@ class TreatmentForm extends Form
 
         $relevantMessages = array_filter(
             $messages,
-            fn ($key) => collect(array_keys($rules))
-                ->contains(fn ($rule) => str_starts_with($key, str_replace('.*', '', $rule))),
+            fn($key) => collect(array_keys($rules))
+                ->contains(fn($rule) => str_starts_with($key, str_replace('.*', '', $rule))),
             ARRAY_FILTER_USE_KEY
         );
 
         $this->validate($rules, $relevantMessages);
+    }
+
+    protected function stepOneRules(): array
+    {
+        return [
+            'name' => ['required', 'string', 'min:5', 'max:100',
+                Rule::unique('treatments', 'name')->ignore($this->treatment?->id)],
+            'description' => ['nullable', 'string', 'min:5', 'max:255'],
+            'procedure' => ['nullable', 'string', 'min:5', 'max:255'],
+            'price' => ['required', 'numeric', 'min:1', 'max:999999'],
+            'profit' => ['required', 'numeric', 'min:0', 'max:999999', 'lte:price'],
+        ];
+    }
+
+    protected function stepTwoRules(): array
+    {
+        return [
+            'medicines' => ['nullable', 'array'],
+            'medicines.*' => ['integer', 'distinct', Rule::exists('medicines', 'id')],
+        ];
     }
 
     public function messages(): array
@@ -72,8 +92,8 @@ class TreatmentForm extends Form
 
     public function recalculateTax(): void
     {
-        $price = is_numeric($this->price) ? (float) $this->price : 0;
-        $profit = is_numeric($this->profit) ? (float) $this->profit : 0;
+        $price = is_numeric($this->price) ? (float)$this->price : 0;
+        $profit = is_numeric($this->profit) ? (float)$this->profit : 0;
 
         if ($price <= 0 || $price === $profit) {
             $this->tax = 0;
@@ -103,25 +123,5 @@ class TreatmentForm extends Form
     protected function rules(): array
     {
         return array_merge($this->stepOneRules(), $this->stepTwoRules());
-    }
-
-    protected function stepOneRules(): array
-    {
-        return [
-            'name' => ['required', 'string', 'min:5', 'max:100',
-                Rule::unique('treatments', 'name')->ignore($this->treatment?->id)],
-            'description' => ['nullable', 'string', 'min:5', 'max:255'],
-            'procedure' => ['nullable', 'string', 'min:5', 'max:255'],
-            'price' => ['required', 'numeric', 'min:1', 'max:999999'],
-            'profit' => ['required', 'numeric', 'min:0', 'max:999999', 'lte:price'],
-        ];
-    }
-
-    protected function stepTwoRules(): array
-    {
-        return [
-            'medicines' => ['nullable', 'array'],
-            'medicines.*' => ['integer', 'distinct', Rule::exists('medicines', 'id')],
-        ];
     }
 }

@@ -89,4 +89,10 @@ return [
         'edit' => 'Modificar Orden de Compra | Valerix HCMS',
         'detail' => 'Detalle de Orden de Compra | Valerix HCMS',
     ],
+    'clinic_medicine' => [
+        'index' => 'Listado de Asignaciones de Medicinas | Valerix HCMS',
+        'create' => 'Asignar Medicina | Valerix HCMS',
+        'edit' => 'Modificar Asignación de Medicina | Valerix HCMS',
+        'detail' => 'Detalle de Asignación de Medicina | Valerix HCMS',
+    ],
 ];

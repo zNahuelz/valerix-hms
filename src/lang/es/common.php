@@ -137,4 +137,11 @@ return [
     'total' => 'Total',
     'amount' => 'Cantidad',
     'unit_price' => 'Precio Unitario',
+    'stock' => 'Stock',
+    'stock_settings' => 'Configuración de Stock',
+    'buy_price' => 'Precio de Compra',
+    'buy_price_alt' => 'Precio Comp.',
+    'sell_price' => 'Precio de Venta',
+    'sell_price_alt' => 'Precio Vent.',
+    'pricing' => 'Configuración de Costos',
 ];

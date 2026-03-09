@@ -422,6 +422,7 @@ new class extends Component {
                                          color="{{ $this->form->buyOrder->trashed() ? 'amber' : 'red' }}"
                                          wire:click="delete"
                                          class="w-full md:w-auto" wire:loading.attr="disabled"
+                                         icon="{{ $form->buyOrder->trashed() ? 'arrow-path' : 'trash' }}"
                                          wire:target="delete, save">
                                 {{ $this->form->buyOrder->trashed() ? __('common.restore') : __('common.delete') }}
                             </flux:button>
@@ -434,7 +435,6 @@ new class extends Component {
                             class="w-full md:w-auto md:ml-auto"
                             wire:loading.attr="disabled"
                             wire:target="delete, save"
-                            icon="{{ $this->form->buyOrder ? 'check' : 'plus' }}"
                         >
                             {{ $this->form->buyOrder ? __('common.update') : __('common.save') }}
                         </flux:button>
@@ -444,4 +444,5 @@ new class extends Component {
         </flux:fieldset>
     </form>
 </div>
+
 

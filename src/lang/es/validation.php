@@ -86,6 +86,7 @@ return [
         'max' => 'El código de barras debe tener máximo :max carácteres.',
         'regex' => 'El código de barras solo puede contener números y letras.',
         'unique' => 'El código de barras ingresado ya se encuentra asignado a otro medicamento.',
+        'not_found' => 'El código de barras ingresado es inválido o no se encuentra registrado en el sistema.',
     ],
     'position' => [
         'required' => 'Debe seleccionar un cargo para el empleado.',
@@ -277,5 +278,28 @@ return [
         'numeric' => 'El precio unitario debe ser numérico.',
         'min' => 'El precio unitario debe ser como mínimo :min.',
         'max' => 'El precio unitario debe ser como máximo :max.',
+    ],
+    'buy_price' => [
+        'required' => 'Debe ingresar el precio de compra.',
+        'numeric' => 'El precio de compra debe ser numérico.',
+        'min' => 'El precio de compra debe ser como mínimo :min.',
+        'max' => 'El precio de compra debe ser como máximo :max.',
+    ],
+    'sell_price' => [
+        'required' => 'Debe ingresar el precio de venta.',
+        'numeric' => 'El precio de venta debe ser numérico.',
+        'min' => 'El precio de venta debe ser como mínimo :min.',
+        'max' => 'El precio de venta debe ser como máximo :max.',
+        'gte' => 'El precio de venta debe ser igual o superior al precio de compra.',
+    ],
+    'stock' => [
+        'required' => 'Debe ingresar el stock.',
+        'numeric' => 'El stock debe ser numérico.',
+        'min' => 'El stock debe ser como mínimo :min.',
+        'max' => 'El stock debe ser como máximo :max.',
+    ],
+    'salable' => [
+        'required' => 'Debe indicar si el producto se encuentra habilitado para la venta.',
+        'boolean' => 'El valor solo puede ser verdadero o falso.',
     ],
 ];

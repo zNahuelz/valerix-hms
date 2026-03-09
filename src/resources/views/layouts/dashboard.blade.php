@@ -111,6 +111,21 @@
             </flux:sidebar.group>
         @endcanany
 
+        @canany(['sys.admin', 'clinicMedicine.index', 'clinicMedicine.create', 'clinicMedicine.update', 'clinicMedicine.delete', 'clinicMedicine.restore'])
+            <flux:sidebar.group expandable :expanded="request()->routeIs('clinicMedicine.*')" icon="cube"
+                                heading="{{ trans_choice('clinic-medicine.clinic_medicine', 2) }}"
+                                class="grid">
+                @canany(['sys.admin', 'clinicMedicine.create'])
+                    <flux:sidebar.item href="{{ route('clinicMedicine.create') }}" wire:navigate>{{ __('common.store') }}
+                    </flux:sidebar.item>
+                @endcanany
+                @canany(['sys.admin', 'clinicMedicine.index'])
+                    <flux:sidebar.item href="{{ route('clinicMedicine.index') }}"
+                                       wire:navigate>{{ __('common.index') }}</flux:sidebar.item>
+                @endcanany
+            </flux:sidebar.group>
+        @endcanany
+
         @canany(['sys.admin', 'buyOrder.index', 'buyOrder.create', 'buyOrder.update', 'buyOrder.delete', 'buyOrder.restore'])
             <flux:sidebar.group expandable :expanded="request()->routeIs('buy-order.*')" icon="archive-box"
                                 heading="{{ trans_choice('buy-order.buy_order', 2) }}"
