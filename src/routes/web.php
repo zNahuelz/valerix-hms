@@ -285,6 +285,24 @@ Route::group(['prefix' => '/dashboard'], function () {
             ->name('clinicMedicine.edit');
     });
 
+    Route::group(['prefix' => '/setting'], function () {
+        Route::livewire('/', 'pages.setting.setting-index')
+            ->middleware('require_permission:setting.index')
+            ->name('setting.index');
+
+        Route::livewire('/create', 'pages.setting.setting-form')
+            ->middleware('require_permission:setting.create')
+            ->name('setting.create');
+
+        Route::livewire('/{settingId}', 'pages.setting.setting-detail')
+            ->middleware('require_permission:setting.detail')
+            ->name('setting.detail');
+
+        Route::livewire('/{settingId}/edit', 'pages.setting.setting-form')
+            ->middleware('require_permission:setting.edit')
+            ->name('setting.edit');
+    });
+
 })->middleware('auth');
 
 Route::post('/logout', function () {

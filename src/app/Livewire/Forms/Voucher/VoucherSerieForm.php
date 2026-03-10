@@ -52,13 +52,13 @@ class VoucherSerieForm extends Form
 
     public function computedSerie(): string
     {
-        if (!$this->voucher_type_id || !$this->serie_number) {
+        if (! $this->voucher_type_id || ! $this->serie_number) {
             return '';
         }
 
         $type = VoucherType::find($this->voucher_type_id);
         $letter = $type ? strtoupper(substr($type->name, 0, 1)) : '';
-        $number = str_pad((int)$this->serie_number, 3, '0', STR_PAD_LEFT);
+        $number = str_pad((int) $this->serie_number, 3, '0', STR_PAD_LEFT);
 
         return "{$letter}{$number}";
     }

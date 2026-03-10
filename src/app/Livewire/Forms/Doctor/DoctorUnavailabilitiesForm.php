@@ -52,7 +52,7 @@ class DoctorUnavailabilitiesForm extends Form
                     if ($start->diffInHours($end) < 24) {
                         $fail(__('validation.unavailabilities.end_datetime.min_gap'));
                     }
-                },],
+                }, ],
             'reason' => ['required', Rule::enum(UnavailabilityReason::class)],
         ];
     }

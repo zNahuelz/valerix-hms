@@ -57,7 +57,7 @@ class ClinicForm extends Form
                 'string',
                 'min:2',
                 'max:100',
-                Rule::unique('clinics', 'name')->where(fn($query) => $query->whereRaw('LOWER(name) = LOWER(?)', [$this->name]))
+                Rule::unique('clinics', 'name')->where(fn ($query) => $query->whereRaw('LOWER(name) = LOWER(?)', [$this->name]))
                     ->ignore($this->clinic?->id),
             ],
             'ruc' => [

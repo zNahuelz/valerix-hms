@@ -144,4 +144,10 @@ return [
     'sell_price' => 'Precio de Venta',
     'sell_price_alt' => 'Precio Vent.',
     'pricing' => 'Configuración de Costos',
+    'key_placeholder' => 'CLAVE_DE_VARIABLE',
+    'key' => 'Clave',
+    'value_type' => 'Tipo de Variable',
+    'value' => 'Valor',
+    'true' => 'Verdadero',
+    'false' => 'Falso',
 ];

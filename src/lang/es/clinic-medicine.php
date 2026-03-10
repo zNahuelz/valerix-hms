@@ -33,5 +33,6 @@ return [
         'creation_failed' => 'Error durante la asignación de medicina, intente nuevamente o comuniquese con administración.',
         'update_failed' => 'Error durante la modificación de la asignación de medicina, intente nuevamente o comuniquese con administración.',
         'creation_disabled_empty_clinics' => 'El módulo de asignación de medicinas se encuentra deshabilitado; se requiere al menos una (1) clínica registrada para el correcto funcionamiento del sistema; comuniquese con administración.',
+        'using_default_tax_rate' => 'ADVERTENCIA: El sistema no cuenta con una configuración de IGV válida, se usara el valor por defecto de 18%.',
     ],
 ];

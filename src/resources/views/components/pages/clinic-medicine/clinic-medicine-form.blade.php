@@ -4,6 +4,7 @@ use App\Livewire\Forms\ClinicMedicineForm;
 use App\Models\Clinic;
 use App\Models\ClinicMedicine;
 use App\Models\Medicine;
+use App\Models\Setting;
 use Livewire\Component;
 
 new class extends Component {
@@ -17,8 +18,16 @@ new class extends Component {
     public bool $duplicateClinicWarning = false;
     public ?int $existingClinicMedicineId = null;
 
+    private float $taxRate = 0.18;
+    private bool $usingDefaultTaxRate = false;
+
     public function mount(?string $clinicMedicineId = null): void
     {
+        $this->taxRate = (float) (Setting::where('_key', 'TAX_VALUE')->value('value') ?? 0.18);
+        if(!Setting::where('_key','TAX_VALUE')->first()){
+            $this->usingDefaultTaxRate = true;
+        }
+
         if (!Clinic::whereNull('deleted_at')->exists()) {
             Session::flash('error', __('clinic-medicine.errors.creation_disabled_empty_clinics'));
             $this->redirectRoute('clinicMedicine.index');
@@ -86,8 +95,7 @@ new class extends Component {
         $buy = (float)$this->form->buy_price;
 
         if ($sell > 0) {
-            $taxRate = 0.18;
-            $base = $sell / (1 + $taxRate);
+            $base = $sell / (1 + $this->taxRate);
             $this->form->tax = round($sell - $base, 4);
             $this->form->profit = $buy > 0 ? round($base - $buy, 4) : 0;
         } else {
@@ -294,7 +302,6 @@ new class extends Component {
                 @endif
             </flux:card>
             @if ($form->medicine_id && !$duplicateClinicWarning)
-                {{-- ── Pricing ── --}}
                 <flux:card class="space-y-4">
                     <flux:heading>{{ __('common.pricing') }}</flux:heading>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -339,7 +346,6 @@ new class extends Component {
                     @endif
                 </flux:card>
 
-                {{-- ── Stock & Settings ── --}}
                 <flux:card class="space-y-4">
                     <flux:heading>{{ __('common.stock_settings') }}</flux:heading>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -364,7 +370,6 @@ new class extends Component {
                     </div>
                 </flux:card>
 
-                {{-- ── Actions ── --}}
                 <div class="flex flex-col-reverse sm:flex-row sm:justify-between gap-2 pt-1">
                     @if ($form->clinicMedicine)
                         @canany(['sys.admin', 'clinicMedicine.delete', 'clinicMedicine.restore'])
@@ -387,5 +392,10 @@ new class extends Component {
                 </div>
             @endif
         </flux:fieldset>
+        @if($this->usingDefaultTaxRate)
+            <div class="flex flex-col items-center mt-2">
+                <h1 class="text-red-700 font-light text-sm">{{__('clinic-medicine.errors.using_default_tax_rate')}}</h1>
+            </div>
+        @endif
     </form>
 </div>

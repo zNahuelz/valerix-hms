@@ -67,6 +67,8 @@ return [
         'required' => 'Debe ingresar una descripción.',
         'min' => 'La descripción debe tener mínimo :min carácteres.',
         'max' => 'La descripción debe tener máximo :max carácteres.',
+        'nullable' => 'La descripción es opcional.',
+        'string' => 'Debe ingresar una descripcion.',
     ],
     'numeric_value' => [
         'required' => 'Debe ingresar un valor numérico.',
@@ -301,5 +303,21 @@ return [
     'salable' => [
         'required' => 'Debe indicar si el producto se encuentra habilitado para la venta.',
         'boolean' => 'El valor solo puede ser verdadero o falso.',
+    ],
+    'key' => [
+        'required' => 'Debe ingresar una clave para la variable.',
+        'string' => 'La clave debe tener el formato: NOMBRE_CLAVE_ALEATORIO.',
+        'unique' => 'La clave ingresada ya pertenece a una variable registrada en el sistema.',
+    ],
+    'value' => [
+        'required' => 'Debe ingresar una valor.',
+        'string' => 'El valor debe ser de tipo texto.',
+        'numeric' => 'El valor debe ser un número entero.',
+        'double' => 'El valor debe ser un número decimal.',
+        'boolean' => 'El valor debe ser verdadero o falso.',
+    ],
+    'value_type' => [
+        'required' => 'Debe seleccionar un tipo de variable.',
+        'enum' => 'El tipo de variable seleccionada es inválido.',
     ],
 ];

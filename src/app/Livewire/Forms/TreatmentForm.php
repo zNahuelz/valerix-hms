@@ -31,8 +31,8 @@ class TreatmentForm extends Form
 
         $relevantMessages = array_filter(
             $messages,
-            fn($key) => collect(array_keys($rules))
-                ->contains(fn($rule) => str_starts_with($key, str_replace('.*', '', $rule))),
+            fn ($key) => collect(array_keys($rules))
+                ->contains(fn ($rule) => str_starts_with($key, str_replace('.*', '', $rule))),
             ARRAY_FILTER_USE_KEY
         );
 
@@ -92,8 +92,8 @@ class TreatmentForm extends Form
 
     public function recalculateTax(): void
     {
-        $price = is_numeric($this->price) ? (float)$this->price : 0;
-        $profit = is_numeric($this->profit) ? (float)$this->profit : 0;
+        $price = is_numeric($this->price) ? (float) $this->price : 0;
+        $profit = is_numeric($this->profit) ? (float) $this->profit : 0;
 
         if ($price <= 0 || $price === $profit) {
             $this->tax = 0;

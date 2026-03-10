@@ -95,4 +95,10 @@ return [
         'edit' => 'Modificar Asignación de Medicina | Valerix HCMS',
         'detail' => 'Detalle de Asignación de Medicina | Valerix HCMS',
     ],
+    'setting' => [
+        'index' => 'Configuración del Sistema | Valerix HCMS',
+        'create' => 'Registrar Variable | Valerix HCMS',
+        'edit' => 'Modificar Variable | Valerix HCMS',
+        'detail' => 'Detalle de Variable | Valerix HCMS',
+    ],
 ];

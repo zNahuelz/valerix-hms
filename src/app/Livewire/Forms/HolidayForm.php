@@ -35,7 +35,7 @@ class HolidayForm extends Form
         return [
             'name' => strtoupper(trim($this->name)),
             'date' => $this->date,
-            'is_recurring' => (bool)$this->is_recurring,
+            'is_recurring' => (bool) $this->is_recurring,
         ];
     }
 
@@ -58,7 +58,7 @@ class HolidayForm extends Form
                     $monthDay = Carbon::parse($value)->format('m-d');
                     $exists = Holiday::where('is_recurring', true)
                         ->whereRaw("TO_CHAR(date, 'MM-DD') = ?", [$monthDay])
-                        ->when($this->holiday?->id, fn($q) => $q->where('id', '!=', $this->holiday->id))
+                        ->when($this->holiday?->id, fn ($q) => $q->where('id', '!=', $this->holiday->id))
                         ->exists();
 
                     if ($exists) {

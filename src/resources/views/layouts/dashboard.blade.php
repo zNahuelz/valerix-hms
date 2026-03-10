@@ -208,11 +208,12 @@
                     @endcanany
             </flux:sidebar.group>
         @endcanany
+
+        @canany(['sys.admin','setting.index'])
+        <flux:sidebar.item icon="cog" href="{{route('setting.index')}}">{{__('common.settings')}}</flux:sidebar.item>
+        @endcanany
     </flux:sidebar.nav>
     <flux:sidebar.spacer/>
-    <flux:sidebar.nav>
-        <flux:sidebar.item icon="cog-6-tooth" href="#">{{ __('common.settings') }}</flux:sidebar.item>
-    </flux:sidebar.nav>
     <flux:dropdown position="top" align="start">
         <flux:sidebar.item icon="computer-desktop">
             {{ __('common.toggle_theme') }}

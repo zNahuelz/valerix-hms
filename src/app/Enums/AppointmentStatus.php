@@ -9,4 +9,15 @@ enum AppointmentStatus: string
     case RESCHEDULED = 'REPROGRAMADO';
     case CANCELED = 'CANCELADO';
     case NOT_ATTENDED = 'NO_ASISTIO';
+
+    public function label(): string
+    {
+        return match ($this) {
+            self::PENDING => 'Pendiente',
+            self::ATTENDED => 'Atendid@',
+            self::RESCHEDULED => 'Reprogramada',
+            self::CANCELED => 'Cancelada',
+            self::NOT_ATTENDED => 'No Asistió',
+        };
+    }
 }
