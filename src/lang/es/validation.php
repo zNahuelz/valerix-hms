@@ -320,4 +320,22 @@ return [
         'required' => 'Debe seleccionar un tipo de variable.',
         'enum' => 'El tipo de variable seleccionada es inválido.',
     ],
+    'current_password' => [
+        'required' => 'Debe ingresar su contraseña actual.',
+        'min' => 'La contraseña debe tener como mínimo :min carácteres.',
+        'max' => 'La contraseña debe tener como máximo :max carácteres.',
+        'incorrect' => 'La contraseña ingresada es incorrecta. Intento: (:try)',
+    ],
+    'new_password' => [
+        'required' => 'Debe ingresar una nueva contraseña.',
+        'min' => 'Su nueva contraseña debe tener como mínimo :min carácteres.',
+        'max' => 'Su nueva contraseña debe tener como máximo :max carácteres.',
+        'confirmed' => 'Debe confirmar su nueva contraseña.',
+    ],
+    'avatar' => [
+        'required' => 'Debe seleccionar una imagen.',
+        'image' => 'El archivo debe ser una imagen.',
+        'mimes' => 'Solo se permiten los formatos: .webp, .jpeg, .jpg, .png.',
+        'max' => 'El tamaño de la imagen debe ser como máximo: :max.',
+    ],
 ];

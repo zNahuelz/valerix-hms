@@ -101,4 +101,7 @@ return [
         'edit' => 'Modificar Variable | Valerix HCMS',
         'detail' => 'Detalle de Variable | Valerix HCMS',
     ],
+    'auth' => [
+        'profile' => 'Mi Perfil | Valerix HCMS',
+    ],
 ];

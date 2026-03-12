@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::livewire('/', 'pages.auth.login')->middleware('guest')->name('login');
 
-Route::group(['prefix' => '/dashboard'], function () {
+Route::group(['prefix' => '/dashboard', 'middleware' => 'auth'], function () {
     Route::livewire('/', 'pages.shared.dashboard')->name('dashboard');
 
     Route::group(['prefix' => '/clinic'], function () {
@@ -303,12 +303,15 @@ Route::group(['prefix' => '/dashboard'], function () {
             ->name('setting.edit');
     });
 
-})->middleware('auth');
+    Route::group(['prefix' => '/profile'], function () {
+        Route::livewire('/', 'pages.auth.profile.profile-view')
+            ->name('profile.view');
+    });
+});
 
 Route::post('/logout', function () {
     Auth::logout();
     session()->invalidate();
     session()->regenerateToken();
-
     return redirect('/');
 })->name('logout');

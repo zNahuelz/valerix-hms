@@ -231,8 +231,9 @@
         </flux:menu>
     </flux:dropdown>
     <flux:dropdown position="top" align="start" class="max-lg:hidden">
-        <flux:sidebar.profile avatar="{{ auth()->user()->avatar }}" name="{{ auth()->user()->username }}"/>
+        <flux:sidebar.profile avatar="{{ auth()->user()->avatar ? Storage::url(auth()->user()->avatar) : null }}" name="{{ auth()->user()->username }}"/>
         <flux:menu>
+            <flux:menu.item icon="user-circle" href="{{route('profile.view')}}">{{ __('auth.profile') }}</flux:menu.item>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle">
@@ -246,9 +247,9 @@
     <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left"/>
     <flux:spacer/>
     <flux:dropdown position="top" align="start">
-        <flux:profile avatar="{{ auth()->user()->avatar }}" name="{{ auth()->user()->username }}"/>
+        <flux:profile avatar="{{ auth()->user()->avatar ? Storage::url(auth()->user()->avatar) : null }}" name="{{ auth()->user()->username }}"/>
         <flux:menu>
-            <flux:menu.item icon="user-circle">{{ auth()->user()->username }}</flux:menu.item>
+            <flux:menu.item icon="user-circle" href="{{route('profile.view')}}">{{ __('auth.profile') }}</flux:menu.item>
             <flux:menu.separator/>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

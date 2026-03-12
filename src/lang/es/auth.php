@@ -24,6 +24,17 @@ return [
     'login_loading' => 'Iniciando Sesión...',
     'login_success' => '¡Bienvenido de vuelta!',
     'logout' => 'Cerrar Sesión',
+    'profile' => 'Mi Perfil',
+    'change_password' => 'Cambiar Contraseña',
+    'change_avatar' => 'Cambiar Avatar',
+    'last_account_change' => 'Ult. Modificación a la Cuenta',
+    'role' => '{1} Rol|[2,*] Roles',
+    'current_password' => 'Contraseña actual',
+    'new_password' => 'Nueva contraseña',
+    'confirm_new_password' => 'Confirmar contraseña',
+    'failed_attempts' => '¡Ups! Intento de cambio de contraseña fallido, tiene :count intentos restantes.',
+    'avatar_preview' => 'Vista previa del avatar',
+    'avatar_updated' => 'Avatar actualizado correctamente',
 
     'errors' => [
         'invalid_credentials' => 'Usuario o contraseña incorrecto',
@@ -33,6 +44,8 @@ return [
         'account_locked' => 'Su cuenta se encuentra bloqueada debido a demasiados intentos de inicio de sesión fallidos. Puede volver a intentar nuevamente el: :lockedUntil',
         'session_expired' => 'Su sesión ha expirado; debe volver a iniciar sesión',
         'server_error' => 'Error interno del servidor, vuelva a intentarlo más tarde',
+        'change_password_failed' => '¡Ups! Ha sucedido un error durante el cambio de contraseña, intente nuevamente o comuniquese con administración.',
+        'change_avatar_failed' => 'Ha sucedido un error durante al cambio de foto de perfil, intente nuevamente o comuniquese con administración.',
     ],
 
     'validation' => [

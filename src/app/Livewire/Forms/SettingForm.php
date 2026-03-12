@@ -69,7 +69,7 @@ class SettingForm extends Form
         }
 
         return [
-            'key' => strtoupper(str_replace([' ','-'], '_', trim($this->key))),
+            'key' => strtoupper(str_replace([' ', '-'], '_', trim($this->key))),
             'value' => $value,
             'value_type' => $this->value_type,
             'description' => $this->description ?: null,
