@@ -3,6 +3,7 @@
 return [
     'login' => 'Inicio de Sesión | Valerix HCMS',
     'dashboard' => 'Inicio | Valerix HCMS',
+    'password-recovery' => 'Recuperación de Contraseña | Valerix HCMS',
 
     'supplier' => [
         'index' => 'Listado de Proveedores | Valerix HCMS',

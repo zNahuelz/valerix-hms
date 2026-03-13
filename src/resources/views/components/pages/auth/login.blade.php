@@ -109,7 +109,7 @@ new class extends Component {
                                         {{ __('auth.password') }}
                                     </flux:label>
 
-                                    <flux:link href="#" variant="subtle" class="text-sm hover:text-green-900!">
+                                    <flux:link href="{{route('password-recovery')}}" variant="subtle" class="text-sm hover:text-green-900!">
                                         {{ __('auth.forgot_password') }}
                                     </flux:link>
                                 </div>

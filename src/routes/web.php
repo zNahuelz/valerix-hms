@@ -5,6 +5,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::livewire('/', 'pages.auth.login')->middleware('guest')->name('login');
 
+Route::livewire('/password-recovery', 'pages.auth.password-recovery')->middleware('guest')->name('password-recovery');
+Route::livewire('/password-recovery/{token}', 'pages.auth.password-recovery')->middleware('guest')->name('password.reset');
+
 Route::group(['prefix' => '/dashboard', 'middleware' => 'auth'], function () {
     Route::livewire('/', 'pages.shared.dashboard')->name('dashboard');
 
@@ -313,5 +316,6 @@ Route::post('/logout', function () {
     Auth::logout();
     session()->invalidate();
     session()->regenerateToken();
+
     return redirect('/');
 })->name('logout');
