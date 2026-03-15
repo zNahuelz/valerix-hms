@@ -3,6 +3,9 @@
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use App\Notifications\PasswordUpdatedNotification;
+use Illuminate\Support\Carbon;
 
 new class extends Component {
     public string $current_password = '';
@@ -61,13 +64,16 @@ new class extends Component {
                 return;
             }
 
-            $user->forceFill(['password' => Hash::make($this->new_password)])->save();
+            $user->forceFill(['password' => $this->new_password])->save();
+            Auth::logoutOtherDevices($this->new_password);
+            $user->notify(new PasswordUpdatedNotification(
+                Carbon::now('America/Lima')->format('d/m/Y h:i:s A')
+            ));
+
         } catch (Exception) {
             Session::flash('error', __('auth.errors.change_password_failed'));
             $this->redirectRoute('dashboard');
         }
-        Auth::logoutOtherDevices($this->current_password);
-
         session()->invalidate();
         session()->regenerateToken();
         Auth::logout();
@@ -93,50 +99,53 @@ new class extends Component {
                     <x-shared.alert
                         type="error">{{__('auth.failed_attempts', ['count' => 3 - $failedAttempts ])}}</x-shared.alert>
                 @endif
-                <div class="grid grid-cols-1  gap-2">
-                    <flux:field>
-                        <flux:label>{{ __('auth.current_password') }}</flux:label>
-                        <flux:input
-                            wire:model.blur="current_password"
-                            type="password"
+                <form wire:submit.prevent="submit">
+                    <div class="grid grid-cols-1  gap-2">
+                        <flux:field>
+                            <flux:label>{{ __('auth.current_password') }}</flux:label>
+                            <flux:input
+                                wire:model.blur="current_password"
+                                type="password"
+                                icon="lock-closed"
+                                viewable
+                            />
+                            <flux:error name="current_password"/>
+                        </flux:field>
+                        <flux:field>
+                            <flux:label>{{ __('auth.new_password') }}</flux:label>
+                            <flux:input
+                                wire:model.blur="new_password"
+                                type="password"
+                                icon="lock-closed"
+                                viewable
+                            />
+                            <flux:error name="new_password"/>
+                        </flux:field>
+                        <flux:field>
+                            <flux:label>{{ __('auth.confirm_new_password') }}</flux:label>
+                            <flux:input
+                                wire:model.blur="new_password_confirmation"
+                                type="password"
+                                icon="lock-closed"
+                                viewable
+                            />
+                            <flux:error name="new_password_confirmation"/>
+                        </flux:field>
+                    </div>
+                    <div class="flex justify-end mt-4">
+                        <flux:button
+                            type="submit"
+                            wire:click="submit"
+                            wire:loading.attr="disabled"
+                            variant="primary"
                             icon="lock-closed"
-                            viewable
-                        />
-                        <flux:error name="current_password"/>
-                    </flux:field>
-                    <flux:field>
-                        <flux:label>{{ __('auth.new_password') }}</flux:label>
-                        <flux:input
-                            wire:model.blur="new_password"
-                            type="password"
-                            icon="lock-closed"
-                            viewable
-                        />
-                        <flux:error name="new_password"/>
-                    </flux:field>
-                    <flux:field>
-                        <flux:label>{{ __('auth.confirm_new_password') }}</flux:label>
-                        <flux:input
-                            wire:model.blur="new_password_confirmation"
-                            type="password"
-                            icon="lock-closed"
-                            viewable
-                        />
-                        <flux:error name="new_password_confirmation"/>
-                    </flux:field>
-                </div>
-                <div class="flex justify-end mt-4">
-                    <flux:button
-                        wire:click="submit"
-                        wire:loading.attr="disabled"
-                        variant="primary"
-                        icon="lock-closed"
-                    >
-                        <span wire:loading.remove wire:target="submit">{{ __('auth.change_password') }}</span>
-                        <span wire:loading wire:target="submit">{{ __('common.loading') }}</span>
-                    </flux:button>
-                </div>
+                        >
+                            <span wire:loading.remove wire:target="submit">{{ __('auth.change_password') }}</span>
+                            <span wire:loading wire:target="submit">{{ __('common.loading') }}</span>
+                        </flux:button>
+                    </div>
             </flux:fieldset>
         </div>
+        </form>
     </div>
 </div>

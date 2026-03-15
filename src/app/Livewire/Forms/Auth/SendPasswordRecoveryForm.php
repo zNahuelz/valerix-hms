@@ -34,7 +34,7 @@ class SendPasswordRecoveryForm extends Form
 
         if ($status === Password::RESET_THROTTLED) {
             throw ValidationException::withMessages([
-                'email' => __($status),
+                'form.email' => __($status),
             ]);
         }
 

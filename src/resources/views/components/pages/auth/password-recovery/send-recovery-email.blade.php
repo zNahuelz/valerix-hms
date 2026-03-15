@@ -3,8 +3,7 @@
 use Livewire\Component;
 use App\Livewire\Forms\Auth\SendPasswordRecoveryForm;
 
-new class extends Component
-{
+new class extends Component {
     public SendPasswordRecoveryForm $form;
 
     public bool $sent = false;
@@ -68,7 +67,8 @@ new class extends Component
                                     {{ __('common.continue') }}
                                 </flux:button>
 
-                                <flux:button href="{{ route('login') }}" variant="ghost" class="w-full" wire:loading.attr="disabled">
+                                <flux:button href="{{ route('login') }}" variant="ghost" class="w-full"
+                                             wire:loading.attr="disabled">
                                     {{ __('common.back') }}
                                 </flux:button>
                             </div>

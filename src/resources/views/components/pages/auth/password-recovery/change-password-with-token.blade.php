@@ -5,8 +5,7 @@ use App\Livewire\Forms\Auth\ChangePasswordWithTokenForm;
 use Livewire\Component;
 use Illuminate\Support\Facades\Session;
 
-new class extends Component
-{
+new class extends Component {
     public ChangePasswordWithTokenForm $form;
 
     public function mount(string $token, string $email): void
@@ -19,7 +18,7 @@ new class extends Component
     {
         $user = $this->form->resetPassword();
         Auth::login($user);
-        Session::flash('success',__('auth.password_recovered', ['user' => $user->username]));
+        Session::flash('success', __('auth.password_recovered', ['user' => $user->username]));
         $this->redirectRoute('dashboard');
     }
 };
@@ -67,7 +66,7 @@ new class extends Component
                                 wire:loading.attr="disabled"
                                 wire:target="save"
                             />
-                            <flux:error name="form.token" />
+                            <flux:error name="form.token"/>
                         </div>
 
                         <div class="mt-6">

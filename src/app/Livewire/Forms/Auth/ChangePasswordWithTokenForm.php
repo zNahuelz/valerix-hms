@@ -62,7 +62,7 @@ class ChangePasswordWithTokenForm extends Form
 
         if ($status !== Password::PASSWORD_RESET) {
             throw ValidationException::withMessages([
-                'token' => __($status),
+                'form.token' => __($status),
             ]);
         }
 

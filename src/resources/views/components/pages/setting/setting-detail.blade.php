@@ -5,8 +5,7 @@ use App\Models\Setting;
 use App\Enums\SettingType;
 use Illuminate\Support\Facades\Session;
 
-new class extends Component
-{
+new class extends Component {
     public ?Setting $setting = null;
 
     public function mount(?string $settingId = null): void
@@ -81,12 +80,14 @@ new class extends Component
 
             <flux:field>
                 <flux:label>{{ __('common.created_by') }}</flux:label>
-                <flux:input readonly value="{{ $setting->createdBy?->username ?? __('common.inserted_by_null') }}" type="text"/>
+                <flux:input readonly value="{{ $setting->createdBy?->username ?? __('common.inserted_by_null') }}"
+                            type="text"/>
             </flux:field>
 
             <flux:field>
                 <flux:label>{{ __('common.updated_by') }}</flux:label>
-                <flux:input readonly value="{{ $setting->updatedBy?->username ?? __('common.inserted_by_null') }}" type="text"/>
+                <flux:input readonly value="{{ $setting->updatedBy?->username ?? __('common.inserted_by_null') }}"
+                            type="text"/>
             </flux:field>
 
             <flux:input readonly

@@ -49,11 +49,11 @@
                     <flux:sidebar.item href="{{ route('doctor.create') }}" wire:navigate>{{ __('common.store') }}
                     </flux:sidebar.item>
                 @endcanany
-                    @canany(['sys.admin', 'doctor.create.unavailabilities'])
-                        <flux:sidebar.item href="{{ route('doctor.create.unavailabilities') }}"
-                                           wire:navigate>{{ __('common.store') . ' ' . trans_choice('common.unavailability',1) }}
-                        </flux:sidebar.item>
-                    @endcanany
+                @canany(['sys.admin', 'doctor.create.unavailabilities'])
+                    <flux:sidebar.item href="{{ route('doctor.create.unavailabilities') }}"
+                                       wire:navigate>{{ __('common.store') . ' ' . trans_choice('common.unavailability',1) }}
+                    </flux:sidebar.item>
+                @endcanany
                 @canany(['sys.admin', 'doctor.index'])
                     <flux:sidebar.item href="{{ route('doctor.index') }}" wire:navigate>{{ __('common.index') }}
                     </flux:sidebar.item>
@@ -116,7 +116,8 @@
                                 heading="{{ trans_choice('clinic-medicine.clinic_medicine', 2) }}"
                                 class="grid">
                 @canany(['sys.admin', 'clinicMedicine.create'])
-                    <flux:sidebar.item href="{{ route('clinicMedicine.create') }}" wire:navigate>{{ __('common.store') }}
+                    <flux:sidebar.item href="{{ route('clinicMedicine.create') }}"
+                                       wire:navigate>{{ __('common.store') }}
                     </flux:sidebar.item>
                 @endcanany
                 @canany(['sys.admin', 'clinicMedicine.index'])
@@ -187,30 +188,36 @@
         @endcanany
 
         @canany(['sys.admin', 'holiday.index', 'holiday.create', 'holiday.update', 'holiday.delete'])
-            <flux:sidebar.group expandable :expanded="request()->routeIs('holiday.*') || request()->routeIs('system.*')" persist icon="circle-stack"
+            <flux:sidebar.group expandable :expanded="request()->routeIs('holiday.*') || request()->routeIs('system.*')"
+                                persist icon="circle-stack"
                                 heading="{{ __('common.system') }}"
                                 class="grid">
                 @canany(['sys.admin', 'holiday.index'])
-                    <flux:sidebar.item href="{{ route('holiday.index') }}" wire:navigate>{{ trans_choice('common.holiday',2) }}
+                    <flux:sidebar.item href="{{ route('holiday.index') }}"
+                                       wire:navigate>{{ trans_choice('common.holiday',2) }}
                     </flux:sidebar.item>
                 @endcanany
-                    @canany(['sys.admin', 'voucherType.index'])
-                        <flux:sidebar.item href="{{ route('voucherType.index') }}" wire:navigate>{{ trans_choice('voucher-type.voucher_type',2) }}
-                        </flux:sidebar.item>
-                    @endcanany
-                    @canany(['sys.admin', 'voucherSerie.index'])
-                        <flux:sidebar.item href="{{ route('voucherSerie.index') }}" wire:navigate>{{ trans_choice('voucher-serie.voucher_serie',2) }}
-                        </flux:sidebar.item>
-                    @endcanany
-                    @canany(['sys.admin', 'paymentType.index'])
-                        <flux:sidebar.item href="{{ route('paymentType.index') }}" wire:navigate>{{ trans_choice('payment-type.payment_type',2) }}
-                        </flux:sidebar.item>
-                    @endcanany
+                @canany(['sys.admin', 'voucherType.index'])
+                    <flux:sidebar.item href="{{ route('voucherType.index') }}"
+                                       wire:navigate>{{ trans_choice('voucher-type.voucher_type',2) }}
+                    </flux:sidebar.item>
+                @endcanany
+                @canany(['sys.admin', 'voucherSerie.index'])
+                    <flux:sidebar.item href="{{ route('voucherSerie.index') }}"
+                                       wire:navigate>{{ trans_choice('voucher-serie.voucher_serie',2) }}
+                    </flux:sidebar.item>
+                @endcanany
+                @canany(['sys.admin', 'paymentType.index'])
+                    <flux:sidebar.item href="{{ route('paymentType.index') }}"
+                                       wire:navigate>{{ trans_choice('payment-type.payment_type',2) }}
+                    </flux:sidebar.item>
+                @endcanany
             </flux:sidebar.group>
         @endcanany
 
         @canany(['sys.admin','setting.index'])
-        <flux:sidebar.item icon="cog" href="{{route('setting.index')}}">{{__('common.settings')}}</flux:sidebar.item>
+            <flux:sidebar.item icon="cog"
+                               href="{{route('setting.index')}}">{{__('common.settings')}}</flux:sidebar.item>
         @endcanany
     </flux:sidebar.nav>
     <flux:sidebar.spacer/>
@@ -231,9 +238,11 @@
         </flux:menu>
     </flux:dropdown>
     <flux:dropdown position="top" align="start" class="max-lg:hidden">
-        <flux:sidebar.profile avatar="{{ auth()->user()->avatar ? Storage::url(auth()->user()->avatar) : null }}" name="{{ auth()->user()->username }}"/>
+        <flux:sidebar.profile avatar="{{ auth()->user()->avatar ? Storage::url(auth()->user()->avatar) : null }}"
+                              name="{{ auth()->user()->username }}"/>
         <flux:menu>
-            <flux:menu.item icon="user-circle" href="{{route('profile.view')}}">{{ __('auth.profile') }}</flux:menu.item>
+            <flux:menu.item icon="user-circle"
+                            href="{{route('profile.view')}}">{{ __('auth.profile') }}</flux:menu.item>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle">
@@ -247,9 +256,11 @@
     <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left"/>
     <flux:spacer/>
     <flux:dropdown position="top" align="start">
-        <flux:profile avatar="{{ auth()->user()->avatar ? Storage::url(auth()->user()->avatar) : null }}" name="{{ auth()->user()->username }}"/>
+        <flux:profile avatar="{{ auth()->user()->avatar ? Storage::url(auth()->user()->avatar) : null }}"
+                      name="{{ auth()->user()->username }}"/>
         <flux:menu>
-            <flux:menu.item icon="user-circle" href="{{route('profile.view')}}">{{ __('auth.profile') }}</flux:menu.item>
+            <flux:menu.item icon="user-circle"
+                            href="{{route('profile.view')}}">{{ __('auth.profile') }}</flux:menu.item>
             <flux:menu.separator/>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
@@ -278,8 +289,8 @@
         {{ $slot ?? '' }}
         @yield('content')
     </div>
-        @livewireScripts
-        @fluxScripts
+    @livewireScripts
+    @fluxScripts
 </flux:main>
 </body>
 </html>
