@@ -6,6 +6,7 @@ return [
     'forgot_password' => '¿Olvidaste tu contraseña?',
     'remember_me' => 'Recuérdame',
     'email' => 'Correo electrónico',
+    'email_placeholder' => 'EMAIL@DOMINIO.COM',
 
     'light' => 'Claro',
     'dark' => 'Oscuro',
@@ -22,6 +23,7 @@ return [
     'rows_per_page' => 'Filas por Pág.',
     'next' => 'Siguiente',
     'previous' => 'Anterior',
+    'continue' => 'Continuar',
 
     'id' => 'ID.',
     'id_alt' => '#',

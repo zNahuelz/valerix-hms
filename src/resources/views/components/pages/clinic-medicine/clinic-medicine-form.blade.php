@@ -23,8 +23,8 @@ new class extends Component {
 
     public function mount(?string $clinicMedicineId = null): void
     {
-        $this->taxRate = (float) (Setting::where('_key', 'TAX_VALUE')->value('value') ?? 0.18);
-        if(!Setting::where('_key','TAX_VALUE')->first()){
+        $this->taxRate = (float)(Setting::where('_key', 'TAX_VALUE')->value('value') ?? 0.18);
+        if (!Setting::where('_key', 'TAX_VALUE')->first()) {
             $this->usingDefaultTaxRate = true;
         }
 

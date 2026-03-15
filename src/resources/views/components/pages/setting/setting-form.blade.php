@@ -50,7 +50,7 @@ new class extends Component {
 
     public function updatedFormKey(): void
     {
-        $this->form->key = strtoupper(str_replace([' ','-'], '_', trim($this->form->key)));
+        $this->form->key = strtoupper(str_replace([' ', '-'], '_', trim($this->form->key)));
     }
 
     public function onValueTypeChanged(string $type): void

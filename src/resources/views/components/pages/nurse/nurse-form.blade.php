@@ -7,6 +7,7 @@ use App\Models\Clinic;
 use App\Livewire\Forms\NurseForm;
 use Illuminate\Support\Facades\Session;
 use Spatie\Permission\Models\Role;
+use App\Notifications\WelcomeNotification;
 
 new class extends Component {
     public NurseForm $form;
@@ -89,19 +90,22 @@ new class extends Component {
                 //TODO: Trigger user updated email.
                 Session::flash('success', __('nurse.updated', ['name' => $sanitized['names'] . ' ' . $sanitized['paternal_surname'], 'id' => $this->form->nurse->id]));
             } else {
+                $generatedUsername = $this->generateUsername($sanitized['names'], $sanitized['paternal_surname'], $sanitized['dni']);
+                $generatedPassword = strrev($generatedUsername);
+                $fullName = $sanitized['names'] . ' ' . $sanitized['paternal_surname'];
                 $user = User::create([
-                    'username' => $this->generateUsername($sanitized['names'], $sanitized['paternal_surname'], $sanitized['dni']),
-                    'password' => strrev($this->generateUsername($sanitized['names'], $sanitized['paternal_surname'], $sanitized['dni'])),
+                    'username' => $generatedUsername,
+                    'password' => $generatedPassword,
                     'email' => $sanitized['email'],
                     'avatar' => null,
                     'clinic_id' => $sanitized['clinic_id'],
                 ]);
                 $role = Role::findById($this->nurseRoleId);
                 $user->assignRole($role);
+                $user->notify(new WelcomeNotification($generatedPassword, $fullName));
                 $sanitized['user_id'] = $user->id;
                 $nurse = Nurse::create($sanitized);
-                //TODO: Trigger user created email.
-                Session::flash('success', __('nurse.created', ['name' => $sanitized['names'] . ' ' . $sanitized['paternal_surname'], 'id' => $nurse->id, 'username' => $user->username]));
+                Session::flash('success', __('nurse.created', ['name' => $fullName, 'id' => $nurse->id, 'username' => $user->username]));
             }
             return redirect()->to(route('nurse.index'));
         } catch (Exception) {

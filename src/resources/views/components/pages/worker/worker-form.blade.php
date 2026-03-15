@@ -7,6 +7,7 @@ use App\Models\Clinic;
 use App\Livewire\Forms\WorkerForm;
 use Illuminate\Support\Facades\Session;
 use Spatie\Permission\Models\Role;
+use App\Notifications\WelcomeNotification;
 
 new class extends Component {
     public WorkerForm $form;
@@ -78,6 +79,9 @@ new class extends Component {
     public function save()
     {
         $sanitized = $this->form->sanitized();
+        $generatedUsername = $this->generateUsername($sanitized['names'], $sanitized['paternal_surname'], $sanitized['dni']);
+        $generatedPassword = strrev($generatedUsername);
+        $fullName = $sanitized['names'] . ' ' . $sanitized['paternal_surname'];
         $this->validate();
         try {
             if ($this->form->worker) {
@@ -93,17 +97,17 @@ new class extends Component {
                 Session::flash('success', __('worker.updated', ['name' => $sanitized['names'] . ' ' . $sanitized['paternal_surname'], 'id' => $this->form->worker->id]));
             } else {
                 $user = User::create([
-                    'username' => $this->generateUsername($sanitized['names'], $sanitized['paternal_surname'], $sanitized['dni']),
-                    'password' => strrev($this->generateUsername($sanitized['names'], $sanitized['paternal_surname'], $sanitized['dni'])),
+                    'username' => $generatedUsername,
+                    'password' => $generatedPassword,
                     'email' => $sanitized['email'],
                     'avatar' => null,
                     'clinic_id' => $sanitized['clinic_id'],
                 ]);
                 $role = Role::findById($sanitized['role_id']);
                 $user->assignRole($role);
+                $user->notify(new WelcomeNotification($generatedPassword, $fullName));
                 $sanitized['user_id'] = $user->id;
                 $worker = Worker::create($sanitized);
-                //TODO: Trigger user created email.
                 Session::flash('success', __('worker.created', ['name' => $sanitized['names'] . ' ' . $sanitized['paternal_surname'], 'id' => $worker->id, 'username' => $user->username]));
             }
             return redirect()->to(route('worker.index'));

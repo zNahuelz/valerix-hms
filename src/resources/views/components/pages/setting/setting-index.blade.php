@@ -8,8 +8,7 @@ use App\Enums\SettingType;
 use Livewire\Attributes\Computed;
 use Illuminate\Validation\Rule;
 
-new class extends Component
-{
+new class extends Component {
     use WithPagination, WithoutUrlPagination;
 
     public string $searchColumn = 'id';
@@ -25,10 +24,10 @@ new class extends Component
     protected function rules(): array
     {
         return match ($this->searchColumn) {
-            'id'         => ['keyword'   => ['required', 'regex:/^\d+$/']],
-            'key'        => ['keyword'   => ['required', 'string', 'min:1']],
+            'id' => ['keyword' => ['required', 'regex:/^\d+$/']],
+            'key' => ['keyword' => ['required', 'string', 'min:1']],
             'value_type' => ['valueType' => ['required', Rule::enum(SettingType::class)]],
-            default      => [],
+            default => [],
         };
     }
 

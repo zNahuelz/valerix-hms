@@ -35,6 +35,12 @@ return [
     'failed_attempts' => '¡Ups! Intento de cambio de contraseña fallido, tiene :count intentos restantes.',
     'avatar_preview' => 'Vista previa del avatar',
     'avatar_updated' => 'Avatar actualizado correctamente',
+    'check_your_email' => 'Revise su correo electrónico',
+    'recovery_email_sent' => 'En caso de que su cuenta este vinculada al correo electrónico ingresado usted recibirá instrucciones para recuperar su cuenta.',
+    'recovery_instructions' => 'El siguiente formulario le permite recuperar su cuenta en caso de que haya olvidado su contraseña, ingrese el correo electrónico vinculado a su usuario y espere las instrucciones.',
+    'password_recovered' => '¡Bienvenido de vuelta :user! Su contraseña ha sido actualizada correctamente.',
+    'reset_password' => 'Recuperación de Contraseña',
+    'reset_password_instructions' => 'El siguiente formulario le permite recuperar su cuenta ingresando una nueva contraseña para la misma; si ústed no solicito el cambio puede salir de esta página.',
 
     'errors' => [
         'invalid_credentials' => 'Usuario o contraseña incorrecto',
