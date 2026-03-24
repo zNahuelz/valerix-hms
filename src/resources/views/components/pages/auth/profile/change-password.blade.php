@@ -77,7 +77,7 @@ new class extends Component {
         session()->invalidate();
         session()->regenerateToken();
         Auth::logout();
-
+        Session::flash('success', __('auth.password_changed'));
         $this->redirectRoute('login');
     }
 
@@ -140,7 +140,7 @@ new class extends Component {
                             variant="primary"
                             icon="lock-closed"
                         >
-                            <span wire:loading.remove wire:target="submit">{{ __('auth.change_password') }}</span>
+                            <span wire:loading.remove wire:target="submit">{{ __('common.update') }}</span>
                             <span wire:loading wire:target="submit">{{ __('common.loading') }}</span>
                         </flux:button>
                     </div>

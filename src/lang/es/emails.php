@@ -29,4 +29,12 @@ return [
         'line_3' => "**Contacto:** +51 999-999-999\n",
         'salutation' => 'Saludos, Valerix HCSM - Sistemas',
     ],
+    'email_updated' => [
+        'subject' => 'Valerix HCSM - Correo Electrónico Actualizado',
+        'greeting' => '¡Hola :username!',
+        'line_1' => "El correo electrónico vinculado a tu cuenta ha sido modificada el día: :fullDate.\n",
+        'line_2' => 'Si esto es un error debes comunicarte con administración de inmediato.',
+        'line_3' => "**Contacto:** +51 999-999-999\n",
+        'salutation' => 'Saludos, Valerix HCSM - Sistemas',
+    ],
 ];

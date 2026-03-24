@@ -41,7 +41,12 @@ return [
     'password_recovered' => '¡Bienvenido de vuelta :user! Su contraseña ha sido actualizada correctamente.',
     'reset_password' => 'Recuperación de Contraseña',
     'reset_password_instructions' => 'El siguiente formulario le permite recuperar su cuenta ingresando una nueva contraseña para la misma; si ústed no solicito el cambio puede salir de esta página.',
-
+    'current_email' => 'Correo electrónico actual',
+    'new_email' => 'Nuevo correo electrónico',
+    'confirm_new_email' => 'Confirmar correo electrónico',
+    'change_email' => 'Cambiar Correo Electrónico',
+    'email_changed' => 'Correo electrónico actualizado correctamente, puede volver a iniciar sesión.',
+    'password_changed' => 'Contraseña actualizada correctamente, debe volver a iniciar sesión.',
     'errors' => [
         'invalid_credentials' => 'Usuario o contraseña incorrecto',
         'invalid_token' => 'Token inválido o expirado',
@@ -52,6 +57,7 @@ return [
         'server_error' => 'Error interno del servidor, vuelva a intentarlo más tarde',
         'change_password_failed' => '¡Ups! Ha sucedido un error durante el cambio de contraseña, intente nuevamente o comuniquese con administración.',
         'change_avatar_failed' => 'Ha sucedido un error durante al cambio de foto de perfil, intente nuevamente o comuniquese con administración.',
+        'change_email_failed' => '¡Ups! Ha sucedido un error durante el cambio de correo electrónico, intente nuevamente o comuniquese con administración.'
     ],
 
     'validation' => [

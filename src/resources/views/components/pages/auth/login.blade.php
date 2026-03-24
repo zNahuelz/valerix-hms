@@ -85,6 +85,13 @@ new class extends Component {
 
 <div class="flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
     <div class="w-full max-w-sm md:max-w-4xl">
+        @foreach (['success', 'error', 'warning', 'info'] as $type)
+            @if (session()->has($type))
+                <x-shared.alert :type="$type">
+                    {{ session($type) }}
+                </x-shared.alert>
+            @endif
+        @endforeach
         <flux:card class="overflow-hidden p-0">
             <div class="md:flex">
                 <div class="p-6 md:w-1/2 space-y-6">

@@ -338,4 +338,10 @@ return [
         'mimes' => 'Solo se permiten los formatos: .webp, .jpeg, .jpg, .png.',
         'max' => 'El tamaño de la imagen debe ser como máximo: :max.',
     ],
+    'new_email' => [
+        'required' => 'Debe ingresar un nuevo correo electrónico.',
+        'max' => 'Su nuevo correo electrónico debe tener como máximo :max carácteres.',
+        'confirmed' => 'Los correos electrónicos ingresados no coinciden.',
+        'unique' => 'El correo electrónico ingresado ya se encuentra en uso.'
+    ],
 ];

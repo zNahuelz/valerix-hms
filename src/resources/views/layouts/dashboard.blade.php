@@ -128,7 +128,7 @@
         @endcanany
 
         @canany(['sys.admin', 'buyOrder.index', 'buyOrder.create', 'buyOrder.update', 'buyOrder.delete', 'buyOrder.restore'])
-            <flux:sidebar.group expandable :expanded="request()->routeIs('buy-order.*')" icon="archive-box"
+            <flux:sidebar.group expandable :expanded="request()->routeIs('buyOrder.*')" icon="archive-box"
                                 heading="{{ trans_choice('buy-order.buy_order', 2) }}"
                                 class="grid">
                 @canany(['sys.admin', 'buyOrder.create'])
@@ -188,7 +188,7 @@
         @endcanany
 
         @canany(['sys.admin', 'holiday.index', 'holiday.create', 'holiday.update', 'holiday.delete'])
-            <flux:sidebar.group expandable :expanded="request()->routeIs('holiday.*') || request()->routeIs('system.*')"
+            <flux:sidebar.group expandable :expanded="request()->routeIs('holiday.*','system.*','voucherType.*','voucherSerie.*','paymentType.*')"
                                 persist icon="circle-stack"
                                 heading="{{ __('common.system') }}"
                                 class="grid">

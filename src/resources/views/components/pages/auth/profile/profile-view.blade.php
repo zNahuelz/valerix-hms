@@ -7,6 +7,7 @@ new class extends Component {
     public string $area = 'index';
     public bool $isLocked = false;
     public string $username = '';
+    public string $email = '';
     public string $userType = '';
     public ?array $profileInfo = null;
 
@@ -15,10 +16,12 @@ new class extends Component {
         $user = auth()->user()->load(['doctor', 'nurse', 'worker']);
 
         $this->username = $user->username;
+        $this->email = $user->email;
         $this->userType = mb_strtolower($user->roles[0]['name']) ?? '----';
 
         $this->profileInfo = match ($this->userType) {
             'administrador' => $user->worker?->toArray(),
+            'gerente' => $user->worker?->toArray(),
             'doctor' => $user->doctor?->toArray(),
             'enfermera' => $user->nurse?->toArray(),
             'secretaria' => $user->worker?->toArray(),
@@ -56,6 +59,7 @@ new class extends Component {
                       class=" max-sm:w-full max-sm:flex-col max-sm:h-full max-sm:p-2">
         <flux:radio label="{{__('auth.profile')}}" value="index" icon="user" class="max-sm:p-2"/>
         <flux:radio label="{{__('auth.change_password')}}" value="changePassword" icon="key" class="max-sm:p-2"/>
+        <flux:radio label="{{__('auth.change_email')}}" value="changeEmail" icon="envelope" class="max-sm:p-2"/>
         <flux:radio label="{{__('auth.change_avatar')}}" value="changeAvatar" icon="photo" class="max-sm:p-2"/>
     </flux:radio.group>
     @if($area === 'index')
@@ -93,10 +97,16 @@ new class extends Component {
                             <flux:input readonly value="{{ $profileInfo['phone'] ?? __('common.null')}}" icon="phone"
                                         type="text"/>
                         </flux:field>
-                        <flux:field>
+                        <flux:field class="col-span-full">
                             <flux:label>{{ __('common.address') }}</flux:label>
                             <flux:input readonly value="{{ $profileInfo['address'] ?? __('common.null') }}"
                                         icon="map-pin"
+                                        type="text"/>
+                        </flux:field>
+                        <flux:field>
+                            <flux:label>{{ __('common.email') }}</flux:label>
+                            <flux:input readonly value="{{ $email ?? __('common.null') }}"
+                                        icon="envelope"
                                         type="text"/>
                         </flux:field>
                         <flux:field>
@@ -139,6 +149,9 @@ new class extends Component {
     @endif
     @if($area === 'changePassword')
         <livewire:pages.auth.profile.change-password></livewire:pages.auth.profile.change-password>
+    @endif
+    @if($area === 'changeEmail')
+        <livewire:pages.auth.profile.change-email></livewire:pages.auth.profile.change-email>
     @endif
     @if($area === 'changeAvatar')
         <livewire:pages.auth.profile.change-avatar></livewire:pages.auth.profile.change-avatar>
