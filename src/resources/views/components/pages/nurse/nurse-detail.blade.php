@@ -87,7 +87,7 @@ new class extends Component {
                                 type="text"/>
                     <flux:button type="button" variant="primary" color="cyan"
                                  icon="ellipsis-horizontal" wire:navigate
-                                 href="#">
+                                 href="{{route('user.detail',['userId' => $nurse->user?->id])}}">
                     </flux:button>
                 </flux:input.group>
             </flux:field>

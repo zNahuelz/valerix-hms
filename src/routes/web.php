@@ -306,6 +306,20 @@ Route::group(['prefix' => '/dashboard', 'middleware' => 'auth'], function () {
             ->name('setting.edit');
     });
 
+    Route::group(['prefix' => '/user'], function () {
+        Route::livewire('/', 'pages.user.user-index')
+            ->middleware('require_permission:user.index')
+            ->name('user.index');
+
+        Route::livewire('/{userId}', 'pages.user.user-detail')
+            ->middleware('require_permission:user.detail')
+            ->name('user.detail');
+
+        Route::livewire('/{userId}/edit', 'pages.user.user-form')
+            ->middleware('require_permission:user.edit')
+            ->name('user.edit');
+    });
+
     Route::group(['prefix' => '/profile'], function () {
         Route::livewire('/', 'pages.auth.profile.profile-view')
             ->name('profile.view');

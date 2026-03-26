@@ -105,4 +105,9 @@ return [
     'auth' => [
         'profile' => 'Mi Perfil | Valerix HCMS',
     ],
+    'user' => [
+        'index' => 'Listado de Usuarios | Valerix HCMS',
+        'edit' => 'Modificar Usuario | Valerix HCMS',
+        'detail' => 'Detalle de Usuario | Valerix HCMS',
+    ],
 ];

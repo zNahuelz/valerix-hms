@@ -188,7 +188,8 @@
         @endcanany
 
         @canany(['sys.admin', 'holiday.index', 'holiday.create', 'holiday.update', 'holiday.delete'])
-            <flux:sidebar.group expandable :expanded="request()->routeIs('holiday.*','system.*','voucherType.*','voucherSerie.*','paymentType.*')"
+            <flux:sidebar.group expandable
+                                :expanded="request()->routeIs('holiday.*','system.*','voucherType.*','voucherSerie.*','paymentType.*','user.*')"
                                 persist icon="circle-stack"
                                 heading="{{ __('common.system') }}"
                                 class="grid">
@@ -210,6 +211,11 @@
                 @canany(['sys.admin', 'paymentType.index'])
                     <flux:sidebar.item href="{{ route('paymentType.index') }}"
                                        wire:navigate>{{ trans_choice('payment-type.payment_type',2) }}
+                    </flux:sidebar.item>
+                @endcanany
+                @canany(['sys.admin', 'user.index'])
+                    <flux:sidebar.item href="{{ route('user.index') }}"
+                                       wire:navigate>{{ trans_choice('user.user',2) }}
                     </flux:sidebar.item>
                 @endcanany
             </flux:sidebar.group>

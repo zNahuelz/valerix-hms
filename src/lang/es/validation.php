@@ -342,6 +342,12 @@ return [
         'required' => 'Debe ingresar un nuevo correo electrónico.',
         'max' => 'Su nuevo correo electrónico debe tener como máximo :max carácteres.',
         'confirmed' => 'Los correos electrónicos ingresados no coinciden.',
-        'unique' => 'El correo electrónico ingresado ya se encuentra en uso.'
+        'unique' => 'El correo electrónico ingresado ya se encuentra en uso.',
+    ],
+    'username' => [
+        'required' => 'Debe ingresar un nombre de usuario.',
+        'min' => 'El nombre de usuario debe tener como mínimo 5 carácteres.',
+        'max' => 'El nombre de usuario debe tener como máximo 20 carácteres.',
+        'unique' => 'El nombre de usuario ya se encuentra en uso.',
     ],
 ];

@@ -152,4 +152,9 @@ return [
     'value' => 'Valor',
     'true' => 'Verdadero',
     'false' => 'Falso',
+    'avatar' => 'Avatar',
+    'locked_until' => 'Expiración Bloq.',
+    'locked_account' => 'Cuenta Bloqueada',
+    'owner' => 'Dueño',
+
 ];

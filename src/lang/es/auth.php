@@ -47,6 +47,9 @@ return [
     'change_email' => 'Cambiar Correo Electrónico',
     'email_changed' => 'Correo electrónico actualizado correctamente, puede volver a iniciar sesión.',
     'password_changed' => 'Contraseña actualizada correctamente, debe volver a iniciar sesión.',
+    'password_changed_alt' => 'Contraseña reseteada correctamente, el usuario: :user debe volver a iniciar sesión nuevamente (Usuario+Año actual).',
+    'deleted' => 'Usuario: :user eliminado correctamente.',
+    'restored' => 'Usuario: :user restaurado correctamente.',
     'errors' => [
         'invalid_credentials' => 'Usuario o contraseña incorrecto',
         'invalid_token' => 'Token inválido o expirado',
@@ -57,7 +60,9 @@ return [
         'server_error' => 'Error interno del servidor, vuelva a intentarlo más tarde',
         'change_password_failed' => '¡Ups! Ha sucedido un error durante el cambio de contraseña, intente nuevamente o comuniquese con administración.',
         'change_avatar_failed' => 'Ha sucedido un error durante al cambio de foto de perfil, intente nuevamente o comuniquese con administración.',
-        'change_email_failed' => '¡Ups! Ha sucedido un error durante el cambio de correo electrónico, intente nuevamente o comuniquese con administración.'
+        'change_email_failed' => '¡Ups! Ha sucedido un error durante el cambio de correo electrónico, intente nuevamente o comuniquese con administración.',
+        'password_reset_failed' => '¡Ups! Ha sucedido un error durante el reseteo de la contraseña del usuario :user, vuelva a intentarlo nuevamente o comuniquese con administración.',
+        'deletion_failed' => 'Ha sucedido un error durante la deshabilitación del usuario: :user, intente nuevamente o comuniquese con administración.',
     ],
 
     'validation' => [
@@ -70,4 +75,7 @@ return [
             'max' => 'La contraseña debe tener entre 5 y 20 caracteres.',
         ],
     ],
+    'send_reset_email' => 'Enviar E-Mail de Recuperación',
+    'reset_password_alt' => 'Resetear Contraseña',
+    'password_reset_sent' => 'Correo electrónico de recuperación enviado correctamente al usuario: :user',
 ];

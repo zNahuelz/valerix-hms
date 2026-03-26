@@ -13,6 +13,7 @@ return [
     'is_deleted_alt' => 'La clínica se encuentra eliminada, puede restaurarla desde el área de edición.',
     'deleted' => 'Clínica de ID: :id eliminada correctamente.',
     'restored' => 'Clínica de ID: :id restaurada correctamente.',
+    'assigned' => 'Clinica Asignada',
 
     'counter' => '{1} Mostrando :count clínica de un total de :total|[2,*] Mostrando :count clínicas de un total de :total',
 
